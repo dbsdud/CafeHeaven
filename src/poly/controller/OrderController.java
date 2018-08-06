@@ -32,6 +32,7 @@ import poly.util.CmmUtil;
 
 @Controller
 public class OrderController {
+	//여기는 수정한 부분
 	private Logger log = Logger.getLogger(this.getClass());
 	@Resource(name="OrderService")
 	private IOrderService orderService;
