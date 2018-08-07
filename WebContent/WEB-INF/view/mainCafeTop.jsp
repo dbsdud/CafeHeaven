@@ -31,7 +31,7 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="/menu/menuList.do">메뉴<span class="sr-only"></span></a></li>
-				<li><a href="/cafe/cafeInfo.do">카페 정보<span class="sr-only"></span></a></li>
+				<li><a href="/cafe/cafeInfo.do?cafeNo=1">카페 정보<span class="sr-only"></span></a></li>
 				<li><a href="/notice/communityTab.do">커뮤니티<span class="sr-only"></span></a></li>
 				
 				
@@ -57,9 +57,11 @@
 			<% if (!"".equals(email)) {%>
 			<!--  로그인 성공 -->
 			<div class="navbar-form navbar-right">
-				<b><%=email + "님 환영합니다" + name%></b>
-				<button class="btn btn-info">마이페이지</button>
-				<a href="/tmpBasket/tmpBasketList.do?userNo=<%= userNo %>"><button class="btn btn-warning">장바구니</button></a>
+				<b><%=email + "님 환영합니다" + name%></b> 
+				<a href="/user/userMypage.do?userNo=<%=userNo%>" class="btn btn-info">마이페이지</a> 
+				<a href="/tmpBasket/tmpBasketList.do?userNo=<%=userNo%>">
+					<button class="btn btn-warning">장바구니</button>
+				</a>
 				<button class="btn btn-secondary" onclick="logout();">로그아웃</button>
 			</div>
 

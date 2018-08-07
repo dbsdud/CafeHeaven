@@ -103,7 +103,21 @@
 	
 	</select>
 
-	
+	<!-- 마이페이지 > 내가 쓴 글 보기 -->
+	<select id="userWriteList"  resultType="NoticeDTO">
+	SELECT NT_NO AS ntNo,
+		   NT_TITLE AS ntTitle,
+		   NT_CONT AS ntCont,
+		   NT_COUNT AS ntCount,
+		   NT_WRITER AS ntWriter,
+		   NT_SORT AS ntSort,
+		   REGDATE AS regDate,
+		   REGNO AS regNo,
+		   UPDDATE AS updDate,
+		   UPDNO AS updNo,
+		   QA_GRPNO AS qaGrpNo
+		FROM NOTICE_TB
+	</select>
 	<!-- 질문에 대한 답변을 달았는지 여부 -->
 <!-- 	<update>
 	UPDATE NOTICE_TB

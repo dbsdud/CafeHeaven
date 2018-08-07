@@ -130,4 +130,19 @@
 	WHERE
 		EMAIL=#{email} AND NAME=#{name}
  	</update>
+ 	
+ 	<!-- ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ유라 -->
+ 	
+	
+	
+	<update id="updateUser" parameterType="UserDTO">
+	UPDATE USER_CAFE
+	SET EMAIL=#{email},
+		NAME=#{name},
+		USER_TEL=#{userTel},
+		POST_ADDR=#{postAddr},
+		ADDR1=#{addr1},
+		ADDR2=#{addr2}
+	WHERE USER_NO = #{userNo}
+	</update>
 </mapper>

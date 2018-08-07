@@ -4,91 +4,13 @@
 <html>
 <head>
 <%@ include file="/WEB-INF/view/cssjs.jsp" %>
-<script>
-	//나중에 커피메뉴 에 대한 판매량 불러오면됨
-	//지금은 예제로 배열을 임의로 생성해서 만들어놓음
-
-	window.onload = function() {
-		var menuName = [ "아메리카노", "카페라떼", "카라멜마끼아또", "카푸치노", "민트초코", "복숭아아이스티" ];
-		var amount = [ 10, 5, 15, 8, 11, 20 ];
-		var ctx = document.getElementById("menuChart").getContext('2d');
-
-		var menuChart = new Chart(ctx, {
-			type : 'bar',
-			data : {
-				labels : menuName,//커피 메뉴명
-				datasets : [ {
-					label : 'CAFE HEAVEN 메뉴별 판매량',
-					data : amount,//각 메뉴에 맞는 판매량
-					backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(255, 159, 64, 0.2)' ],
-					borderColor : [ 'rgba(255,99,132,1)',
-							'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)' ],
-					borderWidth : 1
-				} ]
-			},
-			options : {
-
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : true
-						}
-					} ]
-				}
-			}
-		});
-
-		//////////////////////////////////////
-		var menuName = [ "아메리카노", "카페라떼", "카라멜마끼아또", "카푸치노", "민트초코", "복숭아아이스티" ];
-		var amount = [ 10, 5, 15, 8, 11, 20 ];
-		var ctx = document.getElementById("menuChart2").getContext('2d');
-
-		var menuChart2 = new Chart(ctx, {
-			type : 'horizontalBar',
-			data : {
-				labels : menuName,//커피 메뉴명
-				datasets : [ {
-					label : 'CAFE HEAVEN 메뉴별 판매량',
-					data : amount,//각 메뉴에 맞는 판매량
-					backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
-							'rgba(54, 162, 235, 0.2)',
-							'rgba(255, 206, 86, 0.2)',
-							'rgba(75, 192, 192, 0.2)',
-							'rgba(153, 102, 255, 0.2)',
-							'rgba(255, 159, 64, 0.2)' ],
-					borderColor : [ 'rgba(255,99,132,1)',
-							'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
-							'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)',
-							'rgba(255, 159, 64, 1)' ],
-					borderWidth : 1
-				} ]
-			},
-			options : {
-
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : false
-						}
-					} ]
-				}
-			}
-		});
-
-	};
-
-	////////////////////////////고객성향분석
-</script>
-
-<!-- <script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=hUJpPzowuJvtFyET1F1m&submodules=geocoder"></script> -->
+<!--  json/xml 공공데이터 불러와보기  -->
+<!-- 시구동 api -->
+<%@ include file="bigDataAPI.jsp" %>
+<!-- 차트 스크립트 -->
+<%@ include file="bigDataChart.jsp" %>
+<%@ include file="bigDataCss.jsp" %>
+<%@ include file="bigDataJs.jsp" %>
 
 </head>
 <body>
@@ -100,7 +22,7 @@
 
 		<div class="page-header">
 			<h1>
-				CAFE HEAVEN&nbsp;&nbsp;&nbsp;<small>빅데이터 분석</small>
+				CAFE HEAVEN &nbsp;&nbsp;&nbsp;<br/><small>빅데이터 분석</small>
 			</h1>
 		</div>
 		<ul class="nav nav-tabs">
@@ -116,39 +38,138 @@
 		<div class="tab-content">
 			<!--  매출관리 //여기다가 카페 주소 객체화시켜서 받으면됨-->
 			<div id="bd-menu1" class="tab-pane in active">
-
-
-
-				<div id="map" style="width: 100%; height: 400px;"></div>
-				<script src="http://dmaps.daum.net/map_js_init/v3.js"
-					type="text/javascript"></script>
-				<script type="text/javascript"
-					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=357c311513069e6c005e66ee1fa8dcce&libraries=LIBRARY"></script>
-				<script type="text/javascript"
-					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=357c311513069e6c005e66ee1fa8dcce&libraries=services,clusterer,drawing"></script>
-				<script type="text/javascript"
-					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=357c311513069e6c005e66ee1fa8dcce&libraries=services"></script>
-				<script type="text/javascript"
-					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=357c311513069e6c005e66ee1fa8dcce"></script>
-				<script>
-					var container = document.getElementById('map');
-					var options = {
-						center : new daum.maps.LatLng(37.5500854, 126.8329565),
-						level : 3
-					};
-
-					var map = new daum.maps.Map(container, options);
-				</script>
-
-
+				<div id="map1" style="width: 100%; height: 400px;"></div> <!-- 상권 밀집도 맵 --> <!-- 처음화면은 카페 위치 -->
+				<div id="map2" style="width: 100%; height: 400px;"></div><!-- 업종별 분포도 맵 -->
+		
+				<%@ include file="bigDataMapJs.jsp" %>
 
 				<!-- 지역 분석 목록리스트 -->
 				<!-- 지역별 선택ㄷ -->
-				<h2>지역별로 선택해서 상권밀집도 보는것 만들기</h2>
+				<div id="hdshone"  class="col-sm-4 regButton btn-5 taCp" >전국 카페 분포 지도</div>
+				<div id="hdshtwo"  class="col-sm-4 regButton btn-5 taCp" >지역 상권 밀집도</div>
+				<div id="hdshthree"  class="col-sm-4 regButton btn-5 taCp">유동인구</div>
+				<div id="regionTypeBs">
+					<!-- 지역단위 업종별 분포도 -->
+					<!-- 지역별 카테고리-->
+				<label class="col-sm-12 control-label">업종별</label>
+					<div class="col-sm-3">
+					<div class="form-group">
+					<select class="col-sm-12 form-control" name="bsCg">
+						<option value="">업종분류별 선택</option>
+						<option value="indsLclsCd">대분류</option>
+						<option value="indsMclsCd">대,중분류</option>
+						<option value="indsSclsCd">대,중,소분류</option>
+					</select> 
+					</div>
+					</div>
+					<!-- 시 구 동 -->
+					<div  class="col-sm-9">
+						<div class="form-group">
+						<select class="col-sm-4" name="bigBsCg">
+						</select> 
+						<select class="col-sm-4" name="midBsCg">
+						</select> 
+						<select class="col-sm-4" name="smallBsCg">
+						</select> 
+						</div>
+					</div>	
+					
+				<div class="col-sm-12">
+					<div style="margin:auto; width:33%" class="regButton btn-5 taCp" onclick="regionList()">검색</div>			
+				</div>
+				</div>
 
+			
+					<!-- 업종별 -->
+					
+				<div id="myRegionSameBs" >
+					<!-- 내 지역 같은 업종 분포 및 좌표 -->
+					<div id="searchResult">차트로 보기 , 결과  받아오기 버튼 만들어서 할거 </div>
+					<label class="col-sm-12 control-label">지역별</label>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<select class="col-sm-12 form-control" name="regionCg">
+								<option  value="n">지역별 선택</option>
+								<option value="sido">시,도</option>
+								<option value="gugun">시,도,시,군,구</option>
+								<option value="dong">...,동,읍,면</option>
+							</select> 
+					</div>
+					</div>
+					<!-- 시 구 동 -->
+					<div  class="col-sm-9">
+						<div class="form-group">
+							<select class="col-sm-4 form-control" name="sido">
+							</select> 
+							<select class="col-sm-4 form-control" name="gugun">
+							</select> 
+							<select class="col-sm-4 form-control" name="dong">
+							</select> 
+						</div>
+					</div>
+					
+				
+					<!-- 업종별 분류 -->
+				<label class="col-sm-12 control-label">업종별</label>
+					<div class="col-sm-3">
+						<div class="form-group">
+							<select class="col-sm-12 form-control" name="businessCg">
+								<option value="">업종분류별 선택</option>
+								<option value="indsLclsCd">대분류</option>
+								<option value="indsMclsCd">대,중분류</option>
+								<option value="indsSclsCd">대,중,소분류</option>
+							</select> 
+						</div>
+					</div>
+				
+					<div class="col-sm-9">
+						<div class="form-group">
+							<select class="col-sm-4 form-control" name="bigBusiness">
+							</select> 
+							<select class="col-sm-4 form-control" name="midBusiness">
+							</select> 
+							<select class="col-sm-4 form-control" name="smallBusiness">
+							</select> 
+						</div>
+					</div>	
+					
+					<!-- 반경 -->		
+					<label class="col-sm-12 control-label">반경별</label>
+					<div class="col-sm-12">
+						<div class="form-group">
+							<select class="col-sm-12 form-control" name="radius">
+								<option value="">반경선택</option>
+								<option value="100">100M</option>
+								<option value="250">250M</option>
+								<option value="500">500M</option>
+								<option value="1000">1KM</option>
+							</select> 
+						</div>
+					</div>
+					<input type="hidden" id="sidoVal" value="" />
+					<input type="hidden" id="gugunVal" value="" />
+					<input type="hidden" id="dongVal" value="" />
+					<input type="hidden" id="radiusVal" value="" />
+					<input type="hidden" id="bigVal" value="" />
+					<input type="hidden" id="midVal" value="" />	
+					<input type="hidden" id="smallVal" value="" />
+					
+				
+					<!--  -->
+					<!-- 검색 -->
+					<div class="col-sm-12" id="mapChg">
+						<div style="margin:auto; width:33%" class="regButton btn-5 taCp">조건 검색</div>			
+					</div>
+					
+				</div>
+					
+					
+					
+				<div id="moveHuman" >
+					<!-- 지역별 내업종 or 유동인구 -->	
+				<div> 김한결ㄴㅁㅇㅁㄴㅇ</div>
 
-
-
+				</div>
 
 
 			</div>

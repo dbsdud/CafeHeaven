@@ -17,6 +17,7 @@ public interface ReviewMapper {
 	//리뷰 리스트 조회
 	public List<ReviewDTO> getReviewList() throws Exception;	
 
+	public List<ReviewDTO> userWriteList() throws Exception;
 
 	
 }

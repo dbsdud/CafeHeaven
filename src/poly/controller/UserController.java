@@ -19,8 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import poly.dto.NoticeDTO;
+import poly.dto.ReviewDTO;
 import poly.dto.UserDTO;
+import poly.service.INoticeService;
+import poly.service.IReviewService;
 import poly.service.IUserService;
+import poly.service.impl.NoticeService;
 import poly.util.CmmUtil;
 import poly.util.DateUtil;
 import poly.util.Email;
@@ -32,7 +37,10 @@ public class UserController {
 	
 	@Resource(name="UserService")
 	private IUserService userService;
-	
+	@Resource(name="NoticeService")
+	private INoticeService noticeService;
+	@Resource(name="ReviewService")
+	private IReviewService reviewService;
 	@Autowired
 	private EmailSender emailSender;
 	
@@ -354,11 +362,101 @@ public class UserController {
 		
 		return "/home";
 	}
+	//율===============================================================
 	
 	
-	
-	
-	
+		//마이페이지 ---------------------------------유라
+		@RequestMapping(value="user/userMypage")
+		public String userMypage() throws Exception {
+			return "/user/userMypage";
+		}
+		
+		
+		//마이페이지>회원정보변경view---------------------------------유라
+		@RequestMapping(value="user/userUpdateView")
+		public String userUpdateView(HttpServletRequest request, Model model) throws Exception {
+			String userNo = request.getParameter("userNo");
+			log.info("userNo : " + userNo);
+			UserDTO uDTO = userService.getUserDetail(userNo);
+			log.info("email : " + uDTO.getEmail());
+			model.addAttribute("uDTO", uDTO);	
+			
+			return "/user/userUpdateView";
+		}
+		
+		
+		//마이페이지>회원정보변경 -------------------유ㅏ라
+		@RequestMapping(value="user/updateUserProc")
+		public String userUpdate(HttpServletRequest request, Model model) throws Exception {
+			String userNo = request.getParameter("userNo");
+			log.info("userNo : " + userNo);
+			String email = request.getParameter("email");
+			log.info("email : " + email);
+			String name = request.getParameter("name");
+			log.info("name : " + name);
+			String userTel = request.getParameter("userTel");
+			log.info("userTel : " + userTel);
+			String postAddr = request.getParameter("postAddr");
+			log.info("postAddr : " + postAddr);
+			String addr1 = request.getParameter("addr1");
+			log.info("addr1 : " + addr1);
+			String addr2 = request.getParameter("addr2");
+			log.info("addr2 : " + addr2);
+			
+			UserDTO uDTO = new UserDTO();
+			uDTO.setUserNo(userNo);
+			uDTO.setEmail(email);
+			uDTO.setName(name);
+			uDTO.setUserTel(userTel);
+			uDTO.setPostAddr(postAddr);
+			uDTO.setAddr1(addr1);
+			uDTO.setAddr2(addr2);
+			
+			int result = userService.updateUser(uDTO);
+			String msg="";
+			String url="";
+			
+			if(result != 0) {
+				msg = "수정되었습니다.";
+				url = "/user/userUpdateView.do?userNo=" + userNo;
+			} else {
+				msg = "실패하였습니다.";
+				url = "/user/userUpdateView.do?userNo=" + userNo;
+			}
+			
+			model.addAttribute("msg", msg);
+			model.addAttribute("url", url);
+			
+			return "/alert";
+		}
+		
+		//스탬프 ------------------유라 
+		@RequestMapping(value="user/userStamp")
+		public String userStamp() throws Exception {
+			return "/user/userStamp";
+		}
+		
+		//내가 쓴 글
+		@RequestMapping(value="user/userWriteList")
+		public @ResponseBody HashMap<String, Object> userWriteList(HttpServletRequest request) throws Exception{
+			log.info("UserWriteList Start");
+			log.info("UserWriteList End");
+			
+			List<NoticeDTO> nList = noticeService.userWriteList();
+			List<ReviewDTO> rList = reviewService.userWriteList();
+		
+			HashMap<String, Object> hMap = new HashMap<>();
+			hMap.put("nList", nList);
+			hMap.put("rList", rList);
+			
+			return hMap;
+		}
+		
+		//장바구니 -----------------유라 (주문controller로 옮길거)
+		@RequestMapping(value="tmpBasket/tmpBasket")
+		public String tmpBasket() throws Exception {
+			return "/tmpBasket/tmpBasket";
+		}
 	
 	
 	

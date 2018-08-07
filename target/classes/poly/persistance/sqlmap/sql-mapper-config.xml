@@ -11,5 +11,7 @@
 		<typeAlias type="poly.dto.CafeAttachDTO" alias="CafeAttachDTO"/>
 		<typeAlias type="poly.dto.OrderDTO" alias="OrderDTO"/>
 		<typeAlias type="poly.dto.TmpDTO" alias="TmpDTO"/>
+		<typeAlias type="poly.dto.CafeInfoDTO" alias="CafeInfoDTO"/>
+		<typeAlias type="poly.dto.ApiDTO" alias="ApiDTO"/>
     </typeAliases>
 </configuration>
