@@ -47,7 +47,7 @@ import poly.util.StringUtil;
 public class BigDataController {
 	private Logger log = Logger.getLogger(this.getClass());
 
-	
+	//ssxxsxsdxsxs
 	@RequestMapping(value="bigData/bigData")
 	public String bigData() {
 		return "/bigData/bigData";
