@@ -1,7 +1,7 @@
 <%@page import="poly.util.DateUtil"%>
 <%@page import="poly.dto.CafeAttachDTO"%>
 <%@page import="poly.dto.MenuDTO"%>
-<%@page import="java.util.List"%>
+<%@page import="java.util.List" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% List<MenuDTO> mList = (List<MenuDTO>)request.getAttribute("mList"); %>

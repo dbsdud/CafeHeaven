@@ -21,4 +21,5 @@
 <link rel="stylesheet" href="/bootstrap-3.3.2-dist/css/font-awesome.min.css"/>
 <link rel="stylesheet" href="/bootstrap-3.3.2-dist/css/fontawesome-stars.css"/>
 <link rel="stylesheet" href="/bootstrap-3.3.2-dist/css/cafe.css">
+<link rel="stylesheet" href="/bootstrap-3.3.2-dist/css/youla.css">
 
