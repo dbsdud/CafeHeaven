@@ -72,7 +72,7 @@
 		
 		</div>
 	</div>
-	
+	// 유라 테스트
 	<%@ include file="/WEB-INF/view/mainCafeBottom.jsp" %>
 </body>
 </html>
