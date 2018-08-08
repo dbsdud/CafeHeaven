@@ -430,13 +430,13 @@ public class UserController {
 			return "/alert";
 		}
 		
-		//스탬프 ------------------유라 
+		//마이페이지 > 스탬프 ------------------유라 
 		@RequestMapping(value="user/userStamp")
 		public String userStamp() throws Exception {
 			return "/user/userStamp";
 		}
 		
-		//내가 쓴 글
+		//마이페이지 > 내가 쓴 글
 		@RequestMapping(value="user/userWriteList")
 		public @ResponseBody HashMap<String, Object> userWriteList(HttpServletRequest request) throws Exception{
 			log.info("UserWriteList Start");
@@ -452,10 +452,10 @@ public class UserController {
 			return hMap;
 		}
 		
-		//장바구니 -----------------유라 (주문controller로 옮길거)
-		@RequestMapping(value="tmpBasket/tmpBasket")
-		public String tmpBasket() throws Exception {
-			return "/tmpBasket/tmpBasket";
+		//마이페이지 > 주문내역
+		@RequestMapping(value="user/userOrderList")
+		public String userOrderList() throws Exception {
+			return "/user/userOrderList";
 		}
 	
 	

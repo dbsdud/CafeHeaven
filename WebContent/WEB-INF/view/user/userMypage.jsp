@@ -42,7 +42,7 @@
 		
 		<div class="menu" style="float:left">
 		<li>
-		<a href="#">
+		<a href="/user/userOrderList.do?userNo=<%=userNo%>">
 		<img src="/image/order.png" alt="주문내역">
 		<h1 class="w3-opacity">ORDER</h1>
 		<b>주문내역</b>
@@ -72,7 +72,7 @@
 		
 		</div>
 	</div>
-	// 유라 테스트
+
 	<%@ include file="/WEB-INF/view/mainCafeBottom.jsp" %>
 </body>
 </html>
