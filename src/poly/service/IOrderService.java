@@ -6,6 +6,7 @@ import poly.dto.MenuDTO;
 import poly.dto.OrderInfoDTO;
 import poly.dto.OrderItemDTO;
 import poly.dto.TotalOrderDTO;
+import poly.dto.TotalOrderInfoDTO;
 import poly.dto.UserDTO;
 
 public interface IOrderService {
@@ -26,4 +27,6 @@ public interface IOrderService {
 	
 	public OrderInfoDTO getOrderNo(String userNo) throws Exception;
 	public List<OrderItemDTO> getOrdItem(OrderItemDTO otDTO) throws Exception;
+	public List<TotalOrderDTO> updateAdminOrdNo(String ordNo, String statNo) throws Exception;
+	public List<TotalOrderInfoDTO> getAdminOrderRemainTime() throws Exception;
 }

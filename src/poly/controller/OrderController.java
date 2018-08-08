@@ -30,6 +30,7 @@ import poly.dto.OrderInfoDTO;
 import poly.dto.OrderItemDTO;
 import poly.dto.TmpDTO;
 import poly.dto.TotalOrderDTO;
+import poly.dto.TotalOrderInfoDTO;
 import poly.dto.UserDTO;
 import poly.service.IMenuService;
 import poly.service.IOrderService;
@@ -293,8 +294,46 @@ public class OrderController {
 			}
 		}
 	}
-	
-	
+	@RequestMapping(value="order/orderProc", method=RequestMethod.POST)
+	public @ResponseBody List<TotalOrderDTO> adminTakeOrder(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
+		log.info(this.getClass() + " orderProc Start!");
+		String ordNo = req.getParameter("ordNo");
+		log.info(this.getClass() + " ordNo : " + ordNo);
+		String statNo = req.getParameter("statNo");
+		log.info(this.getClass() + " statNo : " + statNo);
+		List<TotalOrderDTO> tList = orderService.updateAdminOrdNo(ordNo, statNo);
+		if(tList==null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		log.info(this.getClass() + " orderProc End!");
+		Collections.sort(tList, new SortOrder());
+		return tList;
+	}
+	@RequestMapping(value="order/orderCancel")
+	public @ResponseBody List<TotalOrderDTO> orderCancel(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
+		log.info(this.getClass() + " orderCancel Start!");
+		String ordNo = req.getParameter("ordNo");
+		log.info(this.getClass() + " orderCancel : " + ordNo);
+		String statNo = req.getParameter("statNo");
+		log.info(this.getClass() + " orderCancel : " + statNo);
+		List<TotalOrderDTO> tList = orderService.updateAdminOrdNo(ordNo, statNo);
+		if(tList == null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		Collections.sort(tList, new SortOrder());
+		log.info(this.getClass() + " orderCancel End!");
+		return tList;
+	}
+	@RequestMapping(value="order/orderRemainTime.do")
+	public @ResponseBody List<TotalOrderInfoDTO> adminOrderRemainTime(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass() + ".adminOrderRemainTime start !!!");
+		List<TotalOrderInfoDTO> tList = orderService.getAdminOrderRemainTime();
+		if(tList == null){
+			tList = new ArrayList<TotalOrderInfoDTO>();
+		}
+		log.info(this.getClass() + ".adminOrderReaminTime end!!!");
+		return tList;
+	}
 	// 주문 테스트
 	/*@RequestMapping(value="orderProcTest", method=RequestMethod.POST)
 	public String orderProcTest(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{

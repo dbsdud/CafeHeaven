@@ -1,6 +1,7 @@
 package poly.persistance.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import config.Mapper;
 import poly.dto.MenuDTO;
@@ -24,11 +25,19 @@ public interface OrderMapper {
 	public List<MenuDTO> getOrderListMenu() throws Exception;
 	// 주문 목록 사용자 정보
 	public List<UserDTO> getOrderListUser() throws Exception;
-	public List<TotalOrderInfoDTO> getTotalOrderInfoList() throws Exception;
-	public List<TotalOrderItemDTO> getTotalOrderItemList(String ordInfoNo) throws Exception;
+	
 	//테스트
 	public int orderProcTest() throws Exception;
-	
+	//
+	public List<TotalOrderInfoDTO> getTotalOrderInfoList() throws Exception;
+	public List<TotalOrderItemDTO> getTotalOrderItemList(String ordInfoNo) throws Exception;
+	public int updateAdminOrderProc(Map<String, String> map) throws Exception;
+	public int insertOrderInfo(OrderInfoDTO oDTO) throws Exception;
+	public int insertOrderItem(List<OrderItemDTO> oList) throws Exception;
 	public OrderInfoDTO getOrderNo(String userNo) throws Exception;
+	public List<TotalOrderInfoDTO> selectOrderList(String userNo) throws Exception;
+	public List<TotalOrderItemDTO> selectMenuList(String orderNo) throws Exception;
+	public List<TotalOrderInfoDTO> selectOrderMore(Map<String, String> map) throws Exception;
+	public int updateOrderCancel(String tid) throws Exception;
 	public List<OrderItemDTO> getOrdItem(OrderItemDTO otDTO) throws Exception;
 }

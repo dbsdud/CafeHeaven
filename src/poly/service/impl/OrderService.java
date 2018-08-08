@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -119,6 +121,23 @@ public class OrderService implements IOrderService{
 	@Override
 	public List<OrderItemDTO> getOrdItem(OrderItemDTO otDTO) throws Exception {
 		return orderMapper.getOrdItem(otDTO);
+	}
+	@Override
+	public List<TotalOrderDTO> updateAdminOrdNo(String ordNo, String statNo) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("ordNo", ordNo);
+		map.put("statNo", statNo);
+		orderMapper.updateAdminOrderProc(map);
+		List<TotalOrderDTO> oList = getTotalOrderDTO();
+		return oList;
+	}
+	@Override
+	public List<TotalOrderInfoDTO> getAdminOrderRemainTime() throws Exception {
+		List<TotalOrderInfoDTO> tList = orderMapper.getTotalOrderInfoList();
+		for(TotalOrderInfoDTO tDTO : tList) {
+			tDTO.setOrdRemainTime(getRemainTime(tDTO.getUsrRcvTime()));
+		}
+		return tList;
 	}
 	
 	
