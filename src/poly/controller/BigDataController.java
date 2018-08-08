@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -38,6 +39,8 @@ import org.xml.sax.InputSource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import poly.dto.ApiDTO;
+import poly.dto.ChartDTO;
+import poly.service.IChartService;
 import poly.util.CmmUtil;
 import poly.util.HttpUtil;
 import poly.util.OpenApiXml;
@@ -46,7 +49,8 @@ import poly.util.StringUtil;
 @Controller
 public class BigDataController {
 	private Logger log = Logger.getLogger(this.getClass());
-
+	@Resource(name="ChartService")
+	private IChartService chartService;
 	//ssxxsxsdxsxs
 	@RequestMapping(value="bigData/bigData")
 	public String bigData() {
@@ -467,6 +471,15 @@ public class BigDataController {
 	 		log.info("cafeLocAnalysis end:"+this.getClass());
 			return hashmapRes;
 	
+	}
+	
+	// 성별차트(윤영)
+	@RequestMapping(value="weekGenderChart")
+	public @ResponseBody List<ChartDTO> weekGender() throws Exception{
+		log.info(this.getClass().getName() + " weekGender Start");
+		List<ChartDTO> chList = chartService.getWeekGender();
+		log.info(this.getClass().getName() + " weekGender End");
+		return chList;
 	}
 }
 

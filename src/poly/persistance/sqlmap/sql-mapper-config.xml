@@ -16,5 +16,6 @@
 		<typeAlias type="poly.dto.TmpDTO" alias="TmpDTO"/>
 		<typeAlias type="poly.dto.CafeInfoDTO" alias="CafeInfoDTO"/>
 		<typeAlias type="poly.dto.ApiDTO" alias="ApiDTO"/>
+		<typeAlias type="poly.dto.ChartDTO" alias="ChartDTO"/>
     </typeAliases>
 </configuration>
