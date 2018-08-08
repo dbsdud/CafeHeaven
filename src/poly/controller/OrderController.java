@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import poly.dto.CafeAttachDTO;
 import poly.dto.MenuDTO;
 import poly.dto.OrderInfoDTO;
+import poly.dto.OrderItemDTO;
 import poly.dto.TmpDTO;
 import poly.dto.TotalOrderDTO;
 import poly.dto.UserDTO;
@@ -134,7 +135,7 @@ public class OrderController {
 		return "order/orderDetail";
 	}
 	// 페이누리로 주문등록전송
-	/*@RequestMapping(value="order/orderComplete")
+	@RequestMapping(value="order/orderComplete")
 	public void orderrComplete(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + "orderComplete Start");
 		// 결과 코드
@@ -209,8 +210,8 @@ public class OrderController {
 		log.info(this.getClass() + "etc_data3 : " + etc_data3);
 		
 		if(rep_code.equals("0000")) { // 결제 성공
-			log.info("orderSession userNo : " + session.getAttribute(userNo));
-			OrderDTO oDTO = new OrderDTO();
+			log.info("orderSession userNo : " + session.getAttribute("userNo"));
+			OrderInfoDTO oDTO = new OrderInfoDTO();
 			oDTO.setOrdInfoNo(tran_no);
 			oDTO.setOrdTotPrice(amt);
 			if(tran_type.equals("PHON")) {
@@ -223,7 +224,36 @@ public class OrderController {
 			oDTO.setOrdTid(tid);
 		}
 		log.info(this.getClass() + "orderComplete End");
-	}*/
+	}
+	
+	@RequestMapping(value="orderSuccess")
+	public String orderSuccess(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass() + " orderSuccess Start!!");
+		String userNo = CmmUtil.nvl(req.getParameter("uNo")).split("[?]")[0];
+	    session.setAttribute("ss_user_no", userNo);
+	    log.info(this.getClass() + "user_no = "+userNo);
+	    OrderInfoDTO oDTO = orderService.getOrderNo(userNo);
+	    if(oDTO == null){
+	       oDTO = new OrderInfoDTO();
+	    }
+	    log.info(this.getClass() + " ordno = " + oDTO.getOrdInfoNo());
+	    OrderItemDTO otDTO = new OrderItemDTO();
+	    otDTO.setOrdInfoNo(oDTO.getOrdInfoNo());
+	    List<OrderItemDTO> otList = orderService.getOrdItem(otDTO);
+	    if(otList ==null){
+	    	otList = new ArrayList<OrderItemDTO>();
+	    }
+	    log.info(this.getClass() + " otListSize = "+ otList.size());
+	      
+	    model.addAttribute("ordNo", CmmUtil.nvl(oDTO.getOrdInfoNo()));
+	    model.addAttribute("otList", otList);
+	    session.setAttribute("ss_tmpBasket", null);
+	    userNo = null;
+	    oDTO = null;
+	    otList = null;		
+		log.info(this.getClass() + " orderSuccess End!!");
+		return "order/orderSuccess";
+	}
 	
 	
 	// 주문 리스트 조회
@@ -239,7 +269,7 @@ public class OrderController {
 		tList=null;
 		log.info(this.getClass() + "orderList End");
 		
-		return "/order/orderList";
+		return "order/orderList";
 	}
 	class SortOrder implements Comparator<TotalOrderDTO>{
 		@Override
@@ -263,6 +293,28 @@ public class OrderController {
 			}
 		}
 	}
+	
+	
+	// 주문 테스트
+	/*@RequestMapping(value="orderProcTest", method=RequestMethod.POST)
+	public String orderProcTest(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass() + " orderProcTest Start!");
+		String userNo = CmmUtil.nvl(req.getParameter("userNo"));
+		log.info(this.getClass() + " userNo : " + userNo);
+		String ordTotPrice = CmmUtil.nvl(req.getParameter("ordTotPrice"));
+		log.info(this.getClass() + " ordTotPrice : " + ordTotPrice);
+		String ordPayment = CmmUtil.nvl(req.getParameter("ordPayment"));
+		log.info(this.getClass() + " ordPayment : " + ordPayment);
+		String ordDtDate = CmmUtil.nvl(req.getParameter("ordDtDate"));
+		log.info(this.getClass() + " ordDtDate : " + ordDtDate);
+		String ordStat = CmmUtil.nvl(req.getParameter("ordStat"));
+		log.info(this.getClass() + " ordStat : " + ordStat);
+		
+		
+		
+		log.info(this.getClass() + " orderProcTest End!");
+		return null;
+	}*/
 	
 	// 바로 주문정보
 	/*@RequestMapping(value="/order/orderDirectInfo")

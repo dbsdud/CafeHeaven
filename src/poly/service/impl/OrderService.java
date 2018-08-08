@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import poly.dto.MenuDTO;
 import poly.dto.OrderInfoDTO;
+import poly.dto.OrderItemDTO;
 import poly.dto.TotalOrderDTO;
 import poly.dto.TotalOrderInfoDTO;
 import poly.dto.TotalOrderItemDTO;
@@ -105,6 +106,19 @@ public class OrderService implements IOrderService{
 	@Override
 	public UserDTO getOrderDirectUser(UserDTO uDTO) throws Exception {
 		return orderMapper.getOrderDirectUser(uDTO);
+	}
+	// 테스트
+	@Override
+	public int orderProcTest() throws Exception {
+		return orderMapper.orderProcTest();
+	}
+	@Override
+	public OrderInfoDTO getOrderNo(String userNo) throws Exception {
+		return orderMapper.getOrderNo(userNo);
+	}
+	@Override
+	public List<OrderItemDTO> getOrdItem(OrderItemDTO otDTO) throws Exception {
+		return orderMapper.getOrdItem(otDTO);
 	}
 	
 	

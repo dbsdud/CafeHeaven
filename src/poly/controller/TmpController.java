@@ -175,7 +175,7 @@ public class TmpController {
 		return tMap;
 	}
 	// 장바구니에서 주문
-	@RequestMapping(value="userDoOrder", method=RequestMethod.GET)
+	@RequestMapping(value="order/userDoOrder", method=RequestMethod.GET)
 	public String userDoOrder(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + "userDoOrder Start!");
 		String userNo = CmmUtil.nvl((String)session.getAttribute("userNo"));

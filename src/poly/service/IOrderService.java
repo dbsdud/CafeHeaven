@@ -4,6 +4,7 @@ import java.util.List;
 
 import poly.dto.MenuDTO;
 import poly.dto.OrderInfoDTO;
+import poly.dto.OrderItemDTO;
 import poly.dto.TotalOrderDTO;
 import poly.dto.UserDTO;
 
@@ -20,5 +21,9 @@ public interface IOrderService {
 	public List<MenuDTO> getOrderListMenu(MenuDTO mDTO) throws Exception;
 	// 주문 목록 사용자 정보
 	public List<UserDTO> getOrderListUser(UserDTO uDTO) throws Exception;
+	// 테스트
+	public int orderProcTest() throws Exception;
 	
+	public OrderInfoDTO getOrderNo(String userNo) throws Exception;
+	public List<OrderItemDTO> getOrdItem(OrderItemDTO otDTO) throws Exception;
 }
