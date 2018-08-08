@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import poly.dto.CafeAttachDTO;
 import poly.dto.MenuDTO;
-import poly.dto.OrderDTO;
+import poly.dto.OrderInfoDTO;
 import poly.dto.TmpDTO;
 import poly.dto.UserDTO;
 import poly.service.IMenuService;
@@ -224,7 +224,7 @@ public class OrderController {
 	// 주문 리스트 조회
 	@RequestMapping(value="order/orderList")
 	public String orderList(HttpServletRequest request, Model model) throws Exception {
-		List<OrderDTO> oList = orderService.getOrderList();
+		List<OrderInfoDTO> oList = orderService.getOrderList();
 		model.addAttribute("oList", oList);
 		
 		return "/order/orderList";

@@ -7,7 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import poly.dto.MenuDTO;
-import poly.dto.OrderDTO;
+import poly.dto.OrderInfoDTO;
 import poly.dto.UserDTO;
 import poly.persistance.mapper.OrderMapper;
 import poly.service.IOrderService;
@@ -18,12 +18,12 @@ public class OrderService implements IOrderService{
 	private OrderMapper orderMapper;
 	// 주문등록
 	@Override
-	public int insertOrder(OrderDTO oDTO) throws Exception {
+	public int insertOrder(OrderInfoDTO oDTO) throws Exception {
 		return orderMapper.insertOrder(oDTO);
 	}
 	// 주문목록
 	@Override
-	public List<OrderDTO> getOrderList() throws Exception {
+	public List<OrderInfoDTO> getOrderList() throws Exception {
 		return orderMapper.getOrderList();
 	}
 	// 주문 목록 메뉴 정보
