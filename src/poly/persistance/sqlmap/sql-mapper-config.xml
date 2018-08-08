@@ -9,7 +9,9 @@
 		<typeAlias type="poly.dto.ReviewDTO" alias="ReviewDTO"/>
 		<typeAlias type="poly.dto.MenuDTO" alias="MenuDTO"/>
 		<typeAlias type="poly.dto.CafeAttachDTO" alias="CafeAttachDTO"/>
-		<typeAlias type="poly.dto.OrderDTO" alias="OrderDTO"/>
+		<typeAlias type="poly.dto.OrderInfoDTO" alias="OrderInfoDTO"/>
+		<typeAlias type="poly.dto.OrderItemDTO" alias="OrderItemDTO"/>
+		<typeAlias type="poly.dto.TotalOrderDTO" alias="TotalOrderDTO"/>
 		<typeAlias type="poly.dto.TmpDTO" alias="TmpDTO"/>
 		<typeAlias type="poly.dto.CafeInfoDTO" alias="CafeInfoDTO"/>
 		<typeAlias type="poly.dto.ApiDTO" alias="ApiDTO"/>
