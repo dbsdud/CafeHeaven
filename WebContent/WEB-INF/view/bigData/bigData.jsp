@@ -15,7 +15,7 @@
 </head>
 <body>
 <%@  include file="/WEB-INF/view/mainCafeTop.jsp"%> <!-- 경로 바꿔야될거같음  -->
-
+<!-- 김한겨ㅛ럼ㄴ폼눃ㄻㅎ -->
 
 	<div class="container">
 		<!-- 상단 -->
