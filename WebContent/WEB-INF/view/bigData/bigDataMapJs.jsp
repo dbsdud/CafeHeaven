@@ -154,12 +154,12 @@
 						var geocoder = new daum.maps.services.Geocoder();
 						var callback = function(result, status) {
 						    if (status === daum.maps.services.Status.OK) {
-						    	 var cy=result[0].y;
-							     var cx=result[0].x;
-							     	$.ajax({
-								        	url:"/bigData/cafeLocAnalysis.do",
-								        	type:"get",
-								        	data:{
+						    	var cy=result[0].y;
+							    var cx=result[0].x;
+							    	$.ajax({
+								       url:"/bigData/cafeLocAnalysis.do",
+								       type:"get",
+								       data:{
 								        		'cy':cy,
 								        		'cx':cx,
 								        		'radius':radius
@@ -171,8 +171,6 @@
 								        		alert("잘못 조회 하셨습니다.");
 								        	}
 						    		});
-						    
-						         
 						        return result;
 						    }
 						};
