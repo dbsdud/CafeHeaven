@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="poly.persistance.mapper.OrderMapper">
+<insert id="insertOrderInfo" parameterType="OrderInfoDTO">
+INSERT INTO CAFE_ORDER_INFO
+(
+	ORD_INFO_NO,
+	ORD_TOT_PRICE,
+	REAL_ORD_PRICE,
+	ORD_PAYMENT,
+	ORD_DT_DATE,
+	ORD_STAT,
+	USR_RCV_TIME,
+	RCV_YN,
+	USER_NO,
+	REGNO,
+	REGDATE,
+	ORD_TID
+) VALUES (
+	#{ordInfoNo},
+	#{ordTotPrice},
+	#{realOrdPrice},
+	#{ordPayment},
+	NOW(),
+	'1',
+	#{usrRcvTime},
+	#{rcvYn},
+	#{userNo},
+	#{userNo},
+	NOW(),
+	#{ordTid}
+);
+</insert>
+
+<select id="getTotalOrderInfoList" resultType="TotalOrderInfoDTO">
+SELECT
+	COI.ORD_INFO_NO,
+	COI.ORD_TOT_PRICE,
+	COI.ORD_PAYMENT,
+	DATE_FORMAT(COI.ORD_DT_DATE, '%Y-%m-%d') AS ORD_DT_DATE,
+	COI.ORD_STAT,
+	COI.USR_RCV_TIME,
+	COI.RCV_TIME,
+	COI.RCV_YN,
+	COI.ORD_CANCEL_YN,
+	COI.ORD_CANCEL_TIME,
+	UC.USER_NAME,
+	COI.ORD_TID
+FROM
+	USER_CAFE UC, CAFE_ORDER_INFO COI
+WHERE
+	COI.ORD_INFO_NO = COI.ORD_INFO_NO
+		AND UC.USER_NO = COI.USER_NO
+		AND COI.ORD_STAT <![CDATA[ < ]]>4;
+</select>
 <!-- 주문등록 -->
 <!-- <insert id="insertOrder" parameterType="OrderDTO">
 INSERT INTO CAFE_ORDER

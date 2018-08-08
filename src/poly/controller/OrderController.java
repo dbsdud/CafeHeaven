@@ -3,6 +3,10 @@
  * */
 package poly.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,6 +28,7 @@ import poly.dto.CafeAttachDTO;
 import poly.dto.MenuDTO;
 import poly.dto.OrderInfoDTO;
 import poly.dto.TmpDTO;
+import poly.dto.TotalOrderDTO;
 import poly.dto.UserDTO;
 import poly.service.IMenuService;
 import poly.service.IOrderService;
@@ -222,14 +227,42 @@ public class OrderController {
 	
 	
 	// 주문 리스트 조회
-	@RequestMapping(value="order/orderList")
-	public String orderList(HttpServletRequest request, Model model) throws Exception {
-		List<OrderInfoDTO> oList = orderService.getOrderList();
-		model.addAttribute("oList", oList);
+	@RequestMapping(value="order/orderList", method=RequestMethod.GET)
+	public String getOrderList(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
+		log.info(this.getClass() + "orderList Start");
+		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
+		if(tList == null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		Collections.sort(tList, new SortOrder());
+		model.addAttribute("TotalOrderList", tList);
+		tList=null;
+		log.info(this.getClass() + "orderList End");
 		
 		return "/order/orderList";
 	}
-	
+	class SortOrder implements Comparator<TotalOrderDTO>{
+		@Override
+		public int compare(TotalOrderDTO t1, TotalOrderDTO t2) {
+			String[] t1Time = t1.getOrdRemainTime().split(":");
+			int t1Hour = Integer.parseInt(t1Time[0]);
+			int t1Min = Integer.parseInt(t1Time[1]);
+			String[] t2Time = t2.getOrdRemainTime().split(":");
+			int t2Hour = Integer.parseInt(t2Time[0]);
+			int t2Min = Integer.parseInt(t2Time[1]);
+			if(t1Hour > t2Hour) {
+				return 1;
+			}else if(t1Hour < t2Hour) {
+				return -1;
+			}else if(t1Min > t2Min) {
+				return 1;
+			}else if(t1Min < t2Min) {
+				return -1;
+			}else {
+				return 0;
+			}
+		}
+	}
 	
 	// 바로 주문정보
 	/*@RequestMapping(value="/order/orderDirectInfo")

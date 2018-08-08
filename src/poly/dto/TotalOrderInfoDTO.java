@@ -2,7 +2,7 @@ package poly.dto;
 
 public class TotalOrderInfoDTO {
 	private String ordInfoNo;
-	private String totalOrdPrice;
+	private String ordTotPrice;
 	private String realOrdPrice;
 	private String ordPayment;
 	private String ordDtDate;
@@ -14,18 +14,18 @@ public class TotalOrderInfoDTO {
 	private String ordCancelTime;
 	private String userName;
 	private String ordRemainTime;
-	private String tid;
+	private String ordTid;
 	public String getOrdInfoNo() {
 		return ordInfoNo;
 	}
 	public void setOrdInfoNo(String ordInfoNo) {
 		this.ordInfoNo = ordInfoNo;
 	}
-	public String getTotalOrdPrice() {
-		return totalOrdPrice;
+	public String getOrdTotPrice() {
+		return ordTotPrice;
 	}
-	public void setTotalOrdPrice(String totalOrdPrice) {
-		this.totalOrdPrice = totalOrdPrice;
+	public void setOrdTotPrice(String ordTotPrice) {
+		this.ordTotPrice = ordTotPrice;
 	}
 	public String getRealOrdPrice() {
 		return realOrdPrice;
@@ -93,11 +93,11 @@ public class TotalOrderInfoDTO {
 	public void setOrdRemainTime(String ordRemainTime) {
 		this.ordRemainTime = ordRemainTime;
 	}
-	public String getTid() {
-		return tid;
+	public String getOrdTid() {
+		return ordTid;
 	}
-	public void setTid(String tid) {
-		this.tid = tid;
+	public void setOrdTid(String ordTid) {
+		this.ordTid = ordTid;
 	}
 	
 }

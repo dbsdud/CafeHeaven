@@ -5,6 +5,8 @@ import java.util.List;
 import config.Mapper;
 import poly.dto.MenuDTO;
 import poly.dto.OrderInfoDTO;
+import poly.dto.TotalOrderInfoDTO;
+import poly.dto.TotalOrderItemDTO;
 import poly.dto.UserDTO;
 
 @Mapper("OrderMapper")
@@ -21,4 +23,6 @@ public interface OrderMapper {
 	public List<MenuDTO> getOrderListMenu() throws Exception;
 	// 주문 목록 사용자 정보
 	public List<UserDTO> getOrderListUser() throws Exception;
+	public List<TotalOrderInfoDTO> getTotalOrderInfoList() throws Exception;
+	public List<TotalOrderItemDTO> getTotalOrderItemList(String ordInfoNo) throws Exception;
 }
