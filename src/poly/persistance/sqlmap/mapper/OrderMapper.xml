@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="poly.persistance.mapper.OrderMapper">
 <!-- 주문등록 -->
-<insert id="insertOrder" parameterType="OrderDTO">
+<!-- <insert id="insertOrder" parameterType="OrderDTO">
 INSERT INTO CAFE_ORDER
 (
 	ORD_INFO_NO,
@@ -35,9 +35,9 @@ INSERT INTO CAFE_ORDER
 	ORD_INFO_NO.NEXTVAL,
 	#{orderItemNo}
 )
-</insert>
+</insert> -->
 <!-- 주문목록 -->
-<select id="getOrderList" resultType="OrderDTO">
+<!-- <select id="getOrderList" resultType="OrderDTO">
 SELECT
 	ORD_INFO_NO AS "ordInfoNo",
 	ORD_TOT_PRICE AS "ordTotPrice",
@@ -54,9 +54,9 @@ SELECT
 	REGNO AS "regNo",
 	ORDER_ITEM_NO AS "orderItemNo"
 FROM CAFE_ORDER
-</select>
+</select> -->
 <!-- orderDirect -->
-<select id="getOrderDirect" parameterType="MenuDTO" resultType="OrderDTO">
+<!-- <select id="getOrderDirect" parameterType="MenuDTO" resultType="OrderDTO">
 SELECT
 	M.MENU_NO,
 	M.MENU_NAME,
@@ -68,5 +68,5 @@ FROM
 	CAFE_MENU M
 WHERE
 	M.MENU_NO=#{menuNo}
-</select>
+</select> -->
 </mapper>
