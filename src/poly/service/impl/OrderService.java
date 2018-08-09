@@ -140,6 +140,56 @@ public class OrderService implements IOrderService{
 		return tList;
 	}
 	
+	// 결제성공시 스탬프 증가, 스탬프 차감
+	/*@Override
+	public boolean insertOrderSuccess(OrderInfoDTO oDTO, List<OrderItemDTO> oList, Map<String, String> stampMap)
+			throws Exception {
+		boolean result = false;
+		boolean updateResult = false;
+		int insertOrderInfo = orderMapper.insertOrderInfo(oDTO);
+		int insertOrderItem = orderMapper.insertOrderItem(oList);
+		if(stampMap.containsKey("dec")) {
+			
+				스탬프 차감
+			
+			UserDTO uDTO = new UserDTO();
+			uDTO.setUserNo(oDTO.getUserNo());
+			uDTO.setStamp(stampMap.get("dec"));
+			int update = orderMapper.updateUserStampDec(uDTO);
+			StampHistoryDTO sDTO = new StampHistoryDTO();
+			sDTO.setOrdInfoNo(oDTO.getOrdInfoNo());
+			sDTO.setSpend(stampMap.get("dec"));
+			sDTO.setUserNo(oDTO.getUserNo());
+			sDTO.setRegNo(oDTO.getUserNo());
+			sDTO.setHistory("사용");
+			int insert = orderMapper.insertStampHistory(sDTO);
+			if(update != 0 && insert != 0) {
+				updateResult = true;
+			}
+		}else {
+			
+				스탬프 증가
+			
+			UserDTO uDTO = new UserDTO();
+			uDTO.setUserNo(oDTO.getUserNo());
+			uDTO.setStamp(stampMap.get("inc"));
+			int update = orderMapper.updateUserStampInc(uDTO);
+			StampHistoryDTO sDTO = new StampHistoryDTO();
+			sDTO.setOrdInfoNo(oDTO.getOrdInfoNo());
+			sDTO.setSave(stampMap.get("inc"));
+			sDTO.setUserNo(oDTO.getUserNo());
+			sDTO.setHistory("적립");
+			int insert = orderMapper.insertStampHistory(sDTO);
+			if(update != 0 && insert != 0) {
+				updateResult = true;
+			}
+		}
+		if(insertOrderInfo > 0 && insertOrderItem > 0 && updateResult) {
+			result = true;
+		}
+		return result;
+	}*/
+	
 	
 	
 }

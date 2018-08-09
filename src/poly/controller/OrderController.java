@@ -222,12 +222,43 @@ public class OrderController {
 			}
 			oDTO.setOrdStat("1");
 			oDTO.setUsrRcvTime(etc_data2);
+			oDTO.setRcvYn("n");
 			oDTO.setOrdTid(tid);
+			/* 결제 성공시 스팸프 추가 감소,, 나중에 주석 풀어야함
+			 * String[] userNoAndStamp = etc_data1.split(";");
+			String[] stamp = userNoAndStamp[1].split("-");
+			Map<String, String> stampMap = new HashMap();
+			oDTO.setUpdNo(userNoAndStamp[0]);
+			if(stamp[0].equals("dec")) {
+				oDTO.setStamp(stamp[1]);
+				oDTO.setOrdTotPrice((Integer.parseInt(amt)+Integer.parseInt(stamp[1])) + "");
+				oDTO.setRegNo(userNoAndStamp[0]);
+				stampMap.put("dec", stamp[1]);
+			}
+			String[] orderItems = etc_data3.split("-");
+			List<OrderItemDTO> oList = new ArrayList<OrderItemDTO>();
+			for(int i = 0; i<orderItems.length; i++) {
+				String[] orderItem = orderItems[i].split(":");
+				OrderItemDTO oiDTO = new OrderItemDTO();
+				oiDTO.setOrdInfoNo(tran_no);
+				oiDTO.setMenuNo(orderItem[0]);
+				oiDTO.setOrdAmnt(orderItem[1]);
+				oiDTO.setRegNo(userNoAndStamp[0]);
+				oList.add(oiDTO);
+			}
+			log.info(this.getClass() + " email : " + CmmUtil.nvl((String)session.getAttribute("email")));
+			session.setAttribute("ss_tmpBasket", "");
+			req.setAttribute("userNo", userNoAndStamp[0]);
+			orderService.insertOrderSuccess(oDTO, oList, stampMap);*/
+		}else {
+			/*
+				결제실패
+			*/
 		}
 		log.info(this.getClass() + "orderComplete End");
 	}
 	
-	@RequestMapping(value="orderSuccess")
+	@RequestMapping(value="order/orderSuccess")
 	public String orderSuccess(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + " orderSuccess Start!!");
 		String userNo = CmmUtil.nvl(req.getParameter("uNo")).split("[?]")[0];
@@ -253,7 +284,7 @@ public class OrderController {
 	    oDTO = null;
 	    otList = null;		
 		log.info(this.getClass() + " orderSuccess End!!");
-		return "order/orderSuccess";
+		return "/order/orderSuccess";
 	}
 	
 	
@@ -262,6 +293,7 @@ public class OrderController {
 	public String getOrderList(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
 		log.info(this.getClass() + "orderList Start");
 		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
+		log.info(tList);
 		if(tList == null) {
 			tList = new ArrayList<TotalOrderDTO>();
 		}
@@ -270,7 +302,19 @@ public class OrderController {
 		tList=null;
 		log.info(this.getClass() + "orderList End");
 		
-		return "order/orderList";
+		return "/order/orderList";
+	}
+	@RequestMapping(value="order/orderInterval")
+	public @ResponseBody List<TotalOrderDTO> orderInterval(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
+		log.info(this.getClass() + " orderInterval Start!");
+		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
+		if(tList == null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		Collections.sort(tList, new SortOrder());
+		log.info(this.getClass() + " orderInterval tList.size() : " + tList.size());
+		log.info(this.getClass() + " orderInterval End!");
+		return tList;
 	}
 	class SortOrder implements Comparator<TotalOrderDTO>{
 		@Override

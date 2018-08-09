@@ -1,6 +1,7 @@
 package poly.service;
 
 import java.util.List;
+import java.util.Map;
 
 import poly.dto.MenuDTO;
 import poly.dto.OrderInfoDTO;
@@ -29,4 +30,5 @@ public interface IOrderService {
 	public List<OrderItemDTO> getOrdItem(OrderItemDTO otDTO) throws Exception;
 	public List<TotalOrderDTO> updateAdminOrdNo(String ordNo, String statNo) throws Exception;
 	public List<TotalOrderInfoDTO> getAdminOrderRemainTime() throws Exception;
+	/*public boolean insertOrderSuccess(OrderInfoDTO oDTO, List<OrderItemDTO> oList, Map<String, String> stampMap) throws Exception;*/
 }

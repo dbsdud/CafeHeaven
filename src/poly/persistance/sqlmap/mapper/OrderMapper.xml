@@ -34,24 +34,40 @@ INSERT INTO CAFE_ORDER_INFO
 
 <select id="getTotalOrderInfoList" resultType="TotalOrderInfoDTO">
 SELECT
-	COI.ORD_INFO_NO,
-	COI.ORD_TOT_PRICE,
-	COI.ORD_PAYMENT,
-	TO_CHAR(COI.ORD_DT_DATE, 'YYYY-MM-DD'),
-	COI.ORD_STAT,
-	COI.USR_RCV_TIME,
-	COI.RCV_TIME,
-	COI.RCV_YN,
-	COI.ORD_CANCEL_YN,
-  COI.ORD_CANCEL_TIME,
-	UC.NAME,
-	COI.ORD_TID
+	COI.ORD_INFO_NO AS ordInfoNo,
+	COI.ORD_TOT_PRICE AS ordTotPrice,
+	COI.ORD_PAYMENT AS ordPayment,
+	TO_CHAR(COI.ORD_DT_DATE, 'YYYY-MM-DD') AS ordDtDate,
+	COI.ORD_STAT AS ordStat,
+	COI.USR_RCV_TIME AS usrRcvTime,
+	COI.RCV_TIME AS rcvTime,
+	COI.RCV_YN AS rcvYn,
+	COI.ORD_CANCEL_YN AS ordCancelYn,
+  COI.ORD_CANCEL_TIME AS ordCancelTime,
+	UC.NAME AS userName,
+	COI.ORD_TID AS ordTid
 FROM
 	USER_CAFE UC, CAFE_ORDER_INFO COI
 WHERE
 	COI.ORD_INFO_NO = COI.ORD_INFO_NO
 		AND UC.USER_NO = COI.USER_NO
-		AND COI.ORD_STAT <![CDATA[<]]> 4
+		AND COI.ORD_STAT <![CDATA[<]]>4
+</select>
+<select id="getTotalOrderItemList" resultType="TotalOrderItemDTO" parameterType="String">
+SELECT
+	CM.MENU_NAME AS menuName,
+	CM.MENU_PRICE AS menuPrice,
+	COT.ORD_AMNT AS ordAmnt
+FROM
+	CAFE_ORDER_INFO COI,
+	CAFE_ORDER_ITEM COT,
+	CAFE_MENU CM
+WHERE
+	COT.ORD_INFO_NO = COI.ORD_INFO_NO
+	AND
+		COI.ORD_INFO_NO = #{orderNo}
+	AND
+		COT.MENU_NO = CM.MENU_NO
 </select>
 <!-- 주문등록 -->
 <!-- <insert id="insertOrder" parameterType="OrderDTO">
