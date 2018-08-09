@@ -261,21 +261,21 @@ public class OrderController {
 	@RequestMapping(value="order/orderSuccess")
 	public String orderSuccess(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + " orderSuccess Start!!");
-		String userNo = CmmUtil.nvl(req.getParameter("uNo")).split("[?]")[0];
-	    session.setAttribute("ss_user_no", userNo);
-	    log.info(this.getClass() + "user_no = "+userNo);
+		String userNo = CmmUtil.nvl(req.getParameter("userNo")).split("[?]")[0];
+	    session.setAttribute("userNo", userNo);
+	    log.info(this.getClass() + " userNo : " + userNo);
 	    OrderInfoDTO oDTO = orderService.getOrderNo(userNo);
 	    if(oDTO == null){
 	       oDTO = new OrderInfoDTO();
 	    }
-	    log.info(this.getClass() + " ordno = " + oDTO.getOrdInfoNo());
+	    log.info(this.getClass() + " ordInfoNo : " + oDTO.getOrdInfoNo());
 	    OrderItemDTO otDTO = new OrderItemDTO();
 	    otDTO.setOrdInfoNo(oDTO.getOrdInfoNo());
 	    List<OrderItemDTO> otList = orderService.getOrdItem(otDTO);
 	    if(otList ==null){
 	    	otList = new ArrayList<OrderItemDTO>();
 	    }
-	    log.info(this.getClass() + " otListSize = "+ otList.size());
+	    log.info(this.getClass() + " otListSize : "+ otList.size());
 	      
 	    model.addAttribute("ordNo", CmmUtil.nvl(oDTO.getOrdInfoNo()));
 	    model.addAttribute("otList", otList);

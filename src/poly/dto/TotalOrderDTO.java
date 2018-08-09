@@ -2,7 +2,7 @@ package poly.dto;
 
 public class TotalOrderDTO {
 	private String ordInfoNo;
-	private String totalOrdPrice;
+	private String ordTotPrice;
 	private String ordPayment;
 	private String ordDtDate;
 	private String ordStat;
@@ -16,19 +16,20 @@ public class TotalOrderDTO {
 	private String menuPrice;
 	private String ordAmnt;
 	private String ordRemainTime;
-	private String ordCount;
+	private int ordCount;
 	private String ordTid;
+	private String menuNameList;
 	public String getOrdInfoNo() {
 		return ordInfoNo;
 	}
 	public void setOrdInfoNo(String ordInfoNo) {
 		this.ordInfoNo = ordInfoNo;
 	}
-	public String getTotalOrdPrice() {
-		return totalOrdPrice;
+	public String getOrdTotPrice() {
+		return ordTotPrice;
 	}
-	public void setTotalOrdPrice(String totalOrdPrice) {
-		this.totalOrdPrice = totalOrdPrice;
+	public void setOrdTotPrice(String ordTotPrice) {
+		this.ordTotPrice = ordTotPrice;
 	}
 	public String getOrdPayment() {
 		return ordPayment;
@@ -108,10 +109,10 @@ public class TotalOrderDTO {
 	public void setOrdRemainTime(String ordRemainTime) {
 		this.ordRemainTime = ordRemainTime;
 	}
-	public String getOrdCount() {
+	public int getOrdCount() {
 		return ordCount;
 	}
-	public void setOrdCount(String ordCount) {
+	public void setOrdCount(int ordCount) {
 		this.ordCount = ordCount;
 	}
 	public String getOrdTid() {
@@ -120,5 +121,11 @@ public class TotalOrderDTO {
 	public void setOrdTid(String ordTid) {
 		this.ordTid = ordTid;
 	}
-	
+	public String getMenuNameList() {
+		return menuNameList;
+	}
+	public void setMenuNameList(String menuNameList) {
+		this.menuNameList = menuNameList;
+	}
+				
 }

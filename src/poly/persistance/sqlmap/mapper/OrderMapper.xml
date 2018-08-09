@@ -29,9 +29,63 @@ INSERT INTO CAFE_ORDER_INFO
 	#{userNo},
 	NOW(),
 	#{ordTid}
-);
+)
 </insert>
-
+<!-- <insert id="insertOrderItem" parameterType="list">
+INSERT INTO CAFE_ORDER_ITEM
+(
+	ORDER_INFO_NO,
+	MENU_NO,
+	ORD_AMNT,
+	REGNO,
+	REGDATE
+) VALUES (
+	<foreach collection="list" item="item" index="index" separator=",">
+		((SELECT 
+			ORD_INFO_NO
+				FROM CAFE_ORDER_INFO
+				WHERE USER_NO = #{item.regNo}
+				ORDER BY REGDATE
+				DESC LIMT 1
+		),
+		#{item.menuNo},
+		#{item.ordAmnt},
+		#{item.regNo},
+		NOW()
+		)
+	</foreach>
+)
+</insert> -->
+<!-- <select id="selectOrderList" parameterType="String" resultType="TotalOrderInfoDTO">
+SELECT
+	ORD_INFO_NO,
+	ORD_TOT_PRICE,
+	TO_CHAR(ORD_DT_DATE, 'YYYY-MM-DD'),
+	ORD_STAT
+FROM
+	CAFE_ORDER_INFO
+WHERE
+	USER_NO = #{userNo}
+ORDER BY
+	ORD_INFO_NO DESC
+LIMIT 5
+</select> -->
+<!-- <select id="selectMenuList" parameterType="String" resultType="TotalOrderItemDTO">
+SELECT
+	CM.MENU_NAME,
+	CM.MENU_PRICE,
+	COT.ORD_AMNT
+FROM
+	CAFE_ORDER_INFO COI,
+	CAFE_ORDER_ITEM COT,
+	CAFE_MENU CM
+WHERE
+	COT.ORD_INFO_NO = COI.ORD_INFO_NO
+	AND
+		COI.ORD_INFO_NO = #{orderNo}
+	AND
+		COT.MENU_NO = CM.MENU_NO
+</select> -->
 <select id="getTotalOrderInfoList" resultType="TotalOrderInfoDTO">
 SELECT
 	COI.ORD_INFO_NO AS ordInfoNo,
@@ -43,7 +97,7 @@ SELECT
 	COI.RCV_TIME AS rcvTime,
 	COI.RCV_YN AS rcvYn,
 	COI.ORD_CANCEL_YN AS ordCancelYn,
-  COI.ORD_CANCEL_TIME AS ordCancelTime,
+	COI.ORD_CANCEL_TIME AS ordCancelTime,
 	UC.NAME AS userName,
 	COI.ORD_TID AS ordTid
 FROM
@@ -53,7 +107,7 @@ WHERE
 		AND UC.USER_NO = COI.USER_NO
 		AND COI.ORD_STAT <![CDATA[<]]>4
 </select>
-<select id="getTotalOrderItemList" resultType="TotalOrderItemDTO" parameterType="String">
+<select id="getTotalOrderItemList" resultType="TotalOrderItemDTO" parameterType="string">
 SELECT
 	CM.MENU_NAME AS menuName,
 	CM.MENU_PRICE AS menuPrice,
@@ -68,6 +122,40 @@ WHERE
 		COI.ORD_INFO_NO = #{orderNo}
 	AND
 		COT.MENU_NO = CM.MENU_NO
+</select>
+<select id="getOrderNo" resultType="OrderInfoDTO" parameterType="String">
+SELECT
+	ORD_INFO_NO
+FROM
+	CAFE_ORDER_INFO
+WHERE
+	USER_NO = #{userNo}
+	AND
+		ROWNUM = 1
+ORDER BY
+	REGDATE
+<!-- SELECT
+	ORD_INFO_NO
+FROM
+	CAFE_ORDER_INFO
+WHERE
+	USER_NO = #{userNo}
+ORDER BY
+	REGDATE
+DESC
+	LIMIT 1 -->
+</select>
+<select id="getOrdItem" parameterType="OrderInfoDTO" resultType="OrderItemDTO">
+SELECT 
+	M.MENU_NAME,
+	O.ORD_AMNT
+FROM
+	CAFE_ORDER_ITEM O,
+	CAFE_MENE M
+WHERE
+	O.MENU_NO = M.MENU_NO
+	AND
+		O.ORD_INFO_NO = #{ordInfoNo}
 </select>
 <!-- 주문등록 -->
 <!-- <insert id="insertOrder" parameterType="OrderDTO">

@@ -22,5 +22,4 @@ public class TotalOrderItemDTO {
 	public void setOrdAmnt(String ordAmnt) {
 		this.ordAmnt = ordAmnt;
 	}
-	
 }
