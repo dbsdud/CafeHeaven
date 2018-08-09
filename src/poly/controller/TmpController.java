@@ -190,7 +190,7 @@ public class TmpController {
 		if(tMap.size()<1) {
 			returnURL = "user/userAlert";
 			model.addAttribute("msg", "주문하신 제품이 없습니다.");
-			model.addAttribute("url", "menu/menuList.do");
+			model.addAttribute("url", "/menu/menuList.do");
 		}
 		/*스탬트 모델*/
 		log.info(this.getClass() + "userDoOrder End!");
