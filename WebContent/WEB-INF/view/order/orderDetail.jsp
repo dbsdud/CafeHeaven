@@ -86,6 +86,7 @@ function radioCardCheck(){
 <body>
 	<%@ include file="/WEB-INF/view/mainCafeTop.jsp"%>
 	<input type="hidden" id="orderUserName" value="<%= name %>" />
+	<!-- <form class="form" method="post" name="frmPayment" id="frmPayment" action="/order/orderProcTest.do" method="post"> -->
 	<form class="form" method="post" name="frmPayment" id="frmPayment" action="https://pg.paynuri.com/paymentgateway/mobile/reqPay.do" accept-charset="euc-kr" target="_self">
 	<!-- 페이누리로 전송할 데이터 /////// 수정해야함  -->
 	
@@ -133,9 +134,9 @@ function radioCardCheck(){
 	<!-- 고객명  !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 	<!-- <input type="hidden" id="CUSTOMER_NAME" name="CUSTOMER_NAME" value="홍길동" size=30 maxlength=100 /> -->
 	<!-- 리턴 URL  !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-	<input type="hidden" id="RETURN_URL" name="RETURN_URL" value="#" size=30 maxlength=100 />
+	<input type="hidden" id="RETURN_URL" name="RETURN_URL" value="/order/orderComplete.do" size=30 maxlength=100 />
 	<!-- 결제 성공  URL !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-	<input type="hidden" id="COMPLETE_URL" name="COMPLETE_URL" value="#" size=30 maxlength=100 />
+	<input type="hidden" id="COMPLETE_URL" name="COMPLETE_URL" value="/order/orderSuccess.do?userNo=<%=userNo %>" size=30 maxlength=100 />
 	<!-- 결제도중 취소  URL !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 	<input type="hidden" id="CANCEL_URL" name="CANCEL_URL" value="#" size=30 maxlength=100 />
 	<!-- 여분의 데이터 1 -->
