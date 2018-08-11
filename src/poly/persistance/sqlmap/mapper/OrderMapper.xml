@@ -21,20 +21,20 @@ INSERT INTO CAFE_ORDER_INFO
 	#{ordTotPrice},
 	#{realOrdPrice},
 	#{ordPayment},
-	NOW(),
+	SYSDATE,
 	'1',
 	#{usrRcvTime},
 	#{rcvYn},
 	#{userNo},
 	#{userNo},
-	NOW(),
+	SYSDATE,
 	#{ordTid}
 )
 </insert>
-<!-- <insert id="insertOrderItem" parameterType="list">
+<insert id="insertOrderItem" parameterType="list">
 INSERT INTO CAFE_ORDER_ITEM
 (
-	ORDER_INFO_NO,
+	ORD_INFO_NO,
 	MENU_NO,
 	ORD_AMNT,
 	REGNO,
@@ -44,33 +44,32 @@ INSERT INTO CAFE_ORDER_ITEM
 		((SELECT 
 			ORD_INFO_NO
 				FROM CAFE_ORDER_INFO
-				WHERE USER_NO = #{item.regNo}
+				WHERE USER_NO = #{item.regNo} AND ROWNUM = 1
 				ORDER BY REGDATE
-				DESC LIMT 1
 		),
 		#{item.menuNo},
 		#{item.ordAmnt},
 		#{item.regNo},
-		NOW()
+		SYSDATE
 		)
 	</foreach>
 )
-</insert> -->
-<!-- <select id="selectOrderList" parameterType="String" resultType="TotalOrderInfoDTO">
+</insert>
+<select id="selectOrderList" parameterType="String" resultType="TotalOrderInfoDTO">
 SELECT
 	ORD_INFO_NO,
 	ORD_TOT_PRICE,
-	TO_CHAR(ORD_DT_DATE, 'YYYY-MM-DD'),
+	TO_CHAR(ORD_DT_DATE, 'YYYY-MM-DD HH24:mi:ss'),
 	ORD_STAT
 FROM
 	CAFE_ORDER_INFO
 WHERE
 	USER_NO = #{userNo}
+	AND ROWNUM <![CDATA[<=]]> 5
 ORDER BY
-	ORD_INFO_NO DESC
-LIMIT 5
-</select> -->
-<!-- <select id="selectMenuList" parameterType="String" resultType="TotalOrderItemDTO">
+	ORD_INFO_NO
+</select>
+<select id="selectMenuList" parameterType="String" resultType="TotalOrderItemDTO">
 SELECT
 	CM.MENU_NAME,
 	CM.MENU_PRICE,
@@ -85,13 +84,13 @@ WHERE
 		COI.ORD_INFO_NO = #{orderNo}
 	AND
 		COT.MENU_NO = CM.MENU_NO
-</select> -->
+</select>
 <select id="getTotalOrderInfoList" resultType="TotalOrderInfoDTO">
 SELECT
 	COI.ORD_INFO_NO AS ordInfoNo,
 	COI.ORD_TOT_PRICE AS ordTotPrice,
 	COI.ORD_PAYMENT AS ordPayment,
-	TO_CHAR(COI.ORD_DT_DATE, 'YYYY-MM-DD') AS ordDtDate,
+	TO_CHAR(COI.ORD_DT_DATE, 'YYYY-MM-DD HH24:mi:ss') AS ordDtDate,
 	COI.ORD_STAT AS ordStat,
 	COI.USR_RCV_TIME AS usrRcvTime,
 	COI.RCV_TIME AS rcvTime,
@@ -103,7 +102,7 @@ SELECT
 FROM
 	USER_CAFE UC, CAFE_ORDER_INFO COI
 WHERE
-	COI.ORD_INFO_NO = COI.ORD_INFO_NO
+		COI.ORD_INFO_NO = COI.ORD_INFO_NO
 		AND UC.USER_NO = COI.USER_NO
 		AND COI.ORD_STAT <![CDATA[<]]>4
 </select>

@@ -297,8 +297,10 @@ public class OrderController {
 		if(tList == null) {
 			tList = new ArrayList<TotalOrderDTO>();
 		}
+		log.info(tList);
 		Collections.sort(tList, new SortOrder());
 		model.addAttribute("TotalOrderList", tList);
+		log.info(tList);
 		tList=null;
 		log.info(this.getClass() + "orderList End");
 		
@@ -308,6 +310,7 @@ public class OrderController {
 	public @ResponseBody List<TotalOrderDTO> orderInterval(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
 		log.info(this.getClass() + " orderInterval Start!");
 		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
+		
 		if(tList == null) {
 			tList = new ArrayList<TotalOrderDTO>();
 		}

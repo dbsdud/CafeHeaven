@@ -7,5 +7,5 @@ import poly.dto.ChartDTO;
 
 @Mapper("ChartMapper")
 public interface ChartMapper {
-	List<ChartDTO> getWeekGender() throws Exception;
+	/*List<ChartDTO> getWeekGender() throws Exception;*/
 }

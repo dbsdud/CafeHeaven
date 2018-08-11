@@ -39,7 +39,10 @@ public class OrderService implements IOrderService{
 	@Override
 	public List<TotalOrderDTO> getTotalOrderDTO() throws Exception {
 		List<TotalOrderInfoDTO> oInfoList = orderMapper.getTotalOrderInfoList();
+		
+		System.out.println("oInfoList : " + oInfoList);
 		List<TotalOrderDTO> totalList = new ArrayList<TotalOrderDTO>();
+		System.out.println("totalList : " + totalList);
 		for(TotalOrderInfoDTO oDTO : oInfoList) {
 			TotalOrderDTO tDTO = new TotalOrderDTO();
 			List<TotalOrderItemDTO> tItemList = orderMapper.getTotalOrderItemList(oDTO.getOrdInfoNo());
@@ -47,6 +50,7 @@ public class OrderService implements IOrderService{
 			String ordAmnt = "";
 			int price = 0;
 			for(int i = 0; i < tItemList.size(); i++) {
+				
 				menuName += tItemList.get(i).getMenuName() + "</br>";
 				ordAmnt += tItemList.get(i).getOrdAmnt() + "</br>";
 				price += Integer.parseInt(tItemList.get(i).getMenuPrice()) * Integer.parseInt(tItemList.get(i).getOrdAmnt());
@@ -70,9 +74,9 @@ public class OrderService implements IOrderService{
 			tDTO.setOrdRemainTime(getRemainTime(tDTO.getUsrRcvTime()));
 			totalList.add(tDTO);
 		}
+		System.out.println("totalListService:"+totalList);
 		return totalList;
 	}
-	
 	
 	
 	
@@ -133,10 +137,13 @@ public class OrderService implements IOrderService{
 		tmp += "-" + String.valueOf(c.get(Calendar.MONDAY) + 1);
 		tmp += "-" + String.valueOf(c.get(Calendar.DATE));
 		tmp += " " + usrRcvTime + ":00";
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.KOREA);
+		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
 		String now = sf.format(new Date());
+		System.out.println("now : " + now);
 		Date order = sf.parse(tmp);
+		System.out.println("order : " + order);
 		Date nowTime = sf.parse(now);
+		System.out.println("nowTime : " + nowTime);
 		long duration = order.getTime() - nowTime.getTime();
 		long min = duration/60000;
 		long hour = min/60;
@@ -231,6 +238,7 @@ public class OrderService implements IOrderService{
 	public int updateOrderCancel(String tid) throws Exception {
 		return orderMapper.updateOrderCancel(tid);
 	}
+
 	
 	// 결제성공시 스탬프 증가, 스탬프 차감
 	/*@Override

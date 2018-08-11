@@ -474,15 +474,11 @@ public class BigDataController {
 	}
 	
 	// 성별차트(윤영)
-	@RequestMapping(value="weekGenderChart")
+	/*@RequestMapping(value="bigData/weekGenderChart")
 	public @ResponseBody List<ChartDTO> weekGender() throws Exception{
 		log.info(this.getClass().getName() + " weekGender Start");
 		List<ChartDTO> chList = chartService.getWeekGender();
 		log.info(this.getClass().getName() + " weekGender End");
 		return chList;
-	}
+	}*/
 }
-
-
-	
-

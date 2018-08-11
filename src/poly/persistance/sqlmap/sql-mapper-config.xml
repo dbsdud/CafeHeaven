@@ -13,6 +13,7 @@
 		<typeAlias type="poly.dto.OrderItemDTO" alias="OrderItemDTO"/>
 		<typeAlias type="poly.dto.TotalOrderInfoDTO" alias="TotalOrderInfoDTO"/>
 		<typeAlias type="poly.dto.TotalOrderItemDTO" alias="TotalOrderItemDTO"/>
+		<typeAlias type="poly.dto.TotalOrderDTO" alias="TotalOrderDTO"/>
 		<typeAlias type="poly.dto.TmpDTO" alias="TmpDTO"/>
 		<typeAlias type="poly.dto.CafeInfoDTO" alias="CafeInfoDTO"/>
 		<typeAlias type="poly.dto.ApiDTO" alias="ApiDTO"/>

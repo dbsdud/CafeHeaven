@@ -20,7 +20,7 @@
 $(function(){
 	timer = setInterval( function () {
 		$.ajax ({
-			url : "adminOrderInterval.do",  
+			url : "orderInterval.do",  
 			success : function (data) {
 				console.log(data);
 				var count = Object.keys(data).length;

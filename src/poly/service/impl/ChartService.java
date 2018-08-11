@@ -17,7 +17,7 @@ public class ChartService implements IChartService {
 	private ChartMapper chartMapper;
 	
 	// 성별 차트
-	@Override
+	/*@Override
 	public List<ChartDTO> getWeekGender() throws Exception {
 		List<ChartDTO> chList = chartMapper.getWeekGender();
 		HashMap<String, String> rMap = new HashMap<String, String>();
@@ -43,6 +43,6 @@ public class ChartService implements IChartService {
 			chList.add(ctDTO);
 		}
 		return chList;
-	}
+	}*/
 	
 }
