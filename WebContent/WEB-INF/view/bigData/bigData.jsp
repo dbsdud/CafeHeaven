@@ -15,10 +15,8 @@
 </head>
 <body>
 <%@  include file="/WEB-INF/view/mainCafeTop.jsp"%> <!-- 경로 바꿔야될거같음  -->
-
    <div class="container">
       <!-- 상단 -->
-
       <div class="page-header">
          <h1>
             CAFE HEAVEN &nbsp;&nbsp;&nbsp;<br/><small>빅데이터 분석</small>
@@ -152,12 +150,17 @@
          </div>
          <!--  고객성향분석 -->
          <div id="bd-menu2" class="tab-pane">
-            <div class="chart-container ">
-               <canvas id="menuChart2"></canvas>
+            <div class="col-sm-4 regButton btn-5 taCp">
+            	성별
             </div>
-            <div class="col-sm-4 regButton btn-5 taCp" >성별 </div>
-            <div class="col-sm-4 regButton btn-5 taCp" >연령별</div>
+            <div class="col-sm-4 regButton btn-5 taCp">연령별</div>
             <div class="col-sm-4 regButton btn-5 taCp">시간대별</div>
+            <div class="chart-container">
+               <canvas id="genderChart"></canvas>
+            </div>
+            <div class="chart-container">
+               <canvas id="ageTypeGroupChart"></canvas>
+            </div>
          </div>
          <div id="bd-menu3" class="tab-pane">
             <div class="chart-container">
@@ -166,8 +169,5 @@
          </div>
       </div>
    </div>
-
-
-
 </body>
 </html>
