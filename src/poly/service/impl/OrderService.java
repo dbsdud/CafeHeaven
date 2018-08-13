@@ -39,18 +39,16 @@ public class OrderService implements IOrderService{
 	@Override
 	public List<TotalOrderDTO> getTotalOrderDTO() throws Exception {
 		List<TotalOrderInfoDTO> oInfoList = orderMapper.getTotalOrderInfoList();
-		
 		System.out.println("oInfoList : " + oInfoList);
 		List<TotalOrderDTO> totalList = new ArrayList<TotalOrderDTO>();
-		System.out.println("totalList : " + totalList);
 		for(TotalOrderInfoDTO oDTO : oInfoList) {
 			TotalOrderDTO tDTO = new TotalOrderDTO();
 			List<TotalOrderItemDTO> tItemList = orderMapper.getTotalOrderItemList(oDTO.getOrdInfoNo());
+			System.out.println("tItemList : " + tItemList);
 			String menuName="";
 			String ordAmnt = "";
 			int price = 0;
 			for(int i = 0; i < tItemList.size(); i++) {
-				
 				menuName += tItemList.get(i).getMenuName() + "</br>";
 				ordAmnt += tItemList.get(i).getOrdAmnt() + "</br>";
 				price += Integer.parseInt(tItemList.get(i).getMenuPrice()) * Integer.parseInt(tItemList.get(i).getOrdAmnt());
@@ -77,7 +75,34 @@ public class OrderService implements IOrderService{
 		System.out.println("totalListService:"+totalList);
 		return totalList;
 	}
-	
+	public String getRemainTime(String usrRcvTime) throws Exception{
+		Calendar c = Calendar.getInstance();
+		String tmp = "";
+		tmp += String.valueOf(c.get(Calendar.YEAR));
+		tmp += "-" + String.valueOf(c.get(Calendar.MONDAY) + 1);
+		tmp += "-" + String.valueOf(c.get(Calendar.DATE));
+		tmp += " " + usrRcvTime + ":00";
+		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+		String now = sf.format(new Date());
+		System.out.println("now : " + now);
+		Date order = sf.parse(tmp);
+		System.out.println("order : " + order);
+		Date nowTime = sf.parse(now);
+		System.out.println("nowTime : " + nowTime);
+		long duration = order.getTime() - nowTime.getTime();
+		long min = duration/60000;
+		long hour = min/60;
+		min = min-(hour*60);
+		return hour + ":" + min;
+	}
+	@Override
+	public List<TotalOrderInfoDTO> getAdminOrderRemainTime() throws Exception {
+		List<TotalOrderInfoDTO> tList = orderMapper.getTotalOrderInfoList();
+		for(TotalOrderInfoDTO tDTO : tList) {
+			tDTO.setOrdRemainTime(getRemainTime(tDTO.getUsrRcvTime()));
+		}
+		return tList;
+	}
 	
 	
 	// 주문 목록 메뉴 정보
@@ -122,34 +147,8 @@ public class OrderService implements IOrderService{
 		List<TotalOrderDTO> oList = getTotalOrderDTO();
 		return oList;
 	}
-	@Override
-	public List<TotalOrderInfoDTO> getAdminOrderRemainTime() throws Exception {
-		List<TotalOrderInfoDTO> tList = orderMapper.getTotalOrderInfoList();
-		for(TotalOrderInfoDTO tDTO : tList) {
-			tDTO.setOrdRemainTime(getRemainTime(tDTO.getUsrRcvTime()));
-		}
-		return tList;
-	}
-	public String getRemainTime(String usrRcvTime) throws Exception{
-		Calendar c = Calendar.getInstance();
-		String tmp = "";
-		tmp += String.valueOf(c.get(Calendar.YEAR));
-		tmp += "-" + String.valueOf(c.get(Calendar.MONDAY) + 1);
-		tmp += "-" + String.valueOf(c.get(Calendar.DATE));
-		tmp += " " + usrRcvTime + ":00";
-		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
-		String now = sf.format(new Date());
-		System.out.println("now : " + now);
-		Date order = sf.parse(tmp);
-		System.out.println("order : " + order);
-		Date nowTime = sf.parse(now);
-		System.out.println("nowTime : " + nowTime);
-		long duration = order.getTime() - nowTime.getTime();
-		long min = duration/60000;
-		long hour = min/60;
-		min = min-(hour*60);
-		return hour + ":" + min;
-	}
+
+	
 	/*@Override
 	public UserDTO getUserStamp(String userNo) throws Exception {
 		return orderMapper.getOrderNo(userNo);

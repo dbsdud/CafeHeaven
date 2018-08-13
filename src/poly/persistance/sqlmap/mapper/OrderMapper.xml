@@ -102,9 +102,9 @@ SELECT
 FROM
 	USER_CAFE UC, CAFE_ORDER_INFO COI
 WHERE
-		COI.ORD_INFO_NO = COI.ORD_INFO_NO
-		AND UC.USER_NO = COI.USER_NO
-		AND COI.ORD_STAT <![CDATA[<]]>4
+	COI.ORD_INFO_NO = COI.ORD_INFO_NO
+	AND UC.USER_NO = COI.USER_NO
+	AND COI.ORD_STAT <![CDATA[<]]>4
 </select>
 <select id="getTotalOrderItemList" resultType="TotalOrderItemDTO" parameterType="string">
 SELECT

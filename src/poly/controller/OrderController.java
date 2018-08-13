@@ -291,7 +291,7 @@ public class OrderController {
 	// 주문 리스트 조회
 	@RequestMapping(value="order/orderList", method=RequestMethod.GET)
 	public String getOrderList(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
-		log.info(this.getClass() + "orderList Start");
+		log.info(this.getClass() + " orderList Start");
 		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
 		log.info(tList);
 		if(tList == null) {
