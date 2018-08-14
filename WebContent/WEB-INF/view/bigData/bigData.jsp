@@ -34,7 +34,7 @@ function bigdataReset(){
 				data-toggle="tab" href="#bd-menu1" aria-expanded="true">상권밀집도</a></li>
 			<!-- class= active 활성화된탭 -->
 			<li style="width: 34%;" class="hd-font"><a data-toggle="tab"
-				href="#bd-menu2" aria-expanded="false">고객성향분석</a></li>
+				href="#bd-menu2" aria-expanded="false" onclick='gender()'>고객성향분석</a></li>
 			<li style="width: 33%;" class="hd-font"><a data-toggle="tab"
 				href="#bd-menu3" aria-expanded="false">매출관리</a></li>
 		</ul>
@@ -153,12 +153,15 @@ function bigdataReset(){
 
 		<div id="bd-menu2" class="tab-pane">
           
-            <div class="chart-container">
+            <div id="genderChartHs" class="chart-container">
                <canvas id="genderChart"></canvas>
             </div>
-             <div class="col-sm-4 regButton btn-5 taCp">성별</div>
-            <div class="col-sm-4 regButton btn-5 taCp">연령별</div>
-            <div class="col-sm-4 regButton btn-5 taCp">시간대별</div>
+            <div id="generationChartHs" class="chart-container">
+            <canvas id="generationChart"></canvas>
+            </div>
+             <div class="regButton btn-5 taCp" style="width:50%; float:left" onclick="gender()">성별</div>
+            <div class="regButton btn-5 taCp" style="width:50%; float:left" onclick="generation()">연령별</div>
+            <!-- <div class="col-sm-4 regButton btn-5 taCp">시간대별</div> -->
          </div>
 			<div id="bd-menu3" class="tab-pane">
 				<div class="chart-container" >

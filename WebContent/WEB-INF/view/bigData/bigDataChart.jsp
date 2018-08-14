@@ -4,7 +4,12 @@
 
 ////////////////////////////////////////////////////menu2//////////////////////////////////////////////////////////////////////////////
 //성별 (남/여)///성별 만 했음
-window.onload = function() {
+
+
+
+function gender() {
+	$('#genderChartHs').show();
+	$('#generationChartHs').hide();
    var date = ['8월 10일', '8월 11일', '8월 12일', '8월 13일', '8월 14일','8월 15일','8월 16일'];
    var maleAmount = [15,11,12,11,13,16,5];
    var femaleAmount = [18,20,15,17,17,19,7];
@@ -30,4 +35,48 @@ window.onload = function() {
       }
    })
 }
+
+function generation() {
+	$('#genderChartHs').hide();
+	$('#generationChartHs').show();
+	   var date = ['8월 10일', '8월 11일', '8월 12일', '8월 13일', '8월 14일','8월 15일','8월 16일'];
+	   var tenAmount = [15,11,12,11,13,16,5];
+	   var twentyAmount = [18,20,15,17,17,19,7];
+	   var thirtyAmount = [14,10,12,17,9,20,7];
+	   var fortyAmount = [8,10,12,17,16,10,7]; 
+	   var ctx = document.getElementById('generationChart').getContext('2d');
+	   
+	   var genderChart = new Chart(ctx, {
+	      type : 'line',
+	      data : {
+	         labels : date,
+	         datasets : [{
+	            label : '10대',
+	            data : tenAmount,
+	            backgroundColor : 'rgba(255, 206, 86, 0.2)',
+	            borderColor : 'rgba(255, 206, 86, 1)',
+	            fill : false,
+	         },{
+	            label : '20대',
+	            data : twentyAmount,
+	            backgroundColor : 'rgba(255, 99, 132, 0.2)',
+	            borderColor : 'rgba(255,99,132,1)',
+	            fill : false,
+	         },{
+		            label : '30대',
+		            data : thirtyAmount,
+		            backgroundColor : 'rgba(255, 206, 86, 0.2)',
+		            borderColor : 'rgba(255, 206, 86,1)',
+		            fill : false,
+		      },{
+			        label : '40대',
+			        data : fortyAmount,
+			        backgroundColor : 'rgba(75, 192, 192, 0.2)',
+			        borderColor : 'rgba(75, 192, 192,1)',
+			        fill : false,
+			         }]
+	      }
+	   })
+	}
+
 </script>
