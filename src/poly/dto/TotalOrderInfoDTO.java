@@ -1,8 +1,9 @@
 package poly.dto;
 
-public class OrderDTO {
+public class TotalOrderInfoDTO {
 	private String ordInfoNo;
 	private String ordTotPrice;
+	private String realOrdPrice;
 	private String ordPayment;
 	private String ordDtDate;
 	private String ordStat;
@@ -12,17 +13,8 @@ public class OrderDTO {
 	private String ordCancelYn;
 	private String ordCancelTime;
 	private String userName;
-	private String menuName;
-	private String menuPrice;
-	private String ordAmnt;
 	private String ordRemainTime;
-	private String menuNameList;
-	private int ordCount;
 	private String ordTid;
-	private String ordReq;
-	private String regDate;
-	private String regNo;
-	private String updDate;
 	public String getOrdInfoNo() {
 		return ordInfoNo;
 	}
@@ -34,6 +26,12 @@ public class OrderDTO {
 	}
 	public void setOrdTotPrice(String ordTotPrice) {
 		this.ordTotPrice = ordTotPrice;
+	}
+	public String getRealOrdPrice() {
+		return realOrdPrice;
+	}
+	public void setRealOrdPrice(String realOrdPrice) {
+		this.realOrdPrice = realOrdPrice;
 	}
 	public String getOrdPayment() {
 		return ordPayment;
@@ -89,41 +87,11 @@ public class OrderDTO {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	public String getMenuName() {
-		return menuName;
-	}
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
-	}
-	public String getMenuPrice() {
-		return menuPrice;
-	}
-	public void setMenuPrice(String menuPrice) {
-		this.menuPrice = menuPrice;
-	}
-	public String getOrdAmnt() {
-		return ordAmnt;
-	}
-	public void setOrdAmnt(String ordAmnt) {
-		this.ordAmnt = ordAmnt;
-	}
 	public String getOrdRemainTime() {
 		return ordRemainTime;
 	}
 	public void setOrdRemainTime(String ordRemainTime) {
 		this.ordRemainTime = ordRemainTime;
-	}
-	public String getMenuNameList() {
-		return menuNameList;
-	}
-	public void setMenuNameList(String menuNameList) {
-		this.menuNameList = menuNameList;
-	}
-	public int getOrdCount() {
-		return ordCount;
-	}
-	public void setOrdCount(int ordCount) {
-		this.ordCount = ordCount;
 	}
 	public String getOrdTid() {
 		return ordTid;
@@ -131,42 +99,5 @@ public class OrderDTO {
 	public void setOrdTid(String ordTid) {
 		this.ordTid = ordTid;
 	}
-	public String getOrdReq() {
-		return ordReq;
-	}
-	public void setOrdReq(String ordReq) {
-		this.ordReq = ordReq;
-	}
-	public String getRegDate() {
-		return regDate;
-	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
-	}
-	public String getRegNo() {
-		return regNo;
-	}
-	public void setRegNo(String regNo) {
-		this.regNo = regNo;
-	}
-	public String getUpdDate() {
-		return updDate;
-	}
-	public void setUpdDate(String updDate) {
-		this.updDate = updDate;
-	}
-	public String getOrderItemNo() {
-		return orderItemNo;
-	}
-	public void setOrderItemNo(String orderItemNo) {
-		this.orderItemNo = orderItemNo;
-	}
-	public String getUpdNo() {
-		return updNo;
-	}
-	public void setUpdNo(String updNo) {
-		this.updNo = updNo;
-	}
-	private String orderItemNo;
-	private String updNo;
+	
 }

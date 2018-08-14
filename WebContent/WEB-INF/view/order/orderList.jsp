@@ -1,11 +1,12 @@
 <!--  orderList by.황윤영
  최신화 : 20180726 -->
-<%@page import="poly.dto.OrderDTO"%>
+<%@page import="poly.dto.TotalOrderDTO"%>
+<%@page import="poly.dto.OrderInfoDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-	List<OrderDTO> oList = (List<OrderDTO>)request.getAttribute("OrderList"); 
+<%
+	List<TotalOrderDTO> tList = (List<TotalOrderDTO>)request.getAttribute("TotalOrderList");
 %>
 <html>
 <head>
@@ -19,7 +20,7 @@
 $(function(){
 	timer = setInterval( function () {
 		$.ajax ({
-			url : "adminOrderInterval.do",  
+			url : "orderInterval.do",  
 			success : function (data) {
 				console.log(data);
 				var count = Object.keys(data).length;
@@ -323,9 +324,9 @@ function orderCancel(ordNo, statNo){
 	<!-- 상단 -->
 	<%@ include file = "/WEB-INF/view/mainCafeTop.jsp" %>
 	<!-- 본문제목 -->
-	<input type="hidden" id="adminUserNo" value="<%= userNo %>" />
-	<input type="hidden" id="adminUserName" value="<%= name %>" />
-	<input type="hidden" id="adminUserEmail" value="<%= email %>" />
+	<input type="hidden" id="adminUserNo" value="<%=userNo%>" />
+	<input type="hidden" id="adminUserName" value="<%=name%>" />
+	<input type="hidden" id="adminUserEmail" value="<%=email%>" />
 	<div class="container">
 		<div class="page-header">
 			<h1>주문 목록&nbsp;&nbsp;&nbsp;<small>CAFE HEAVEN</small></h1>
@@ -348,14 +349,16 @@ function orderCancel(ordNo, statNo){
 				</tr>
 			</thead>
 			<tbody id="interval">
-				<%for(OrderDTO oDTO : oList){
-					String ordStat = CmmUtil.nvl(oDTO.getOrdStat());
-					String[] arr = CmmUtil.nvl(oDTO.getOrdRemainTime()).split(":");
-					int remainMin = Integer.parseInt(arr[1]);
-					if(remainMin < 0 && !(oDTO.getOrdStat().equals("3"))){%>
+				<%
+					for(TotalOrderDTO tDTO : tList){
+							String ordStat = CmmUtil.nvl(tDTO.getOrdStat());
+							String[] arr = CmmUtil.nvl(tDTO.getOrdRemainTime()).split(":");
+							int remainMin = Integer.parseInt(arr[1]);
+							if(remainMin < 0 && !(tDTO.getOrdStat().equals("3"))){
+				%>
 					<tr bgcolor="#F5A9A9">
 					<%
-						} else if(oDTO.getOrdStat().equals("3")){
+						} else if(tDTO.getOrdStat().equals("3")){
 					%>
 					<tr align="center" bgcolor="#9FF781">
 					<%
@@ -365,26 +368,26 @@ function orderCancel(ordNo, statNo){
 					<%
 						}
 					%>
-					<td align="center"><%=CmmUtil.nvl(oDTO.getOrdInfoNo()) %></td>
-					<td align="center"><%=CmmUtil.nvl(oDTO.getUserName()) %></td>
-					<td align="center"><%=CmmUtil.nvl(oDTO.getMenuName()) %></td>
-					<td align="center"><%=CmmUtil.nvl(oDTO.getOrdAmnt()) %></td>
-					<td align="center"><%=CmmUtil.nvl(oDTO.getUsrRcvTime()) %></td>
+					<td align="center"><%=CmmUtil.nvl(tDTO.getOrdInfoNo()) %></td>
+					<td align="center"><%=CmmUtil.nvl(tDTO.getUserName()) %></td>
+					<td align="center"><%=CmmUtil.nvl(tDTO.getMenuName()) %></td>
+					<td align="center"><%=CmmUtil.nvl(tDTO.getOrdAmnt()) %></td>
+					<td align="center"><%=CmmUtil.nvl(tDTO.getUsrRcvTime()) %></td>
 					<%
 						if(remainMin<0){
 					%>
-					<td align="center" id="<%=CmmUtil.nvl(oDTO.getOrdInfoNo()) %>"><b>TimeOver</b></td>
+					<td align="center" id="<%=CmmUtil.nvl(tDTO.getOrdInfoNo()) %>"><b>TimeOver</b></td>
 					<%
 						}else{
 					%>
-					<td align="center" id="<%=CmmUtil.nvl(oDTO.getOrdInfoNo())%>"><%=CmmUtil.nvl(oDTO.getOrdRemainTime()) %></td>
+					<td align="center" id="<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>"><%=CmmUtil.nvl(tDTO.getOrdRemainTime()) %></td>
 					<%
 						}
 					%>
 					<%if(ordStat.equals("1")){ %>
 					<td align="center">
 						<div>
-							<button class="btn btn-primary btn-sm" onclick="orderProc('<%=CmmUtil.nvl(oDTO.getOrdInfoNo())%>', '2');">접수 하기</button>
+							<button class="btn btn-primary btn-sm" onclick="orderProc('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>', '2');">접수 하기</button>
 						</div>
 					</td>
 					<td align="center">
@@ -399,7 +402,7 @@ function orderCancel(ordNo, statNo){
 					</td>
 					<td align="center">
 						<div>
-							<button class="btn btn-danger btn-sm" onclick="orderCancel('<%=CmmUtil.nvl(oDTO.getOrdInfoNo())%>', '5');">취소 하기</button>
+							<button class="btn btn-danger btn-sm" onclick="orderCancel('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>', '5');">취소 하기</button>
 						</div>
 					</td>
 					<%}else if(ordStat.equals("2")){ %>
@@ -408,7 +411,7 @@ function orderCancel(ordNo, statNo){
 					</td>
 					<td align="center">
 						<div>
-							<button class="btn btn-success btn-sm" onclick="orderProc('<%=CmmUtil.nvl(oDTO.getOrdInfoNo()) %>','3');">조리 완료</button>
+							<button class="btn btn-success btn-sm" onclick="orderProc('<%=CmmUtil.nvl(tDTO.getOrdInfoNo()) %>','3');">조리 완료</button>
 						</div>
 					</td>
 					<td align="center">
@@ -419,7 +422,7 @@ function orderCancel(ordNo, statNo){
 					</td>
 					<td align="center">
 						<div>
-							<button class="btn btn-danger btn-sm" onclick="orderCancel('<%=CmmUtil.nvl(oDTO.getOrdInfoNo())%>','5');">취소하기</button>
+							<button class="btn btn-danger btn-sm" onclick="orderCancel('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>','5');">취소하기</button>
 						</div>
 					</td>
 					<%}else{ %>
@@ -428,16 +431,16 @@ function orderCancel(ordNo, statNo){
 					</td>
 					<td align="center">
 						<div>
-							<button class="btn btn-warning btn-sm" onclick="barcodeProc('<%=CmmUtil.nvl(oDTO.getOrdInfoNo())%>','4');">수령 완료</button>
+							<button class="btn btn-warning btn-sm" onclick="barcodeProc('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>','4');">수령 완료</button>
 						</div>
 					</td>
 					<td align="center">
 						<div>
-							<button class="btn btn-danger" onclick="orderCancel('<%=CmmUtil.nvl(oDTO.getOrdInfoNo())%>','5');">취소하기</button>
+							<button class="btn btn-danger" onclick="orderCancel('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>','5');">취소하기</button>
 						</div>
 					</td>
 					<%} %>
-					<td align="center"><%=CmmUtil.nvl(oDTO.getMenuPrice()) %></td>
+					<td align="center"><%=CmmUtil.nvl(tDTO.getMenuPrice()) %></td>
 				</tr>
 				<%} %>
 				</tbody>
@@ -451,14 +454,14 @@ function orderCancel(ordNo, statNo){
 		</div>
 		<div id="myTable">
 		<!-- 본문 리스트 내용 -->
-			<% for (int i = 0; i < oList.size(); i++) {%>
+			<% for (int i = 0; i < tList.size(); i++) {%>
 			<div class="us-list hd-font">
 				<!-- 주문번호 -->
-				<div><%=oList.get(i).getOrdInfoNo() %></div>
+				<div><%=tList.get(i).getOrdInfoNo() %></div>
 				<!-- 주문메뉴 -->
 				<div><%-- <%=oList.get(i).getMenuName() %> --%></div>
 				<!-- 주문시간 -->
-				<div><%=oList.get(i).getOrdDtDate() %></div>
+				<div><%=tList.get(i).getOrdDtDate() %></div>
 				<!-- 고객명 -->
 				<div><%-- <%=oList.get(i).getName() %> --%></div>
 				<!-- 완료버튼 -->

@@ -37,6 +37,7 @@ $(function(){
 	});
 
 		var sidoCon="";
+		var allSido=[];
 		$.ajax({
 			url:"/sido/sidoSearch.do",
 			type:'get',
@@ -45,21 +46,29 @@ $(function(){
 				//sidocont
 				$.each(data,function(key,value){
 					sidoCon+='<option value='+value.ctprvnCd+'>'+value.ctprvnNm+'</option>'
+					allSido.push({
+						ctprvnNm:value.ctprvnNm,
+						ctprvnCd:value.ctprvnCd
+					})
 				})
 				
 				sido.html(sidoCon);
 				
+				//맵과 차트 보여줄거
+				$('#clusterChart').click(function(){
+						allCafeSido(allSido);
+				})
+				geoAddr(allSido);
+			
 			},
 			error: function(error){
 				alert(error);
 			}
-			
 		});
 
 	//구군!!!!!!/////////////////////////////////////////////////////
 	function gugunFind(sidoCode){
 		//구군 
-		
 		var gugunCon="";
 			$.ajax({
 				url:"/gugun/gugunSearch.do",
@@ -67,24 +76,15 @@ $(function(){
 				data:{
 					'sido':sidoCode
 				},
-				/* data: {
-					'sido': sido
-				}, */
-				/* dataType:"json",  */
 				success: function(data){
-					
-					//sidocont
 					$.each(data,function(key,value){
 						gugunCon+='<option value='+value.signguCd+'>'+value.signguNm+'</option>'
 					})
-					
 					gugun.html(gugunCon);
-				
 				},
 				error: function(error){
 					alert(error);
 				}
-				
 			});
 	}
 	
@@ -92,7 +92,6 @@ $(function(){
 	function dongFind(gugunCode){
 		//구군 
 		var dong=$('select[name=dong]');
-	
 		var dongCon="";
 			$.ajax({
 				url:"/dong/dongSearch.do",
@@ -100,12 +99,7 @@ $(function(){
 				data:{
 					'gugun':gugunCode
 				},
-				/* data: {
-					'sido': sido
-				}, */
-				/* dataType:"json",  */
 				success: function(data){
-					
 					//sidocont
 					$.each(data,function(key,value){
 						dongCon+='<option value='+value.adongCd+'>'+value.adongNm+'</option>'
@@ -158,7 +152,6 @@ $(function(){
 			url:"/cgBusiness/bigSearch.do",
 			type:'get',
 			success: function(data){
-				console.log(data);
 				$.each(data,function(key,value){
 					bigCon+='<option value='+value.indsLclsCd+'>'+value.indsLclsNm+'</option>'
 				})
@@ -247,7 +240,6 @@ $(function(){
 				},
 				success: function(data){
 
-					console.log(data);
 				},
 				error: function(error){
 					alert(error);
@@ -287,7 +279,6 @@ $(function(){
 					"key":key
 				},
 				success: function(data){
-					console.log(data);
 				},
 				error: function(error){
 					alert(error);

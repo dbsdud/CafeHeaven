@@ -1,4 +1,4 @@
-<%@page import="poly.dto.OrderDTO"%>
+<%@page import="poly.dto.OrderInfoDTO"%>
 <%@page import="poly.dto.UserDTO"%>
 <%@page import="poly.dto.MenuDTO"%>
 <%@page import="poly.dto.CafeAttachDTO"%>

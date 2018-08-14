@@ -8,28 +8,23 @@ $(function(){
 	$('#moveHuman').hide();
 	$('#map1').show();//업종별 분포도
 	$('#map2').hide();//상권 밀집도
+	$('#map3').hide();
 	$('#hdshone').click(function(){
 		$('#regionTypeBs').show();
 		$('#myRegionSameBs').hide();
 		$('#moveHuman').hide();
 		$('#map1').show();
 		$('#map2').hide();
+		$('#map3').hide();
 	});
 	$('#hdshtwo').click(function(){
 		$('#myRegionSameBs').show();
 		$('#regionTypeBs').hide();
 		$('#moveHuman').hide();
 		$('#map1').hide();
-		$('#map2').show();
-	
+		$('#map3').show();
+		$('#map2').hide();	
 	});
-	$('#hdshthree').click(function(){
-		$('#moveHuman').show();
-		$('#myRegionSameBs').hide();
-		$('#regionTypeBs').hide();
-		$('#map1').hide();
-		$('#map2').hide();
-	})
 })
 //중단 지역별 hide show
 $(function(){
@@ -109,6 +104,9 @@ $(function(){
 	})
 })
 
+$(document).ready( function () {
+    $('#myTable').DataTable();
+} );
 
 //유효성 value 없으면 검색 안되게
 
