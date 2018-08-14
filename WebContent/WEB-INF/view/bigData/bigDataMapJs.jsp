@@ -393,12 +393,12 @@
 													cont+="<canvas id='barChart' width='500' height='500' style='display:block; width:500px; height:500px; margin:auto'></canvas>";
 													cont+="</div>";
 													cont+='<table id="tableHs" ><tr style="background-color:#f6f5ef;text-align:center"><td><h4>지역</h4></td><td><h4>상권 개수</h4></td><td><h4>분포율</h4></td><td><h4>밀집도</h4></td></tr>'+conTextBody+'</table>';
-													cont+="<div class='col-sm-12'>";
+													cont+="<div class='col-sm-12' style='margin-top:20px'>";
 													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;table&#39;)" >테이블</div>';
 													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;circle&#39;)" >원형차트</div>';
 													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;bar&#39;)">막대차트</div>';
 													cont+="</div>";
-													cont+="<div class='col-sm-12'>";
+													cont+="<div class='col-sm-12' style='margin-top:20px'>";
 													cont+="<div style='margin:auto; width:50%;float:left;' class='regButton btn-5 taCp'onclick='bigdataReset()'>초기화</div>"
 													cont+="<div style='margin:auto; width:50%' class='regButton btn-5 taCp' id='clusterChart'>검색</div>";
 													cont+="</div>";
@@ -605,9 +605,9 @@
 													cont+="</div>";
 													cont+='<table id="tableHs" ><tr style="background-color:#f6f5ef;text-align:center"><td><h4>지역</h4></td><td><h4>상권 개수</h4></td><td><h4>분포율</h4></td><td><h4>밀집도</h4></td></tr>'+conTextBody+'</table>';
 													cont+="<div class='col-sm-12'>";
-													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;table&#39;)" >테이블</div>';
-													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;circle&#39;)" >원형차트</div>';
-													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;bar&#39;)">막대차트</div>';
+													cont+='<button style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;table&#39;)" >테이블</button>';
+													cont+='<button style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;circle&#39;)" >원형차트</button>';
+													cont+='<button style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;bar&#39;)">막대차트</button>';
 													cont+="</div>";
 													cont+="<div class='col-sm-12'>";
 													cont+="<div style='margin:auto; width:50%;float:left;' class='regButton btn-5 taCp'onclick='bigdataReset()'>초기화</div>"
@@ -838,8 +838,6 @@
 								        	},
 								        	success:function(data){
 								        		 searchCg(cy,cx,data,radius,bigVal,midVal,smallVal,addr1,addr2,addr3);
-								        		
-								        		
 								        	},
 								        	error:function(error){
 								        		alert("잘못 조회 하셨습니다.");
