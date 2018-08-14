@@ -421,9 +421,6 @@
 						
 						
 					}
-					
-					
-					
 		///////////////구군Ajax
 					function allCafeGugunAjax(allGugun,addr){
 						var cont="";
