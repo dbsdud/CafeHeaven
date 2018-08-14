@@ -58,6 +58,12 @@ text-align: center; cursor:pointer
 }
 
 
+#tableHs{
+width:100%;
+}
+
+
+
 
 
 </style>

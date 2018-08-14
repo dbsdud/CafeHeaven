@@ -34,6 +34,29 @@ public static String lastStringSub(String str) {
     }
     return str;
 }
-	
+	/*
+	 * 
+	 * 
+	 *   String mail = "abced naver";
+	        
+	        // 먼저 @ 의 인덱스를 찾는다 - 인덱스 값: 5
+	        int idx = mail.indexOf(" "); 
+	        
+	        // @ 앞부분을 추출
+	        // substring은 첫번째 지정한 인덱스는 포함하지 않는다.
+	        // 아래의 경우는 첫번째 문자열인 a 부터 추출된다.
+	        String mail1 = mail.substring(0, idx);
+	        
+	        // 뒷부분을 추출
+	        // 아래 substring은 @ 바로 뒷부분인 n부터 추출된다.
+	        String mail2 = mail.substring(idx+1);
+	      
+	        System.out.println("mail1 : "+mail1);abcde
+	        System.out.println("mail2 : "+mail2);naver
+
+	 * 
+	 * 
+	 * */
+
 	
 }

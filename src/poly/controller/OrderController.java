@@ -3,6 +3,10 @@
  * */
 package poly.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,8 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import poly.dto.CafeAttachDTO;
 import poly.dto.MenuDTO;
-import poly.dto.OrderDTO;
+import poly.dto.OrderInfoDTO;
+import poly.dto.OrderItemDTO;
 import poly.dto.TmpDTO;
+import poly.dto.TotalOrderDTO;
+import poly.dto.TotalOrderInfoDTO;
 import poly.dto.UserDTO;
 import poly.service.IMenuService;
 import poly.service.IOrderService;
@@ -49,7 +56,7 @@ public class OrderController {
 	}
 	
 	// 주문화면
-	@RequestMapping(value="order/orderDirect", method=RequestMethod.GET)
+	@RequestMapping(value="/order/orderDirect", method=RequestMethod.GET)
 	public String orderDirect(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
 		log.info("orderDirect Start!");
 		String menuNo=request.getParameter("menuNo");
@@ -78,7 +85,7 @@ public class OrderController {
 		log.info("orderDirect End!");
 		return "/order/orderDirect";
 	}
-	@RequestMapping(value="orderDirectDetail", method=RequestMethod.POST)
+	@RequestMapping(value="/order/orderDirectDetail", method=RequestMethod.POST)
 	public String orderDirectDetail(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + "orderDirectDetail start!!!");
 		String menuNo = CmmUtil.nvl(req.getParameter("menuNo"));
@@ -126,10 +133,10 @@ public class OrderController {
 			스탬프 모델 생성
 		*/
 		log.info(this.getClass() + "orderDirectDetail end!!!");
-		return "order/orderDetail";
+		return "/order/orderDetail";
 	}
 	// 페이누리로 주문등록전송
-	/*@RequestMapping(value="order/orderComplete")
+	@RequestMapping(value="order/orderComplete")
 	public void orderrComplete(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + "orderComplete Start");
 		// 결과 코드
@@ -204,8 +211,8 @@ public class OrderController {
 		log.info(this.getClass() + "etc_data3 : " + etc_data3);
 		
 		if(rep_code.equals("0000")) { // 결제 성공
-			log.info("orderSession userNo : " + session.getAttribute(userNo));
-			OrderDTO oDTO = new OrderDTO();
+			log.info("orderSession userNo : " + session.getAttribute("userNo"));
+			OrderInfoDTO oDTO = new OrderInfoDTO();
 			oDTO.setOrdInfoNo(tran_no);
 			oDTO.setOrdTotPrice(amt);
 			if(tran_type.equals("PHON")) {
@@ -215,21 +222,185 @@ public class OrderController {
 			}
 			oDTO.setOrdStat("1");
 			oDTO.setUsrRcvTime(etc_data2);
+			oDTO.setRcvYn("n");
 			oDTO.setOrdTid(tid);
+			/* 결제 성공시 스팸프 추가 감소,, 나중에 주석 풀어야함
+			 * String[] userNoAndStamp = etc_data1.split(";");
+			String[] stamp = userNoAndStamp[1].split("-");
+			Map<String, String> stampMap = new HashMap();
+			oDTO.setUpdNo(userNoAndStamp[0]);
+			if(stamp[0].equals("dec")) {
+				oDTO.setStamp(stamp[1]);
+				oDTO.setOrdTotPrice((Integer.parseInt(amt)+Integer.parseInt(stamp[1])) + "");
+				oDTO.setRegNo(userNoAndStamp[0]);
+				stampMap.put("dec", stamp[1]);
+			}
+			String[] orderItems = etc_data3.split("-");
+			List<OrderItemDTO> oList = new ArrayList<OrderItemDTO>();
+			for(int i = 0; i<orderItems.length; i++) {
+				String[] orderItem = orderItems[i].split(":");
+				OrderItemDTO oiDTO = new OrderItemDTO();
+				oiDTO.setOrdInfoNo(tran_no);
+				oiDTO.setMenuNo(orderItem[0]);
+				oiDTO.setOrdAmnt(orderItem[1]);
+				oiDTO.setRegNo(userNoAndStamp[0]);
+				oList.add(oiDTO);
+			}
+			log.info(this.getClass() + " email : " + CmmUtil.nvl((String)session.getAttribute("email")));
+			session.setAttribute("ss_tmpBasket", "");
+			req.setAttribute("userNo", userNoAndStamp[0]);
+			orderService.insertOrderSuccess(oDTO, oList, stampMap);*/
+		}else {
+			/*
+				결제실패
+			*/
 		}
 		log.info(this.getClass() + "orderComplete End");
-	}*/
+	}
+	
+	@RequestMapping(value="order/orderSuccess")
+	public String orderSuccess(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass() + " orderSuccess Start!!");
+		String userNo = CmmUtil.nvl(req.getParameter("userNo")).split("[?]")[0];
+	    session.setAttribute("userNo", userNo);
+	    log.info(this.getClass() + " userNo : " + userNo);
+	    OrderInfoDTO oDTO = orderService.getOrderNo(userNo);
+	    if(oDTO == null){
+	       oDTO = new OrderInfoDTO();
+	    }
+	    log.info(this.getClass() + " ordInfoNo : " + oDTO.getOrdInfoNo());
+	    OrderItemDTO otDTO = new OrderItemDTO();
+	    otDTO.setOrdInfoNo(oDTO.getOrdInfoNo());
+	    List<OrderItemDTO> otList = orderService.getOrdItem(otDTO);
+	    if(otList ==null){
+	    	otList = new ArrayList<OrderItemDTO>();
+	    }
+	    log.info(this.getClass() + " otListSize : "+ otList.size());
+	      
+	    model.addAttribute("ordNo", CmmUtil.nvl(oDTO.getOrdInfoNo()));
+	    model.addAttribute("otList", otList);
+	    session.setAttribute("ss_tmpBasket", null);
+	    userNo = null;
+	    oDTO = null;
+	    otList = null;		
+		log.info(this.getClass() + " orderSuccess End!!");
+		return "/order/orderSuccess";
+	}
 	
 	
 	// 주문 리스트 조회
-	@RequestMapping(value="order/orderList")
-	public String orderList(HttpServletRequest request, Model model) throws Exception {
-		List<OrderDTO> oList = orderService.getOrderList();
-		model.addAttribute("oList", oList);
+	@RequestMapping(value="order/orderList", method=RequestMethod.GET)
+	public String getOrderList(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
+		log.info(this.getClass() + " orderList Start");
+		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
+		log.info(tList);
+		if(tList == null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		log.info(tList);
+		Collections.sort(tList, new SortOrder());
+		model.addAttribute("TotalOrderList", tList);
+		log.info(tList);
+		tList=null;
+		log.info(this.getClass() + "orderList End");
 		
 		return "/order/orderList";
 	}
-	
+	@RequestMapping(value="order/orderInterval")
+	public @ResponseBody List<TotalOrderDTO> orderInterval(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
+		log.info(this.getClass() + " orderInterval Start!");
+		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
+		
+		if(tList == null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		Collections.sort(tList, new SortOrder());
+		log.info(this.getClass() + " orderInterval tList.size() : " + tList.size());
+		log.info(this.getClass() + " orderInterval End!");
+		return tList;
+	}
+	class SortOrder implements Comparator<TotalOrderDTO>{
+		@Override
+		public int compare(TotalOrderDTO t1, TotalOrderDTO t2) {
+			String[] t1Time = t1.getOrdRemainTime().split(":");
+			int t1Hour = Integer.parseInt(t1Time[0]);
+			int t1Min = Integer.parseInt(t1Time[1]);
+			String[] t2Time = t2.getOrdRemainTime().split(":");
+			int t2Hour = Integer.parseInt(t2Time[0]);
+			int t2Min = Integer.parseInt(t2Time[1]);
+			if(t1Hour > t2Hour) {
+				return 1;
+			}else if(t1Hour < t2Hour) {
+				return -1;
+			}else if(t1Min > t2Min) {
+				return 1;
+			}else if(t1Min < t2Min) {
+				return -1;
+			}else {
+				return 0;
+			}
+		}
+	}
+	@RequestMapping(value="order/orderProc", method=RequestMethod.POST)
+	public @ResponseBody List<TotalOrderDTO> adminTakeOrder(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
+		log.info(this.getClass() + " orderProc Start!");
+		String ordNo = req.getParameter("ordNo");
+		log.info(this.getClass() + " ordNo : " + ordNo);
+		String statNo = req.getParameter("statNo");
+		log.info(this.getClass() + " statNo : " + statNo);
+		List<TotalOrderDTO> tList = orderService.updateAdminOrdNo(ordNo, statNo);
+		if(tList==null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		log.info(this.getClass() + " orderProc End!");
+		Collections.sort(tList, new SortOrder());
+		return tList;
+	}
+	@RequestMapping(value="order/orderCancel")
+	public @ResponseBody List<TotalOrderDTO> orderCancel(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
+		log.info(this.getClass() + " orderCancel Start!");
+		String ordNo = req.getParameter("ordNo");
+		log.info(this.getClass() + " orderCancel : " + ordNo);
+		String statNo = req.getParameter("statNo");
+		log.info(this.getClass() + " orderCancel : " + statNo);
+		List<TotalOrderDTO> tList = orderService.updateAdminOrdNo(ordNo, statNo);
+		if(tList == null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		Collections.sort(tList, new SortOrder());
+		log.info(this.getClass() + " orderCancel End!");
+		return tList;
+	}
+	@RequestMapping(value="order/orderRemainTime.do")
+	public @ResponseBody List<TotalOrderInfoDTO> adminOrderRemainTime(HttpServletRequest req, HttpServletResponse resp, Model model) throws Exception{
+		log.info(this.getClass() + ".adminOrderRemainTime start !!!");
+		List<TotalOrderInfoDTO> tList = orderService.getAdminOrderRemainTime();
+		if(tList == null){
+			tList = new ArrayList<TotalOrderInfoDTO>();
+		}
+		log.info(this.getClass() + ".adminOrderReaminTime end!!!");
+		return tList;
+	}
+	// 주문 테스트
+	/*@RequestMapping(value="orderProcTest", method=RequestMethod.POST)
+	public String orderProcTest(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
+		log.info(this.getClass() + " orderProcTest Start!");
+		String userNo = CmmUtil.nvl(req.getParameter("userNo"));
+		log.info(this.getClass() + " userNo : " + userNo);
+		String ordTotPrice = CmmUtil.nvl(req.getParameter("ordTotPrice"));
+		log.info(this.getClass() + " ordTotPrice : " + ordTotPrice);
+		String ordPayment = CmmUtil.nvl(req.getParameter("ordPayment"));
+		log.info(this.getClass() + " ordPayment : " + ordPayment);
+		String ordDtDate = CmmUtil.nvl(req.getParameter("ordDtDate"));
+		log.info(this.getClass() + " ordDtDate : " + ordDtDate);
+		String ordStat = CmmUtil.nvl(req.getParameter("ordStat"));
+		log.info(this.getClass() + " ordStat : " + ordStat);
+		
+		
+		
+		log.info(this.getClass() + " orderProcTest End!");
+		return null;
+	}*/
 	
 	// 바로 주문정보
 	/*@RequestMapping(value="/order/orderDirectInfo")
