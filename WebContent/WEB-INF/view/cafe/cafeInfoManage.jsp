@@ -59,7 +59,7 @@
 				<label class="col-sm-3 control-label">전화번호</label>
 				<!-- 숫자만 입력하게 하면됨 -->
 				<div class="col-sm-6">
-					<input class="form-control" id="telNum" type="tel" name="cafeTel"
+					<input class="form-control" id="telNum" type="text" name="cafeTel"
 						placeholder="전화번호입력"><!-- 추가 dto 컬럼 -->
 				</div>
 			</div>
