@@ -56,7 +56,7 @@ public class OrderController {
 	}
 	
 	// 주문화면
-	@RequestMapping(value="order/orderDirect", method=RequestMethod.GET)
+	@RequestMapping(value="/order/orderDirect", method=RequestMethod.GET)
 	public String orderDirect(HttpServletRequest request, HttpServletResponse response, Model model, HttpSession session) throws Exception{
 		log.info("orderDirect Start!");
 		String menuNo=request.getParameter("menuNo");
@@ -85,7 +85,7 @@ public class OrderController {
 		log.info("orderDirect End!");
 		return "/order/orderDirect";
 	}
-	@RequestMapping(value="orderDirectDetail", method=RequestMethod.POST)
+	@RequestMapping(value="/order/orderDirectDetail", method=RequestMethod.POST)
 	public String orderDirectDetail(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + "orderDirectDetail start!!!");
 		String menuNo = CmmUtil.nvl(req.getParameter("menuNo"));
@@ -133,7 +133,7 @@ public class OrderController {
 			스탬프 모델 생성
 		*/
 		log.info(this.getClass() + "orderDirectDetail end!!!");
-		return "order/orderDetail";
+		return "/order/orderDetail";
 	}
 	// 페이누리로 주문등록전송
 	@RequestMapping(value="order/orderComplete")
