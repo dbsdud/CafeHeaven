@@ -34,7 +34,7 @@ public class MenuController {
 	private IMenuService menuService;
 
 	//이미지 /파일을 저장하기 위한 경로 설정
-	String savePath= "C:\\CafeHeaven\\SpringPRJ\\WebContent\\uploadImg\\"; // 이거는 로컬 경로를 뜻하는지 알아야됨
+	String savePath= "C:\\Users\\data16\\git\\CafeHeaven\\WebContent\\uploadImg\\"; // 이거는 로컬 경로를 뜻하는지 알아야됨
 	
 	
 	//메뉴리스트 
