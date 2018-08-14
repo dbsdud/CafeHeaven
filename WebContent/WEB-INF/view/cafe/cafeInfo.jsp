@@ -146,30 +146,7 @@ $(function(){
 							</div>
 							<br />
 
-							<!-- 위도 -->
-							<div class="col-sm-12" style="width: 100%">
-								<div class="col-sm-4">
-									<p style="float: right">CLOSE TIME :</p>
-								</div>
-								<div class="col-sm-8">
-									<input type="text"
-										style="float: left; width: 100%; border: 0; margin-left: auto; margin-right: auto; display: block;"
-										readonly value="<%=cDTO.getCafeLat()%>" />
-								</div>
-							</div>
-							<br />
-
-							<!-- 경도  -->
-							<div class="col-sm-12" style="width: 100%">
-								<div class="col-sm-4">
-									<p style="float: right">CLOSE TIME :</p>
-								</div>
-								<div class="col-sm-8">
-									<input type="text"
-										style="float: left; width: 100%; border: 0; margin-left: auto; margin-right: auto; display: block;"
-										readonly value="<%=cDTO.getCafeHar()%>" />
-								</div>
-							</div>
+					
 							<br />
 
 							<script>
