@@ -152,12 +152,13 @@ function bigdataReset(){
 			<!--  고객성향분석 -->
 
 		<div id="bd-menu2" class="tab-pane">
-            <div class="col-sm-4 regButton btn-5 taCp">성별</div>
-            <div class="col-sm-4 regButton btn-5 taCp">연령별</div>
-            <div class="col-sm-4 regButton btn-5 taCp">시간대별</div>
+          
             <div class="chart-container">
                <canvas id="genderChart"></canvas>
             </div>
+             <div class="col-sm-4 regButton btn-5 taCp">성별</div>
+            <div class="col-sm-4 regButton btn-5 taCp">연령별</div>
+            <div class="col-sm-4 regButton btn-5 taCp">시간대별</div>
          </div>
 			<div id="bd-menu3" class="tab-pane">
 				<div class="chart-container" >
