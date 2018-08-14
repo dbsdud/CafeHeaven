@@ -10,49 +10,107 @@
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/view/cssjs.jsp" %>
 <%@ include file="userListScript.jsp" %>
-
 <script>
 	$(function(){
 	 	var select = $('select[name=notice]');
-		select.click(function(){
-			if(select.val()=="QnA"){
-				console.log("qna");
-				$.ajax({
-					url : '/user/userWriteList.do',
-					method : 'get',
-					data : {'userNo':userNo},
-					success : function(data){
-						console.log(data);
-							if(select.val()=="Review"){
-								$('#list').html('');
-								var contents+='<table border="1px">'
-								contents+='<tr>'
-								contents+='<td>제목</td>'
-								contents+='<td>작성자</td>'
-								contents+='<td>작성일</td>'
-								contents+='<td>조회수</td>'
-								contents+='</tr>'
-								
-								$.each(data, function(key, value){
-									contents += '<tr>';
-									contents += '<td>' + value.nt_title + '</td>';
-									contents += '<td>' + value.rvwriter + '</td>';
-									contents += '<td>' + value.regdate + '</td>';
-									contents += '<td>' + value.nt_count + '</td>';
-									contents += '</tr>';
-								})
-							}
-						
-						}
-					
-					})
-				}else if(select.val()=="Notice"){
-					console.log("notice");
-				}else{
-					console.log("나머지");
+		select.click(function(){				
+			$.ajax({
+				url : '/user/userWriteList.do',
+				method : 'get',
+				data : {'userNo':userNo},
+				success : function(data){
+					$('#list').html('');
+					var contents='';
+					if(select.val()=="Notice"){
+						contents += '<table border="1">';
+						contents += '<tr>';
+						contents += '<td>제목</td>';
+						contents += '<td>작성자</td>';
+						contents += '<td>작성일</td>';
+						contents += '<td>조회수</td>';
+						contents += '</tr>';
+						.each(data, function(key, value){
+							contents += '<tr>';
+							contents += '<td> + value.nt_title + </td>';
+							contents += '<td> + value.rvwriter + </td>';
+							contents += '<td> + value.regdate + </td>';
+							contents += '<td> + value.nt_count + </td>';
+							contents += '</tr>';
+						});
+					contents += '</table>';
+					console.log(contents);
+					$('#list').html(contents);
+					};
+				},
+				error:function(error){
+					alert(error);
 				}
-			})
+			});
 		});
+	});
+/* 					console.log(data);
+						if(select.val()=="Notice"){
+							$('#list').html('');
+							var contents = '';
+							contents+='<table border="1px">';
+							contents+='<tr>';
+							contents+='<td>제목</td>';
+							contents+='<td>작성자</td>';
+							contents+='<td>작성일</td>';
+							contents+='<td>조회수</td>';
+							contents+='</tr>';
+							$.each(data, function(key, value){
+							contents += '<tr>';
+							contents += '<td>' + value.nt_title + '</td>';
+							contents += '<td>' + value.rvwriter + '</td>';
+							contents += '<td>' + value.regdate + '</td>';
+							contents += '<td>' + value.nt_count + '</td>';
+							contents += '</tr>';
+							});
+							contents += '</table>';
+							console.log(contents);
+							$('#list').html(contents);
+						}else if(select.val()=="Review"){
+							var contents = '<table border="1px">';
+							contents += '<tr>';
+							contents += '<td>상품명</td>';
+							contents += '<td>별점</td>';
+							contents += '<td>리뷰</td>';
+							contents += '<td>작성자</td>';
+							contents += '</tr>';
+							$.each(data, function(key, value){
+							var contents = '<table border="1px">';
+							contents += '<tr>';
+							contents += '<td>' + value.menu_name + '</td>';
+							contents += '<td>' + value.cafe_star + '</td>';
+							contents += '<td>' + value.cafe_review + '</td>';
+							contents += '<td>' + value.rvwriter + '</td>';
+							contents += '</tr>';
+							});
+							contents += '</table>';
+							console.log(contents);
+							$('#list').html(contents);
+						}else{
+							var contents = '<table border="1px">';
+							contents += '<tr>';
+							contents += '<td>상품명</td>';
+							contents += '<td>별점</td>';
+							contents += '<td>리뷰</td>';
+							contents += '<td>작성자</td>';
+							contents += '</tr>';
+							$.each(data, function(key, value){
+							var contents = '<table border="1px">';
+							contents += '<tr>';
+							contents += '<td>' + value.menu_name + '</td>';
+							contents += '<td>' + value.cafe_star + '</td>';
+							contents += '<td>' + value.cafe_review + '</td>';
+							contents += '<td>' + value.rvwriter + '</td>';
+							contents += '</tr>';
+						};
+						contents += '</table>';
+						console.log(contents);
+						$('#list').html(contents);
+					}, */
 </script>
 
 </head>

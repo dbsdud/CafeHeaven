@@ -175,7 +175,7 @@ public class TmpController {
 		return tMap;
 	}
 	// 장바구니에서 주문
-	@RequestMapping(value="userDoOrder", method=RequestMethod.GET)
+	@RequestMapping(value="order/userDoOrder", method=RequestMethod.GET)
 	public String userDoOrder(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session) throws Exception{
 		log.info(this.getClass() + "userDoOrder Start!");
 		String userNo = CmmUtil.nvl((String)session.getAttribute("userNo"));
@@ -190,7 +190,7 @@ public class TmpController {
 		if(tMap.size()<1) {
 			returnURL = "user/userAlert";
 			model.addAttribute("msg", "주문하신 제품이 없습니다.");
-			model.addAttribute("url", "menu/menuList.do");
+			model.addAttribute("url", "/menu/menuList.do");
 		}
 		/*스탬트 모델*/
 		log.info(this.getClass() + "userDoOrder End!");

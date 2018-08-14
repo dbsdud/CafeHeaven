@@ -7,9 +7,26 @@
 <%@ include file="/WEB-INF/view/cssjs.jsp" %>
 <title>Insert title here</title>
 <style>
+body {
+	background-image: url("/image/main_cafe.jpg");
+	background-repeat: repeat-x;
+	width: 100%;
+	height: auto;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+}
 
-body{
-background-image: url("/image/main_cafe.jpg");
+@media only screen and (min-device-width: 400px) {
+	body {
+		background-image: url("/image/main_cafe.jpg");
+		background-repeat: repeat-x;
+		width: auto;
+		height: auto;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+	}
 }
 </style>
 </head>
