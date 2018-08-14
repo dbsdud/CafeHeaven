@@ -44,9 +44,16 @@ public class ApiDTO {
 	private String lat;//위도
 	private String plotSctCd;//대지구분코두
 	private String plotSctNm;//대지구분명
+	private String totalCount; // 총합
 	
 	
 	
+	public String getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(String totalCount) {
+		this.totalCount = totalCount;
+	}
 	public String getPlotSctCd() {
 		return plotSctCd;
 	}
