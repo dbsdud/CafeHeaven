@@ -84,11 +84,11 @@ body, html {
 							contents+="<div class='w3-col s4'>";
 							contents+="<span>";
 							contents+="<a href='#' data-toggle='modal' data-target='#menu-dt'>";
-							contents+="<img src='/uploadImg/"+caList[i].cafeImg+" 'onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'>";
+							contents+="<img src='/uploadImg/"+caList[i].cafeImg+"' style='width: 100%; height:auto;' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'>";
 							contents+="</a>";
 							contents+="</span>";
 							contents+="<div>";
-							contents+="<a href=''#'></a>";
+							contents+="<a href='#'></a>";
 							contents+="</div>";
 							contents+="<h5>"+mList[i].menuName+"</h5>";
 							contents+="<p class='w3-text-grey'>"+mList[i].menuPrice+"원</p>"
@@ -102,8 +102,8 @@ body, html {
 							}else{
 								contents+="<div class='w3-col s4'>";
 								contents+="<span>";
-								contents+="<a href='#' data-toggle='modal' data-target='#menu-dt'>";
-								contents+="<img src='/uploadImg/"+caList[i].cafeImg+" 'onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'>";
+						 		contents+="<a href='#' data-toggle='modal' data-target='#menu-dt'>";
+								contents+="<img src='/uploadImg/"+caList[i].cafeImg+"' style='width: 100%; height:auto;' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'>";
 								contents+="</a>";
 								contents+="</span>";
 								contents+="<div>";
