@@ -21,9 +21,19 @@ $(function(){
 		$('#myRegionSameBs').show();
 		$('#regionTypeBs').hide();
 		$('#moveHuman').hide();
-		$('#map1').hide();
-		$('#map3').show();
-		$('#map2').hide();	
+		var count=parseInt('1');
+		if($('#hdshtwoHs').val()==count){
+			$('#map1').hide();
+			$('#map3').show();
+			$('#map2').hide();
+			
+		}else if($('#hdshtwoHs').val()!=count){
+			$('#map1').hide();
+			$('#map2').show();
+			$('#map3').hide();	
+		}
+		$('#hdshtwoHs').val(2);		
+			
 	});
 })
 //중단 지역별 hide show

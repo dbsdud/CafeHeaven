@@ -54,6 +54,7 @@ function bigdataReset(){
 				<div style="padding-top: 30px"></div>
 				<div id="hdshone" style="width:50%;float:left; " class="regButton btn-5 taCp" > 카페 분포 지도</div>
 				<div id="hdshtwo"  style="width:50%;float:left;" class="regButton btn-5 taCp" >상권 밀집도</div>
+				<input type="hidden" id="hdshtwoHs" value="1"/>
 				<div id="regionTypeBs">
 					<!-- 카페 분포로 바꿈 차트   , 텍스트보여줄곳 -->
 				<div id="showChart">
