@@ -399,7 +399,7 @@
 													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;bar&#39;)">막대차트</div>';
 													cont+="</div>";
 													cont+="<div class='col-sm-12' style='margin-top:20px'>";
-													cont+="<div style='margin:auto; width:50%;float:left;' class='regButton btn-5 taCp'onclick='bigdataReset()'>초기화</div>"
+													cont+="<div style='margin:auto; width:50%;' class='regButton btn-5 taCp'onclick='bigdataReset()'>초기화</div>"
 							/* 						cont+="<div style='margin:auto; width:50%' class='regButton btn-5 taCp' id='clusterChart'>검색</div>"; */
 													cont+="</div>";
 											
