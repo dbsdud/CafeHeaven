@@ -42,7 +42,6 @@ $(function(){
 			url:"/sido/sidoSearch.do",
 			type:'get',
 			success: function(data){
-				
 				//sidocont
 				$.each(data,function(key,value){
 					sidoCon+='<option value='+value.ctprvnCd+'>'+value.ctprvnNm+'</option>'
@@ -51,14 +50,13 @@ $(function(){
 						ctprvnCd:value.ctprvnCd
 					})
 				})
-				
 				sido.html(sidoCon);
 				
 				/* //맵과 차트 보여줄거
 				$('#clusterChart').click(function(){
 				})	 */
 				
-						allCafeSido(allSido);
+				allCafeSido(allSido);
 				
 				geoAddr(allSido);
 			

@@ -48,37 +48,140 @@ public class BigDataController {
 		return "/bigData/bigData";
 	}
 	
-	//시도 조회
+	
+	@RequestMapping(value="sido/sidoSearch")
+	public @ResponseBody List<Object> sidoSearch(HttpServletRequest req) throws Exception{
+		log.info("sidosearch start:"+this.getClass());
+		String url ="http://apis.data.go.kr/B553077/api/open/sdsc/baroApi?resId=dong&catId=mega&signguCd=00&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json";
+		List<Object> mList=new ArrayList<>();
+		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+		
+		try{
+			String charSet = "EUC-KR";
+			
+			HashMap<String, String> hashmapResponse = (HashMap<String, String>) HttpUtil.callURLGet(url,  charSet);
+			if ("200".equals(hashmapResponse.get("httpStatus"))){
+				String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
+				hashmapRes = StringUtil.JsonStringToObject(responseBody);
+				String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+			    JSONParser parser = new JSONParser();
+			    Object obj = parser.parse(bodyJSON); 
+			    JSONObject jsonObj = (JSONObject) obj;
+			    JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+			   for(int i=0 ; i<bodyJSONArray.size();i++) {
+				   	mList.add(bodyJSONArray.get(i));
+			   }
+			}else{
+				hashmapRes.put("REP_CODE", "9999");
+				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+			}
+		}catch (Exception e){
+			hashmapRes.put("REP_CODE", "9999");
+			hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+		}
+		
+	 		log.info("sido end:"+this.getClass());
+			return mList;
+	}
+	//구군 조회
+	@RequestMapping(value="gugun/gugunSearch")
+	public @ResponseBody List<Object> gugunSearch(HttpServletRequest req) throws Exception{
+		log.info("gugunsearch start:"+this.getClass());
+		String sido=req.getParameter("sido");//시도 코드
+		String url ="http://apis.data.go.kr/B553077/api/open/sdsc/"
+				+ "baroApi?resId=dong&catId=cty&ctprvnCd="+sido
+				+ "&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json";
+		List<Object> mList=new ArrayList<>();
+		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+		
+		try{
+			String charSet = "EUC-KR";
+			
+			HashMap<String, String> hashmapResponse = (HashMap<String, String>) HttpUtil.callURLGet(url,  charSet);
+			if ("200".equals(hashmapResponse.get("httpStatus"))){
+				String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
+				hashmapRes = StringUtil.JsonStringToObject(responseBody);
+				String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+			    JSONParser parser = new JSONParser();
+			    Object obj = parser.parse(bodyJSON); 
+			    JSONObject jsonObj = (JSONObject) obj;
+			    JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+			   for(int i=0 ; i<bodyJSONArray.size();i++) {
+				   	mList.add(bodyJSONArray.get(i));
+			   }
+			}else{
+				hashmapRes.put("REP_CODE", "9999");
+				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+			}
+		}catch (Exception e){
+			hashmapRes.put("REP_CODE", "9999");
+			hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+		}
+		
+	 		log.info("gugun end:"+this.getClass());
+			return mList;
+	}
+	//dong 조회
+	@RequestMapping(value="dong/dongSearch")
+	public @ResponseBody List<Object> dongSearch(HttpServletRequest req) throws Exception{
+		log.info("dongsearch start:"+this.getClass());
+		String gugun=req.getParameter("gugun");//구군코드
+		String url ="http://apis.data.go.kr/B553077/api/open/sdsc/baroApi?resId=dong&catId=admi"
+				+ "&signguCd="+gugun
+				+ "&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json";
+		List<Object> mList=new ArrayList<>();
+		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+		
+		try{
+			String charSet = "EUC-KR";
+			
+			HashMap<String, String> hashmapResponse = (HashMap<String, String>) HttpUtil.callURLGet(url,  charSet);
+			if ("200".equals(hashmapResponse.get("httpStatus"))){
+				String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
+				hashmapRes = StringUtil.JsonStringToObject(responseBody);
+				String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+			    JSONParser parser = new JSONParser();
+			    Object obj = parser.parse(bodyJSON); 
+			    JSONObject jsonObj = (JSONObject) obj;
+			    JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+			   for(int i=0 ; i<bodyJSONArray.size();i++) {
+				   	mList.add(bodyJSONArray.get(i));
+			   }
+			}else{
+				hashmapRes.put("REP_CODE", "9999");
+				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+			}
+		}catch (Exception e){
+			hashmapRes.put("REP_CODE", "9999");
+			hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+		}
+		
+	 		log.info("dong end:"+this.getClass());
+			return mList;
+	}
+	
+	
+/*	//시도 조회
 	@RequestMapping(value="sido/sidoSearch")
 	public @ResponseBody List<ApiDTO> sido(HttpServletRequest req) throws Exception{
 	log.info("search sido start: "+this.getClass());
-	/*String sido=req.getParameter("sido");
-	log.info("sido 확인 :"+sido);*/
-	
-	//dong city
 	List<ApiDTO> sidoList = new ArrayList<>();
-	//xml 파싱
 	try {
 		DocumentBuilderFactory factory= DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = factory.newDocumentBuilder();
 		Document doc = builder.parse("http://apis.data.go.kr/B553077/api/open/sdsc/baroApi?resId=dong&catId=mega&signguCd=00&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D");
 		doc.getDocumentElement().normalize();
-		
-		//System.out.println("Root element : "+doc.getDocumentElement().getNodeName());
 		NodeList list = doc.getElementsByTagName("item");//태그 시작위치
-		//System.out.println("-----------------------");
 		
 		for(int temp = 0; temp < list.getLength(); temp++){
 			Node node = list.item(temp);
 			if(node.getNodeType()==Node.ELEMENT_NODE){
 				Element element = (Element)node;
-				//String ctprvnNm=OpenApi.getTagValue("ctprvnNm",element);
 				ApiDTO apiDTO=new ApiDTO();
 				apiDTO.setCtprvnNm(OpenApiXml.getTagValue("ctprvnNm",element));
 				apiDTO.setCtprvnCd(OpenApiXml.getTagValue("ctprvnCd",element));
 			
 				sidoList.add(apiDTO);
-			
 			}
 		}
 	} catch (Exception e) {
@@ -88,9 +191,9 @@ public class BigDataController {
 	
 		return sidoList;
 	}
+	*/
 	
-	
-	//구군 조회
+	/*//구군 조회
 		@RequestMapping(value="gugun/gugunSearch")
 		public @ResponseBody List<ApiDTO>  gugun(HttpServletRequest req) throws Exception{
 		log.info("search gugun start: "+this.getClass());
@@ -106,26 +209,18 @@ public class BigDataController {
 			
 			doc.getDocumentElement().normalize();
 			
-			//System.out.println("Root element : "+doc.getDocumentElement().getNodeName());
 			NodeList list = doc.getElementsByTagName("item");//태그 시작위치
-			//System.out.println("-----------------------");
 			
 			for(int temp = 0; temp < list.getLength(); temp++){
 				Node node = list.item(temp);
 				if(node.getNodeType()==Node.ELEMENT_NODE){
 					Element element = (Element)node;
-					//String ctprvnNm=OpenApi.getTagValue("ctprvnNm",element);
 					ApiDTO apiDTO=new ApiDTO();
 					//여기서는 시도 번호나 명을 세팅해야 나중에 select 조회 할때 쓸수 있음
 					apiDTO.setCtprvnCd(OpenApiXml.getTagValue("ctprvnCd",element));
 					apiDTO.setSignguCd(OpenApiXml.getTagValue("signguCd",element));//시군구코드번호 세팅
 					apiDTO.setSignguNm(OpenApiXml.getTagValue("signguNm",element));//시군구 명 세팅
-					//확인
-					/*log.info(apiDTO.getCtprvnCd());
-					log.info(apiDTO.getCtprvnNm());*/
 					gugunList.add(apiDTO);
-					
-					
 				}
 			}
 		} catch (Exception e) {
@@ -134,8 +229,8 @@ public class BigDataController {
 		log.info("search gugun end: "+this.getClass());
 		
 			return gugunList;
-		}
-		//동면읍 조회
+		}*/
+		/*//동면읍 조회
 			@RequestMapping(value="dong/dongSearch")
 			public @ResponseBody List<ApiDTO>  dongEubMyun(HttpServletRequest req) throws Exception{
 				log.info("search dong start: "+this.getClass());
@@ -151,27 +246,17 @@ public class BigDataController {
 							+ "&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D");
 					
 					doc.getDocumentElement().normalize();
-					
-					//System.out.println("Root element : "+doc.getDocumentElement().getNodeName());
 					NodeList list = doc.getElementsByTagName("item");//태그 시작위치
-					//System.out.println("-----------------------");
-					
 					for(int temp = 0; temp < list.getLength(); temp++){
 						Node node = list.item(temp);
 						if(node.getNodeType()==Node.ELEMENT_NODE){
 							Element element = (Element)node;
-							//String ctprvnNm=OpenApi.getTagValue("ctprvnNm",element);
 							ApiDTO apiDTO=new ApiDTO();
 							//여기서는 시도 번호나 명을 세팅해야 나중에 select 조회 할때 쓸수 있음
 							apiDTO.setSignguCd(OpenApiXml.getTagValue("signguCd",element));//시군구 코드
 							apiDTO.setAdongCd(OpenApiXml.getTagValue("adongCd",element));//행정동코드
 							apiDTO.setAdongNm(OpenApiXml.getTagValue("adongNm",element));//행정동명 
-							//확인
-					/*		log.info(apiDTO.getAdongCd());
-							log.info(apiDTO.getAdongNm());*/
 							dongList.add(apiDTO);
-							
-							
 						}
 					}
 				} catch (Exception e) {
@@ -181,11 +266,123 @@ public class BigDataController {
 				
 					return dongList;
 				}
-				
+*/				
 				
 ////////////////////////////지역별  업종별 분포도 조회
+//대분류
+	@RequestMapping(value="cgBusiness/bigSearch")
+	public @ResponseBody List<Object> bigSearch(HttpServletRequest req) throws Exception{
+		log.info("bigsearch start:"+this.getClass());
+		String url ="http://apis.data.go.kr/B553077/api/open/sdsc/largeUpjongList?ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json";
+		List<Object> mList=new ArrayList<>();
+		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+		
+		try{
+			String charSet = "EUC-KR";
+			
+			HashMap<String, String> hashmapResponse = (HashMap<String, String>) HttpUtil.callURLGet(url,  charSet);
+			if ("200".equals(hashmapResponse.get("httpStatus"))){
+				String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
+				hashmapRes = StringUtil.JsonStringToObject(responseBody);
+				String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+			    JSONParser parser = new JSONParser();
+			    Object obj = parser.parse(bodyJSON); 
+			    JSONObject jsonObj = (JSONObject) obj;
+			    JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+			   for(int i=0 ; i<bodyJSONArray.size();i++) {
+				   	mList.add(bodyJSONArray.get(i));
+			   }
+			}else{
+				hashmapRes.put("REP_CODE", "9999");
+				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+			}
+		}catch (Exception e){
+			hashmapRes.put("REP_CODE", "9999");
+			hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+		}
+		
+	 		log.info("big end:"+this.getClass());
+			return mList;
+	}
+	//중분류
+	@RequestMapping(value="cgBusiness/midSearch")
+	public @ResponseBody List<Object> midSearch(HttpServletRequest req) throws Exception{
+		log.info("search midBusiness start: "+this.getClass());
+		String bigCode=req.getParameter("bigCode");
+		String url ="http://apis.data.go.kr/B553077/api/open/sdsc/middleUpjongList?indsLclsCd="+bigCode+"&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json";
+		List<Object> mList=new ArrayList<>();
+		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+		
+		try{
+			String charSet = "EUC-KR";
+			
+			HashMap<String, String> hashmapResponse = (HashMap<String, String>) HttpUtil.callURLGet(url,  charSet);
+			if ("200".equals(hashmapResponse.get("httpStatus"))){
+				String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
+				hashmapRes = StringUtil.JsonStringToObject(responseBody);
+				String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+			    JSONParser parser = new JSONParser();
+			    Object obj = parser.parse(bodyJSON); 
+			    JSONObject jsonObj = (JSONObject) obj;
+			    JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+			   for(int i=0 ; i<bodyJSONArray.size();i++) {
+				   	mList.add(bodyJSONArray.get(i));
+			   }
+			}else{
+				hashmapRes.put("REP_CODE", "9999");
+				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+			}
+		}catch (Exception e){
+			hashmapRes.put("REP_CODE", "9999");
+			hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+		}
+		
+	 		log.info("midcg end:"+this.getClass());
+			return mList;
+	}
+	
+//소분류
+	//중분류
+		@RequestMapping(value="cgBusiness/smallSearch")
+		public @ResponseBody List<Object> smallSearch(HttpServletRequest req) throws Exception{
+			log.info("search smallBusiness start: "+this.getClass());
+			String bigCode=req.getParameter("bigCode");
+			String midCode=req.getParameter("midCode");
+			String url ="http://apis.data.go.kr/B553077/api/open/sdsc/smallUpjongList?indsLclsCd="+bigCode
+					+ "&indsMclsCd="+midCode
+					+ "&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json";
+			List<Object> mList=new ArrayList<>();
+			HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+			
+			try{
+				String charSet = "EUC-KR";
 				
-//대분류 조회/////////////////////////////
+				HashMap<String, String> hashmapResponse = (HashMap<String, String>) HttpUtil.callURLGet(url,  charSet);
+				if ("200".equals(hashmapResponse.get("httpStatus"))){
+					String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
+					hashmapRes = StringUtil.JsonStringToObject(responseBody);
+					String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+				    JSONParser parser = new JSONParser();
+				    Object obj = parser.parse(bodyJSON); 
+				    JSONObject jsonObj = (JSONObject) obj;
+				    JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+				   for(int i=0 ; i<bodyJSONArray.size();i++) {
+					   	mList.add(bodyJSONArray.get(i));
+				   }
+				}else{
+					hashmapRes.put("REP_CODE", "9999");
+					hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+				}
+			}catch (Exception e){
+				hashmapRes.put("REP_CODE", "9999");
+				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+			}
+			
+		 		log.info("smallcg end:"+this.getClass());
+				return mList;
+		}
+	
+/*//대분류 조회/////////////////////////////
 	@RequestMapping(value="cgBusiness/bigSearch")
 	public @ResponseBody List<ApiDTO>  bigBusiness(HttpServletRequest req) throws Exception{
 		log.info("search bigBusiness start: "+this.getClass());
@@ -211,8 +408,8 @@ public class BigDataController {
 						apiDTO.setIndsLclsCd(OpenApiXml.getTagValue("indsLclsCd",element));//대분류코드
 						apiDTO.setIndsLclsNm(OpenApiXml.getTagValue("indsLclsNm",element));//대분류명 
 						//확인
-				/*		log.info("대분류 코드 get:"+apiDTO.getIndsLclsCd());
-						log.info("대분류 명 get:"+apiDTO.getIndsLclsNm());*/
+						log.info("대분류 코드 get:"+apiDTO.getIndsLclsCd());
+						log.info("대분류 명 get:"+apiDTO.getIndsLclsNm());
 						bigBusinessList.add(apiDTO);
 							
 						}
@@ -224,8 +421,8 @@ public class BigDataController {
 				
 					return bigBusinessList;
 				}
-				
-	//중분류 조회/////////////////////////////		
+*/				
+/*	//중분류 조회/////////////////////////////		
 				
 	@RequestMapping(value="cgBusiness/midSearch")
 	public @ResponseBody List<ApiDTO>  midBusiness(HttpServletRequest req) throws Exception{
@@ -256,8 +453,8 @@ public class BigDataController {
 						apiDTO.setIndsMclsCd(OpenApiXml.getTagValue("indsMclsCd",element));//중분류코드 
 						apiDTO.setIndsMclsNm(OpenApiXml.getTagValue("indsMclsNm",element));//중분류명 
 						//확인
-						/*log.info("중분류 코드 get:"+apiDTO.getIndsMclsCd());
-						log.info("중분류 명 get:"+apiDTO.getIndsMclsNm());*/
+						log.info("중분류 코드 get:"+apiDTO.getIndsMclsCd());
+						log.info("중분류 명 get:"+apiDTO.getIndsMclsNm());
 						midBusinessList.add(apiDTO);
 							
 						}
@@ -268,9 +465,9 @@ public class BigDataController {
 				log.info("search midBusiness end: "+this.getClass());
 				
 					return midBusinessList;
-				}
+				}*/
 	
-	//소분류 조회
+	/*//소분류 조회
 	
 	@RequestMapping(value="cgBusiness/smallSearch")
 	public @ResponseBody List<ApiDTO>  smallBusiness(HttpServletRequest req) throws Exception{
@@ -306,8 +503,8 @@ public class BigDataController {
 				apiDTO.setIndsSclsCd(OpenApiXml.getTagValue("indsSclsCd",element));//소분류코드 
 				apiDTO.setIndsSclsNm(OpenApiXml.getTagValue("indsSclsNm",element));//소분류명 
 				//확인
-		/*		log.info("중분류 코드 get:"+apiDTO.getIndsSclsCd());
-				log.info("중분류 명 get:"+apiDTO.getIndsSclsNm());*/
+				log.info("중분류 코드 get:"+apiDTO.getIndsSclsCd());
+				log.info("중분류 명 get:"+apiDTO.getIndsSclsNm());
 				smallBusinessList.add(apiDTO);
 					
 				}
@@ -318,7 +515,7 @@ public class BigDataController {
 		log.info("search midBusiness end: "+this.getClass());
 		
 			return smallBusinessList;
-		}
+		}*/
 	//업종별 분포도 서울 몇개 경기도 몇개 전라도 몇개 리스트로 대중소 시도, 구군 ,동 9개의 경우의수 일거같음
 	//semas openapi 활용가이드  13) 업종별 상가업소 조회 오퍼레이션
 	//divId 는 분류 코드 key 업종코드값
@@ -326,8 +523,6 @@ public class BigDataController {
 /////////////////////////////////////////////////////////////////////////////////////////////////////상권밀집도///////////////////////////////////////////////////////////////////////////////
 	@RequestMapping(value="/bigData/bsCgDistribution")
 	public @ResponseBody Map<String, Object> bsCgDistribution(HttpServletRequest req) throws Exception{
-		
-		
 		log.info("search bsCgDistribution start: "+this.getClass());
 		//divId  인 지역 분류코드와  key 업종코드값 불러와야됨
 		String divId=req.getParameter("divId");
@@ -441,6 +636,7 @@ public class BigDataController {
 		try{
 			
 			for(int i = 0 ; i<allSido.size();i++) {
+				
 				HashMap<String, String> hashmapJson = new HashMap<String, String>();
 				//log.info(allSido.get(i));
 				//log.info(allSido.get(i).get("ctprvnCd"));
@@ -479,8 +675,9 @@ public class BigDataController {
 		   // log.info(hashmapJson.get("서울특별시"));
 		  //  log.info(totalCount);
 		    //JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+		//System.out.println(bodyJSONArray);
 		    
-//		    /System.out.println(bodyJSONArray);
+//		    /
 		   /* if(bodyJSONArray!=null) {
 		    	pageNo+=1;
 		    }else {
