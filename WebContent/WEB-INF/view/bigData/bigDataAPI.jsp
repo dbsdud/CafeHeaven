@@ -50,6 +50,7 @@ $(function(){
 						ctprvnCd:value.ctprvnCd
 					})
 				})
+				
 				sido.html(sidoCon);
 				
 				/* //맵과 차트 보여줄거
