@@ -58,9 +58,9 @@ function bigdataReset(){
 				<div id="regionTypeBs">
 					<!-- 카페 분포로 바꿈 차트   , 텍스트보여줄곳 -->
 				<div id="showChart">
-				<div style="margin-top:30px">
+				<!-- <div style="margin-top:30px">
 					<div style="margin:auto; width:33%;" class="regButton btn-5 taCp" id="clusterChart">검색</div>			
-				</div>
+				</div> -->
 				</div>
 				</div>
 

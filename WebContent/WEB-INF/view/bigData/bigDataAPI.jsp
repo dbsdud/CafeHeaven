@@ -54,10 +54,12 @@ $(function(){
 				
 				sido.html(sidoCon);
 				
-				//맵과 차트 보여줄거
+				/* //맵과 차트 보여줄거
 				$('#clusterChart').click(function(){
+				})	 */
+				
 						allCafeSido(allSido);
-				})
+				
 				geoAddr(allSido);
 			
 			},
