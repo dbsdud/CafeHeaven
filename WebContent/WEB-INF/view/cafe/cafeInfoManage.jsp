@@ -21,7 +21,11 @@
 
 
 	<div class="container">
-		
+		<div class="page-header">
+			<h1>
+				카페 정보 등록 <small>CAFE HEAVEN</small>
+			</h1>
+		</div>
 		<!-- 카페 정보 -->
 		<form method="post" action="/cafe/cafeInfoProc.do" Enctype="multipart/form-data" class="form-horizontal">  <!-- post 대용량,이미지  -->
 			<div class="form-group">
