@@ -1,11 +1,5 @@
 package poly.controller;
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,19 +9,18 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathFactory;
+
 
 import org.apache.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -36,9 +29,11 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonParser;
 
 import poly.dto.ApiDTO;
 import poly.util.CmmUtil;
+import poly.util.FormatString;
 import poly.util.HttpUtil;
 import poly.util.OpenApiXml;
 import poly.util.StringUtil;
@@ -429,44 +424,187 @@ public class BigDataController {
 /////////////////////////////////////////////////////////////////////////////////////////////////////상권밀집도 끝///////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////업종별 분포도 시작/////////////////////////////////////////////////////////////////////////////////	
 	//"http://apis.data.go.kr/B553077/api/open/sdsc/baroApi?resId=dong&catId=mega&signguCd=00&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json
-	//전체 지도 상권 개수
-	@RequestMapping(value="bigData/bsCgDbMap")
-	public @ResponseBody Map<String,Object> bsCgDbMap(HttpServletRequest req) throws Exception{
-		String url="http://apis.data.go.kr/B553077/api/open/sdsc/baroApi?resId=dong&catId=mega&signguCd=00&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json";
-		HashMap<String, String> hashmapJson = new HashMap<String, String>();
-		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+	//전국카페
+	@RequestMapping(value="bigData/allCafeSido",consumes="application/json" ,method=RequestMethod.POST)
+	public @ResponseBody List<Map<String,String>> allCafeSido(@RequestBody List<Map<String,Object>> allSido) throws Exception{
+		log.info("전체지도 상권개수 시작 :"+ this.getClass());
+		//원래는 string으로 받아와서 json 형태로 다시 하려하
+		String ctprvnCd="";
+		String ctprvnNm="";
+		String totalCount="";
+		//String bodyJSON2 = StringUtil.ObjectToJsonString(responseBody2);
+		//log.info(bodyJSON2);
+		List<Map<String,String>> mList=new ArrayList<>();
 		
+		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+		    
 		try{
-			String charSet = "EUC-KR";
 			
-			HashMap<String, String> hashmapResponse = (HashMap<String, String>) HttpUtil.callURLGet(url,  charSet);
+			for(int i = 0 ; i<allSido.size();i++) {
+				HashMap<String, String> hashmapJson = new HashMap<String, String>();
+				//log.info(allSido.get(i));
+				//log.info(allSido.get(i).get("ctprvnCd"));
+			    ctprvnCd=allSido.get(i).get("ctprvnCd").toString();
+			String charSet = "EUC-KR";
+			HashMap<String, String> hashmapResponse = (HashMap<String, String>) 
+					HttpUtil.callURLGet("http://apis.data.go.kr/B553077/api/open/sdsc/storeListInDong?divId=ctprvnCd&key="+ctprvnCd+"&indsLclsCd=Q&indsMclsCd=Q12&indsSclsCd=Q12A01&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json&numOfRows=20",  charSet);
 			if ("200".equals(hashmapResponse.get("httpStatus"))){
 				String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
-				
 				hashmapRes = StringUtil.JsonStringToObject(responseBody);
+				String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+			    JSONParser parser = new JSONParser();
+			    Object obj = parser.parse(bodyJSON); 
+			    JSONObject jsonObj = (JSONObject) obj;
+
+			    ctprvnNm =allSido.get(i).get("ctprvnNm").toString();
+			    totalCount= jsonObj.get("totalCount").toString();
+			    hashmapJson.put("ctprvnCd",ctprvnCd);
+			    hashmapJson.put("ctprvnNm",ctprvnNm);
+			    hashmapJson.put("totalCount",totalCount);
+			    mList.add(hashmapJson);
+			
 			}else{
 				hashmapRes.put("REP_CODE", "9999");
 				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
 			}
+		}  
 		}catch (Exception e){
 			hashmapRes.put("REP_CODE", "9999");
 			hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
 		}
-		
-		    Iterator<String> i =  hashmapRes.keySet().iterator();
+	  
+		//while문의 끝
+		log.info("전체지도 상권개수 끝 :"+ this.getClass());
+		return mList;
+		   // log.info(hashmapJson.get("서울특별시"));
+		  //  log.info(totalCount);
+		    //JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+		    
+//		    /System.out.println(bodyJSONArray);
+		   /* if(bodyJSONArray!=null) {
+		    	pageNo+=1;
+		    }else {
+		    	break;
+		    }
+			*/
+		   // log.info(hashmapJson.get("서울특별시"));
+		  //  log.info(totalCount);
+		    //JSONArray bodyJSONArray = (JSONArray) jsonObj.get("items");
+		    
+//		    /System.out.println(bodyJSONArray);
+		   /* if(bodyJSONArray!=null) {
+		    	pageNo+=1;
+		    }else {
+		    	break;
+		    }
+			*/
+		/*
 	         while(i.hasNext()) {
-	        	 //i.next();
-	        	
-	        		String key=i.next();
-	        		log.info(key);
-	        //		hashmapRes.get(key);
-	         }
-	         
-	         //JSONParser parser = new JSONParser();
-	         //JSONObject json = (JSONObject) parser.parse(stringToParse);
-	 		log.info("cafeLocAnalysis end:"+this.getClass());
-			return hashmapRes;
-	
+	        	 i.next();
+	        	 String key1 = i.next();
+	        	 System.out.println(key1);
+	            System.out.println(res.get(key1));
+	         }*/
+		}
+	@RequestMapping(value="bigData/allCafeGugun",consumes="application/json" ,method=RequestMethod.POST)
+	public @ResponseBody List<Map<String,String>> allCafeGugun(@RequestBody List<Map<String,Object>> allGugun) throws Exception{
+		log.info("구군지도 상권개수 시작 :"+ this.getClass());
+		//원래는 string으로 받아와서 json 형태로 다시 하려하
+		String signguCd="";
+		String signguNm="";
+		String totalCount="";
+		//String bodyJSON2 = StringUtil.ObjectToJsonString(responseBody2);
+		//log.info(bodyJSON2);
+		List<Map<String,String>> mList=new ArrayList<>();
+		
+		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+		    
+		try{
+			
+			for(int i = 0 ; i<allGugun.size();i++) {
+				HashMap<String, String> hashmapJson = new HashMap<String, String>();
+				signguCd=allGugun.get(i).get("signguCd").toString();
+			String charSet = "EUC-KR";
+			HashMap<String, String> hashmapResponse = (HashMap<String, String>) 
+					HttpUtil.callURLGet("http://apis.data.go.kr/B553077/api/open/sdsc/storeListInDong?divId=signguCd&key="+signguCd+"&indsLclsCd=Q&indsMclsCd=Q12&indsSclsCd=Q12A01&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json&numOfRows=20",  charSet);
+			if ("200".equals(hashmapResponse.get("httpStatus"))){
+				String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
+				hashmapRes = StringUtil.JsonStringToObject(responseBody);
+				String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+			    JSONParser parser = new JSONParser();
+			    Object obj = parser.parse(bodyJSON); 
+			    JSONObject jsonObj = (JSONObject) obj;
+
+			    signguNm =allGugun.get(i).get("signguNm").toString();
+			    totalCount= jsonObj.get("totalCount").toString();
+			    hashmapJson.put("signguCd",signguCd);
+			    hashmapJson.put("signguNm",signguNm);
+			    hashmapJson.put("totalCount",totalCount);
+			    mList.add(hashmapJson);
+			
+			}else{
+				hashmapRes.put("REP_CODE", "9999");
+				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+			}
+		}  
+		}catch (Exception e){
+			hashmapRes.put("REP_CODE", "9999");
+			hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+		}
+	  
+		//while문의 끝
+		log.info("구군지도 상권개수 끝 :"+ this.getClass());
+		return mList;
+	}
+	@RequestMapping(value="bigData/allCafeDong",consumes="application/json" ,method=RequestMethod.POST)
+	public @ResponseBody List<Map<String,String>> allCafeDong(@RequestBody List<Map<String,Object>> allDong) throws Exception{
+		log.info("동지도 상권개수 시작 :"+ this.getClass());
+		//원래는 string으로 받아와서 json 형태로 다시 하려하
+		String adongCd="";
+		String adongNm="";
+		String totalCount="";
+		//String bodyJSON2 = StringUtil.ObjectToJsonString(responseBody2);
+		//log.info(bodyJSON2);
+		List<Map<String,String>> mList=new ArrayList<>();
+		
+		HashMap<String, Object> hashmapRes = new HashMap<String, Object>();
+		    
+		try{
+			
+			for(int i = 0 ; i<allDong.size();i++) {
+				HashMap<String, String> hashmapJson = new HashMap<String, String>();
+				adongCd=allDong.get(i).get("adongCd").toString();
+			String charSet = "EUC-KR";
+			HashMap<String, String> hashmapResponse = (HashMap<String, String>) 
+					HttpUtil.callURLGet("http://apis.data.go.kr/B553077/api/open/sdsc/storeListInDong?divId=adongCd&key="+adongCd+"&indsLclsCd=Q&indsMclsCd=Q12&indsSclsCd=Q12A01&ServiceKey=DCERWRgTB%2BHukgI%2BBfnSKofhO6udoVebyOCM4EEZeBKYhcCOb1xlhG2SaLCqdRChGiduI%2FOYrYUGttvma45Ytw%3D%3D&type=json&numOfRows=20",  charSet);
+			if ("200".equals(hashmapResponse.get("httpStatus"))){
+				String responseBody = String.valueOf(hashmapResponse.get("responseBody"));
+				hashmapRes = StringUtil.JsonStringToObject(responseBody);
+				String bodyJSON = StringUtil.ObjectToJsonString(hashmapRes.get("body"));
+			    JSONParser parser = new JSONParser();
+			    Object obj = parser.parse(bodyJSON); 
+			    JSONObject jsonObj = (JSONObject) obj;
+
+			    adongNm =allDong.get(i).get("adongNm").toString();
+			    totalCount= jsonObj.get("totalCount").toString();
+			    hashmapJson.put("adongCd",adongCd);
+			    hashmapJson.put("adongNm",adongNm);
+			    hashmapJson.put("totalCount",totalCount);
+			    mList.add(hashmapJson);
+			
+			}else{
+				hashmapRes.put("REP_CODE", "9999");
+				hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+			}
+		}  
+		}catch (Exception e){
+			hashmapRes.put("REP_CODE", "9999");
+			hashmapRes.put("REP_MSG", "오류가 발생했습니다.");
+		}
+	  
+		//while문의 끝
+		log.info("동지도 상권개수 끝 :"+ this.getClass());
+		return mList;
 	}
 }
 

@@ -10,10 +10,10 @@
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/view/cssjs.jsp" %>
 <%@ include file="userListScript.jsp" %>
-
 <script>
 	$(function(){
 	 	var select = $('select[name=notice]');
+<<<<<<< HEAD
 		select.click(function(){
 			$.ajax({
 				url : '/user/userWriteList.do',
@@ -45,6 +45,39 @@
 				},
 				error:function(error){
 					alert("error");
+=======
+		select.click(function(){				
+			$.ajax({
+				url : '/user/userWriteList.do',
+				method : 'get',
+				data : {'userNo':userNo},
+				success : function(data){
+					$('#list').html('');
+					var contents='';
+					if(select.val()=="Notice"){
+						contents += '<table border="1">';
+						contents += '<tr>';
+						contents += '<td>제목</td>';
+						contents += '<td>작성자</td>';
+						contents += '<td>작성일</td>';
+						contents += '<td>조회수</td>';
+						contents += '</tr>';
+						.each(data, function(key, value){
+							contents += '<tr>';
+							contents += '<td> + value.nt_title + </td>';
+							contents += '<td> + value.rvwriter + </td>';
+							contents += '<td> + value.regdate + </td>';
+							contents += '<td> + value.nt_count + </td>';
+							contents += '</tr>';
+						});
+					contents += '</table>';
+					console.log(contents);
+					$('#list').html(contents);
+					};
+				},
+				error:function(error){
+					alert(error);
+>>>>>>> refs/heads/master
 				}
 			});
 		});
