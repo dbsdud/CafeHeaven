@@ -14,8 +14,14 @@ public class HomeController {
 			return "/home";
 		}
 	//다시 만드는 탑 
-		@RequestMapping(value="basic")
+		/*@RequestMapping(value="basic")
 		public String index() {
 			return "/basic";
+		}*/
+		
+	// 인덱스
+		@RequestMapping(value="index")
+		public String index() {
+			return "/index";
 		}
 }
