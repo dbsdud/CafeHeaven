@@ -1,11 +1,9 @@
 <!--  orderList by.황윤영
  최신화 : 20180726 -->
 <%@page import="poly.dto.MenuDTO"%>
-<%@page import="poly.dto.OrderDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% List<OrderDTO> oList = (List<OrderDTO>)request.getAttribute("oList"); %>
 <% MenuDTO uDTO = (MenuDTO)request.getAttribute("mDTO"); %>
 <html>
 <head>
