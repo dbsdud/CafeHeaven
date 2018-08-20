@@ -29,7 +29,7 @@ public class CafeController {
 	private Logger log = Logger.getLogger(this.getClass());
 
 	//이미지 /파일을 저장하기 위한 경로 설정
-	String savePath= "C:\\Users\\data16\\git\\CafeHeaven\\WebContent\\uploadImg\\";// 이거는 로컬 경로를 뜻하는지 알아야됨, 경로명 수정해야함
+	String savePath= "C:\\Users\\data12\\git\\CafeHeaven\\WebContent\\uploadImg\\";// 이거는 로컬 경로를 뜻하는지 알아야됨, 경로명 수정해야함
 	@Resource(name="CafeService")
 	private ICafeService cafeService;
 	

@@ -23,8 +23,8 @@ SET
 	CAFE_LAT=#{cafeLat},
 	CAFE_HAR=#{cafeHar},
 	
-	REGDATE=SYSDATE,<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss')-->
-	UPDDATE=SYSDATE,
+	REGDATE=now(),<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss')-->
+	UPDDATE=now(),
 	UPDNO=1	
 WHERE
 	CAFE_NO=#{cafeNo}
@@ -58,9 +58,9 @@ CAFE_ATTACH_NO.NEXTVAL,
 #{cafeImgOrg},
 1,
 <!-- TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss'), -->
-SYSDATE,
+now(),
 1,
-SYSDATE
+now()
 )
 </insert>
 

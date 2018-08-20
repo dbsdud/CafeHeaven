@@ -65,6 +65,9 @@ public class CafeService implements ICafeService {
 	@Override
 	public CafeInfoDTO getCafeInfoDetail(CafeInfoDTO cDTO) throws Exception {
 	System.out.println("getCafeservice" + cDTO.getCafeNo());
+/*	CafeInfoDTO dto= cafeMapper.getCafeInfoDetail(cDTO);
+	System.out.println(dto.getCafeAddr1());
+	System.out.println(dto.getCafeAddr2());*/
 	return cafeMapper.getCafeInfoDetail(cDTO);
 }
 

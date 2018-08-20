@@ -41,7 +41,13 @@ public class NoticeController {
 			log.info(nt_sort);*/
 		
 		List<NoticeDTO> nList = noticeService.getNoticeList();
-
+/*	if(nList==null) {
+		log.info(nList);
+	}else {
+		log.info(nList.size());
+	}*/
+			log.info(nList);
+		
 			log.info("44라인 시작:"+nList.get(0).getNtNo());
 			log.info(nList.get(0).getNtCont());
 			log.info("title:"+nList.get(0).getNtTitle());

@@ -29,7 +29,7 @@ public class NoticeService implements INoticeService {
 	// 게시판목록조회
 	@Override
 	public List<NoticeDTO> getNoticeList() throws Exception {
-
+		//System.out.println("service :"+noticeMapper.getNoticeList());
 		return noticeMapper.getNoticeList();
 
 	}
