@@ -803,6 +803,10 @@ public class BigDataController {
 		log.info("동지도 상권개수 끝 :"+ this.getClass());
 		return mList;
 	}
+	///시도 db 저장할 컨트롤러 // 여기다가 시도 구군 동   하고 대분류 해서 다집어넣을거임
+	
+	
+	
 }
 
 

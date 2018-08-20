@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.handler.HandlerMethodMappingNamingStrategy;
 
 import poly.dto.CafeAttachDTO;
 import poly.dto.MenuDTO;
