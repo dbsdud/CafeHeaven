@@ -284,18 +284,19 @@ geocoder.addressSearch("<%=cDTO.getCafeAddr1()%>", function(result, status) {
 
     // 인포윈도우로 장소에 대한 설명을 표시합니다
     var infowindow = new daum.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">"<%=cDTO.getCafeName() %>"</div>'
-    });
-    infowindow.open(map, marker);
+        content: '<div style="width:150px;text-align:center;padding:6px 0;">"<%=cDTO.getCafeName()%>
+				"</div>'
+												});
+										infowindow.open(map, marker);
 
-    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-    map.setCenter(coords);
-    
-    map.addOverlayMapTypeId(daum.maps.MapTypeId.TRAFFIC);  
-    
-    
-} 
-}); 
+										// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+										map.setCenter(coords);
+
+										map
+												.addOverlayMapTypeId(daum.maps.MapTypeId.TRAFFIC);
+
+									}
+								});
 			</script>
 
 			<!--   <input type="hidden" " />
@@ -421,6 +422,5 @@ getLocation();
 	<!--  본문 카페정보 상단 -->
 
 	<!-- --- -->
-<%@ include file="/WEB-INF/view/mainCafeBottom.jsp"%>
 </body>
 </html>

@@ -17,7 +17,6 @@ body, html {
 	font-family: "Inconsolata", sans-serif;
 }
 
-
 .menu {
 	display: none;
 }
@@ -219,7 +218,7 @@ body, html {
 				<!-- Total 메뉴 중분류 -->
 				<div id="Total" class="tab w3-row w3-center w3-card w3-padding">
 					<div class="w3-col s4 tablink">
-						<a href="#" onclick="userMenuList('drink');" id="myLink">음료	</a>
+						<a href="#" onclick="userMenuList('drink');" id="myLink">음료 </a>
 					</div>
 					<div class="w3-col s4 tablink">
 						<a href="#" onclick="userMenuList('dessert');">디저트</a>
@@ -233,9 +232,9 @@ body, html {
 
 				<!-- 사용자 메뉴 조회 -->
 				<!-- <div class="w3-container menu w3-padding-48 w3-card tabcontent"> -->
-					<div style="text-align: center; margin-left: auto; margin-right: auto;" id="userMenuList">
-						
-					</div>
+				<div
+					style="text-align: center; margin-left: auto; margin-right: auto;"
+					id="userMenuList"></div>
 				<!-- </div> -->
 			</div>
 		</div>
@@ -259,11 +258,13 @@ body, html {
 				<div class="modal-body">
 					<!--  modal의 50%은 사진  -->
 					<!-- 나중에 db로 정보 받아오기 이미지나-->
-					<div id="userMenuListModalImg" style="float: left; width: 50%; height:250px; padding-left: 4px; padding-right: 4px;">
-						
+					<div id="userMenuListModalImg"
+						style="float: left; width: 50%; height: 250px; padding-left: 4px; padding-right: 4px;">
+
 					</div>
-					<div id="userMenuListModal" style="float: right; width: 50%; height: 250px; padding-left: 4px; padding-right: 4px;">
-						
+					<div id="userMenuListModal"
+						style="float: right; width: 50%; height: 250px; padding-left: 4px; padding-right: 4px;">
+
 					</div>
 					<div class="modal-footer" style="clear: both;">
 						<button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
@@ -324,6 +325,6 @@ body, html {
 		document.getElementById("myLink").click();
 	</script>
 	<!-- 중분류 탭 끝 -->
-	<%@ include file="/WEB-INF/view/mainCafeBottom.jsp"%>
+
 </body>
 </html>
