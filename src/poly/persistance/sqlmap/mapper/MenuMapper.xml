@@ -185,6 +185,24 @@ WHERE
 MENU_NO=#{menuNo}
 </select>
 <!-- 업데이트 글  -->
+<!-- 오라클 -->
+<!-- <update id="updateMenuDetail" parameterType="MenuDTO">
+UPDATE 
+	CAFE_MENU
+SET
+	MENU_NAME=#{menuName},
+	MENU_INTRO=#{menuIntro},
+	MENU_PRICE=#{menuPrice},
+	MENU_AMOUNT=#{menuAmount},
+	MENU_CG_NO=#{menuCgNo},
+	REGDATE=TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss'),
+	UPDDATE=now(),
+	UPDNO=1	
+WHERE
+	MENU_NO=#{menuNo}
+</update> -->
+<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 -->
+<!-- mysql -->
 <update id="updateMenuDetail" parameterType="MenuDTO">
 UPDATE 
 	CAFE_MENU
@@ -194,8 +212,8 @@ SET
 	MENU_PRICE=#{menuPrice},
 	MENU_AMOUNT=#{menuAmount},
 	MENU_CG_NO=#{menuCgNo},
-	REGDATE=TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss'),<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 -->
-	UPDDATE=SYSDATE,
+	REGDATE=DATE_FORMAT(#{regDate},'%Y-%m-%d %T'),<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 -->
+	UPDDATE=now(),
 	UPDNO=1	
 WHERE
 	MENU_NO=#{menuNo}
@@ -254,7 +272,7 @@ UPDDATE
 #{cafeImgPath},
 #{cafeImgOrg},
 1,
-TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss'),
+DATE_FORMAT(#{regDate},'%Y-%m-%d %T'),
 1,
 now()
 )
