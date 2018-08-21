@@ -310,7 +310,6 @@ public class OrderController {
 	public @ResponseBody List<TotalOrderDTO> orderInterval(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
 		log.info(this.getClass() + " orderInterval Start!");
 		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
-		
 		if(tList == null) {
 			tList = new ArrayList<TotalOrderDTO>();
 		}
