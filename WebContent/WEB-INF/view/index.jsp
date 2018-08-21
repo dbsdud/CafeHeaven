@@ -1,9 +1,10 @@
+<%@ page import="poly.util.CmmUtil" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <html>
 <head>
 <%@ include file="/WEB-INF/view/template.jsp" %>
-<title>Ion by TEMPLATED</title>
+<title>CAFE HEAVEN'S HOME</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <script src="/templated-ion/js/jquery.min.js"></script>
@@ -15,22 +16,63 @@
 	<link rel="stylesheet" href="/templated-ion/css/style.css" />
 	<link rel="stylesheet" href="/templated-ion/css/style-xlarge.css" />
 </noscript> -->
+<%
+	String email = CmmUtil.nvl((String) session.getAttribute("email")); //형변환 해줘야됨 오브젝트로 넘어오기 떄문에 형변환 해주고 널값이 넘어오면 오류 같은거 발생하기 때문에 미리만든메소드를 이용해 널값을 공백으로 바꿈 
+	String name = CmmUtil.nvl((String) session.getAttribute("name"));
+	String userNo = CmmUtil.nvl((String) session.getAttribute("userNo"));
+%>
+<script>
+	function logout() {
+		alert("로그아웃 하셨습니다.")
+		location.href = "/user/logout.do"
+	}
+</script>
 </head>
 <body id="top">
 	<!-- Header -->
 	<header id="header" class="skel-layers-fixed">
-		<h1>
-			<a href="index.do">CAFE HEAVEN</a>
-		</h1>
-		<nav id="nav">
-			<ul>
-				<li><a href="index.do">Home</a></li>
-				<li><a href="left-sidebar.do">Left Sidebar</a></li>
-				<li><a href="right-sidebar.do">Right Sidebar</a></li>
-				<li><a href="no-sidebar.do">No Sidebar</a></li>
-				<li><a href="#" class="button special">Sign Up</a></li>
-			</ul>
-		</nav>
+		<div class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+						aria-expanded="false">
+						<span class="sr-only"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span>
+					</button>
+					<h1>
+						<a href="/index.do">CAFE HEAVEN</a>
+					</h1>
+				</div>
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<nav id="nav">
+						<ul>
+							<li><a href="/menu/menuList.do">메뉴<span class="sr-only"></span></a></li>
+							<li><a href="/cafe/cafeInfo.do?cafeNo=1">카페 정보<span class="sr-only"></span></a></li>
+							<li><a href="/notice/communityTab.do">커뮤니티<span class="sr-only"></span></a></li>
+
+							<%
+								if(userNo.equals("1")) {
+							%>
+							<li class="dropdown"><a href="#" class="dropdown-toggle"
+								data-toggle="dropdown" role="button" aria-haspopup="true"
+								aria-expanded="false">관리<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<!--  연습용으로 넘어가게 지정해놓음 -->
+									<li><a href="/user/userList.do">회원 관리</a></li>
+									<li><a href="/menu/menuReg.do">메뉴 관리</a></li>
+									<li><a href="/order/orderList.do">주문 관리</a></li>
+									<!--  해야됨 -->
+									<li><a href="/cafe/cafeInfoManage.do">카페 관리</a></li>
+									<li><a href="/bigData/bigData.do">빅데이터 분석 관리</a></li>
+								</ul></li>
+							<%} %>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		
 	</header>
 
 	<!-- Banner -->
@@ -93,7 +135,7 @@
 			<div class="row">
 				<div class="6u">
 					<section class="special">
-						<a href="#" class="image fit"><img src="templated-ion/images/pic01.jpg"
+						<a href="#" class="image fit"><img src="template-ion/images/pic01.jpg"
 							alt="" /></a>
 						<h3>Mollis adipiscing nisl</h3>
 						<p>Eget mi ac magna cep lobortis faucibus accumsan enim
@@ -108,7 +150,7 @@
 				</div>
 				<div class="6u">
 					<section class="special">
-						<a href="#" class="image fit"><img src="templated-ion/images/pic02.jpg"
+						<a href="#" class="image fit"><img src="template-ion/images/pic02.jpg"
 							alt="" /></a>
 						<h3>Neque ornare adipiscing</h3>
 						<p>Eget mi ac magna cep lobortis faucibus accumsan enim
@@ -132,7 +174,7 @@
 				<div class="8u">
 					<section>
 						<h2>Mollis ut adipiscing</h2>
-						<a href="#" class="image fit"><img src="templated-ion/images/pic03.jpg"
+						<a href="#" class="image fit"><img src="template-ion/images/pic03.jpg"
 							alt="" /></a>
 						<p>Vis accumsan feugiat adipiscing nisl amet adipiscing
 							accumsan blandit accumsan sapien blandit ac amet faucibus aliquet
