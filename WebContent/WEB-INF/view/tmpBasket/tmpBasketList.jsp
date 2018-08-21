@@ -255,5 +255,6 @@ function doOrder(){
 			</div>
 		</div>
 	</div>
+	<%@ include file="/WEB-INF/view/mainCafeBottom.jsp"%>
 </body>
 </html>
