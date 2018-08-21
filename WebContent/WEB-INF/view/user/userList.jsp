@@ -15,14 +15,16 @@
 <body>
 <%@ include file="/WEB-INF/view/mainCafeTop.jsp" %>
 <div class="container">
-
+	<div class="page-header">
+			<h1>
+				회원 목록 <small>CAFE HEAVEN</small>
+			</h1>
+		</div>
 		<div class="us-list-top hd-font">
 			<!--  리스트를 꺼내기위한 -->
-			<div>
-				<input id="allCheck" type="checkbox" />
-			</div>
 			<div>회원번호</div>
 			<div>이름</div>
+			<div>이메일</div>
 			<div>전화번호</div>
 			<div>공란</div>
 		</div>
