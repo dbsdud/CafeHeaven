@@ -164,7 +164,7 @@
 			<div class="w3-col s6">
 				<button class="btn btn-danger" style="width: 100%;"	onclick="addTmpBasket();">장바구니</button>
 				<input type="hidden" name="userNo" id="tmpUserNo" value="<%=CmmUtil.nvl(uDTO.getUserNo()) %>" /> 
-				<input type="hidden" name="menuNo" id="tmpMenuNo" value="<%=CmmUtil.nvl(mDTO.getMenuNo()) %>" /> 
+				<input type="hidden" name="menuNo" id="tmpMenuNo" value="<%=mDTO.getMenuNo() %>" /> <!--CmmUtil.nvl(mDTO.getMenuNo())  -->
 				<input type="hidden" name="menuPrice" id="tmpMenuPrice"	value="<%=CmmUtil.nvl(mDTO.getMenuPrice()) %>" /> 
 				<input type="hidden" name="menuName" id="tmpMenuName" value="<%=CmmUtil.nvl(mDTO.getMenuName()) %>" />
 			</div>
@@ -172,7 +172,7 @@
 			<!-- 결제버튼 -->
 			<div class="w3-col s6">
 				<form action="orderDirectDetail.do" method="post" id="f">
-					<input type="hidden" name="menuNo" value="<%=CmmUtil.nvl(mDTO.getMenuNo()) %>" />
+					<input type="hidden" name="menuNo" value="<%=mDTO.getMenuNo() %>" />
 					<input type="hidden" name="qty" id="qty" />
 					<input type="hidden" name="menuPrice" value="<%=CmmUtil.nvl(mDTO.getMenuPrice()) %>" />
 					<input type="hidden" name="menuName" value="<%=CmmUtil.nvl(mDTO.getMenuName()) %>" /> 
