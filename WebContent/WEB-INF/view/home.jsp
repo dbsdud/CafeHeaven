@@ -65,6 +65,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- git test -->
 	<%@ include file="mainCafeBottom.jsp"%>
 </body>
 </html>
