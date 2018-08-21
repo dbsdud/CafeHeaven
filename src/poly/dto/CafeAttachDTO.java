@@ -1,7 +1,7 @@
 package poly.dto;
 
 public class CafeAttachDTO {
-	private String menuNo;
+	private int menuNo;
 	private String cafeNo;// 카페에서불러온 사진을 구별하기 위한 dto 변수 설정
 	private String cafeImg;
 	private String cafeImgPath;
@@ -12,7 +12,12 @@ public class CafeAttachDTO {
 	private String updNo;
 	private String menuCgNo;
 	
-	
+	public int getMenuNo() {
+		return menuNo;
+	}
+	public void setMenuNo(int menuNo) {
+		this.menuNo = menuNo;
+	}
 	public String getCafeNo() {
 		return cafeNo;
 	}
@@ -25,12 +30,7 @@ public class CafeAttachDTO {
 	public void setMenuCgNo(String menuCgNo) {
 		this.menuCgNo = menuCgNo;
 	}
-	public String getMenuNo() {
-		return menuNo;
-	}
-	public void setMenuNo(String menuNo) {
-		this.menuNo = menuNo;
-	}
+	
 	public String getCafeImg() {
 		return cafeImg;
 	}

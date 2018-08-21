@@ -177,9 +177,9 @@ public class MenuController {
 		log.info("menuupdview menuCgNo"+menuCgNo);
 		MenuDTO mDTO = new MenuDTO();
 		CafeAttachDTO caDTO = new CafeAttachDTO();
-		mDTO.setMenuNo(menuNo);
+		mDTO.setMenuNo(Integer.parseInt(menuNo));
 		mDTO.setMenuCgNo(menuCgNo);
-		caDTO.setMenuNo(menuNo);
+		caDTO.setMenuNo(Integer.parseInt(menuNo));
 		caDTO.setMenuCgNo(menuCgNo);
 		
 		log.info("mDTO get MenuNo"+mDTO.getMenuNo());
@@ -217,7 +217,7 @@ public class MenuController {
 		
 		//세팅   
 		MenuDTO mDTO = new MenuDTO();
-		mDTO.setMenuNo(menuNo);
+		mDTO.setMenuNo(Integer.parseInt(menuNo));
 		mDTO.setMenuName(menuName);
 		mDTO.setMenuAmount(menuAmount);
 		mDTO.setMenuPrice(menuPrice);
@@ -230,7 +230,7 @@ public class MenuController {
 		
 		//이미지 삭제 세팅 부터 
 		CafeAttachDTO caDTO = new CafeAttachDTO();
-		caDTO.setMenuNo(menuNo);
+		caDTO.setMenuNo(Integer.parseInt(menuNo));
 		caDTO.setRegDate(regDate);
 		
 		
@@ -282,7 +282,7 @@ public class MenuController {
 				file.transferTo(newFile); //이 transferTo 는 MultiFile 에 내장된것/ 메소드를 사용해서 원하는 위치에 저장
 				//InputStream을 얻은 다음에 직접 처리를 해줘도 되지만 성능 좋고 편하니까 transferTo()
 			CafeAttachDTO caDTO1 = new CafeAttachDTO();
-			caDTO1.setMenuNo(menuNo);
+			caDTO1.setMenuNo(Integer.parseInt(menuNo));
 			caDTO1.setCafeImg(now+extended);
 			caDTO1.setCafeImgOrg(fileOrgName);
 			caDTO1.setCafeImgPath(savePath);
@@ -326,9 +326,9 @@ public class MenuController {
 		log.info(menuNo);
 		
 		MenuDTO mDTO =new MenuDTO();
-		mDTO.setMenuNo(menuNo);
+		mDTO.setMenuNo(Integer.parseInt(menuNo));
 		CafeAttachDTO caDTO = new CafeAttachDTO();
-		caDTO.setMenuNo(menuNo);
+		caDTO.setMenuNo(Integer.parseInt(menuNo));
 		
 		int result = menuService.deleteMenuDetail(mDTO);
 		int result2 = menuService.deleteMenuImg(caDTO);
@@ -389,8 +389,8 @@ public class MenuController {
 		MenuDTO mDTO = new MenuDTO();
 		CafeAttachDTO caDTO = new CafeAttachDTO();
 		
-		mDTO.setMenuNo(menuNo);
-		caDTO.setMenuNo(menuNo);
+		mDTO.setMenuNo(Integer.parseInt(menuNo));
+		caDTO.setMenuNo(Integer.parseInt(menuNo));
 		
 		log.info("mDTO get menuNo : " + mDTO.getMenuNo());
 		log.info("caDTO get menuNo : " + caDTO.getMenuNo());

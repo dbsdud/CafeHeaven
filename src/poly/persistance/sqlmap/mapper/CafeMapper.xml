@@ -22,7 +22,6 @@ SET
 	CAFE_OPENDATE=#{openDate},
 	CAFE_LAT=#{cafeLat},
 	CAFE_HAR=#{cafeHar},
-	
 	REGDATE=now(),<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss')-->
 	UPDDATE=now(),
 	UPDNO=1	
@@ -37,7 +36,8 @@ DELETE FROM
 WHERE CAFE_NO=#{cafeNo}
 </delete>
 <!--이미지 파일 삭제 후등록 -->
-<insert id="insertCafeImg" parameterType="CafeAttachDTO">
+<!-- 오라클 -->
+<!-- <insert id="insertCafeImg" parameterType="CafeAttachDTO">
 
 INSERT INTO
 CAFE_ATTACH(    
@@ -52,6 +52,32 @@ UPDNO,
 UPDDATE
 )VALUES(
 CAFE_ATTACH_NO.NEXTVAL,
+#{cafeNo},
+#{cafeImg},
+#{cafeImgPath},
+#{cafeImgOrg},
+1,
+TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss'),
+now(),
+1,
+now()
+)
+</insert> -->
+
+<!--ㅡmysql -->
+<insert id="insertCafeImg" parameterType="CafeAttachDTO">
+
+INSERT INTO
+CAFE_ATTACH(    
+CAFE_NO,
+CAFE_IMG,
+CAFE_IMG_PATH,
+CAFE_IMG_ORG,
+REGNO,
+REGDATE,
+UPDNO,
+UPDDATE
+)VALUES(
 #{cafeNo},
 #{cafeImg},
 #{cafeImgPath},

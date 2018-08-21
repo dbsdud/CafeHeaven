@@ -70,8 +70,8 @@ public class OrderController {
 		MenuDTO mDTO = new MenuDTO();
 		// 회원정보 불러오기
 		UserDTO uDTO = new UserDTO();
-		caDTO.setMenuNo(menuNo);
-		mDTO.setMenuNo(menuNo);
+		caDTO.setMenuNo(Integer.parseInt(menuNo));
+		mDTO.setMenuNo(Integer.parseInt(menuNo));
 		uDTO.setUserNo(userNo);
 		
 		caDTO = menuService.getMenuImgDetail(menuNo);

@@ -2,7 +2,7 @@ package poly.dto;
 
 public class MenuDTO {
 
-	private String menuNo;
+	private int menuNo;
 	private String menuName;
 	private String menuIntro;
 	private String menuPrice;
@@ -12,13 +12,13 @@ public class MenuDTO {
 	private String regNo;
 	private String updDate;
 	private String updNo;
-	
-	public String getMenuNo() {
+	public int getMenuNo() {
 		return menuNo;
 	}
-	public void setMenuNo(String menuNo) {
+	public void setMenuNo(int menuNo) {
 		this.menuNo = menuNo;
 	}
+
 	public String getMenuName() {
 		return menuName;
 	}

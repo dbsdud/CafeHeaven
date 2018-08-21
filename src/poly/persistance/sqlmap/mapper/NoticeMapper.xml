@@ -3,7 +3,8 @@
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
 <mapper namespace="poly.persistance.mapper.NoticeMapper">
 	<!-- 게시판 등록 -->
-	<insert id="insertNotice" parameterType="NoticeDTO">
+	<!-- 오라클 -->
+	<!-- <insert id="insertNotice" parameterType="NoticeDTO">
 		INSERT INTO NOTICE_TB
 		(
 		NT_NO,
@@ -18,6 +19,22 @@
 		)
 		VALUES
 		(NT_NO.NEXTVAL,#{ntTitle},#{ntCont},#{ntWriter},0,#{ntSort},#{regNo},SYSDATE,#{qaGrpNo})
+	</insert> -->
+	<!-- mysql -->
+	<insert id="insertNotice" parameterType="NoticeDTO">
+		INSERT INTO NOTICE_TB
+		(
+		NT_TITLE,
+		NT_CONT,
+		NT_WRITER,
+		NT_COUNT,
+		NT_SORT,
+		REGNO,
+		REGDATE,
+		QA_GRPNO
+		)
+		VALUES
+		(#{ntTitle},#{ntCont},#{ntWriter},0,#{ntSort},#{regNo},now(),#{qaGrpNo})
 	</insert>
 	<!-- 게시판 목록 리스트 -->
 
