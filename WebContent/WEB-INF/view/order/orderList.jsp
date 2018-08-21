@@ -349,12 +349,11 @@ function orderCancel(ordNo, statNo){
 				</tr>
 			</thead>
 			<tbody id="interval">
-				<%
-					for(TotalOrderDTO tDTO : tList){
-							String ordStat = CmmUtil.nvl(tDTO.getOrdStat());
-							String[] arr = CmmUtil.nvl(tDTO.getOrdRemainTime()).split(":");
-							int remainMin = Integer.parseInt(arr[1]);
-							if(remainMin < 0 && !(tDTO.getOrdStat().equals("3"))){
+				<% for(TotalOrderDTO tDTO : tList){
+						String ordStat = CmmUtil.nvl(tDTO.getOrdStat());
+						String[] arr = CmmUtil.nvl(tDTO.getOrdRemainTime()).split(":");
+						int remainMin = Integer.parseInt(arr[1]);
+						if(remainMin < 0 && !(tDTO.getOrdStat().equals("3"))){
 				%>
 					<tr bgcolor="#F5A9A9">
 					<%
