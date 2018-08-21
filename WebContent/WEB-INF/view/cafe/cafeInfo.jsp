@@ -421,6 +421,6 @@ getLocation();
 	<!--  본문 카페정보 상단 -->
 
 	<!-- --- -->
-
+<%@ include file="/WEB-INF/view/mainCafeBottom.jsp"%>
 </body>
 </html>

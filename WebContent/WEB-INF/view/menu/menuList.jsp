@@ -324,5 +324,6 @@ body, html {
 		document.getElementById("myLink").click();
 	</script>
 	<!-- 중분류 탭 끝 -->
+	<%@ include file="/WEB-INF/view/mainCafeBottom.jsp"%>
 </body>
 </html>
