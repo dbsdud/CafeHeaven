@@ -349,12 +349,11 @@ function orderCancel(ordNo, statNo){
 				</tr>
 			</thead>
 			<tbody id="interval">
-				<%
-					for(TotalOrderDTO tDTO : tList){
-							String ordStat = CmmUtil.nvl(tDTO.getOrdStat());
-							String[] arr = CmmUtil.nvl(tDTO.getOrdRemainTime()).split(":");
-							int remainMin = Integer.parseInt(arr[1]);
-							if(remainMin < 0 && !(tDTO.getOrdStat().equals("3"))){
+				<% for(TotalOrderDTO tDTO : tList){
+						String ordStat = CmmUtil.nvl(tDTO.getOrdStat());
+						String[] arr = CmmUtil.nvl(tDTO.getOrdRemainTime()).split(":");
+						int remainMin = Integer.parseInt(arr[1]);
+						if(remainMin < 0 && !(tDTO.getOrdStat().equals("3"))){
 				%>
 					<tr bgcolor="#F5A9A9">
 					<%
@@ -459,11 +458,11 @@ function orderCancel(ordNo, statNo){
 				<!-- 주문번호 -->
 				<div><%=tList.get(i).getOrdInfoNo() %></div>
 				<!-- 주문메뉴 -->
-				<div><%-- <%=oList.get(i).getMenuName() %> --%></div>
+				<%-- <div><%=oList.get(i).getMenuName() %></div> --%>
 				<!-- 주문시간 -->
 				<div><%=tList.get(i).getOrdDtDate() %></div>
 				<!-- 고객명 -->
-				<div><%-- <%=oList.get(i).getName() %> --%></div>
+				<%-- <div><%=oList.get(i).getName() %></div> --%>
 				<!-- 완료버튼 -->
 				<div><a href="#" class="btn btn-primary">완료</a></div><!-- 버튼을 누르면 고객에게 알람 전송, 상품완료 텍스트로 변경 -->
 			</div>
@@ -474,6 +473,7 @@ function orderCancel(ordNo, statNo){
 				<a href="#" id="load-list" style="width: 100%" class="btn btn-primary">더보기</a>
 				<br><br>
 		</div>
-	</div>
+	</div> 
+	
 </body>
 </html>
