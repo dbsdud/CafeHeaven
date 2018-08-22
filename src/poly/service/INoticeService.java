@@ -34,7 +34,7 @@ public interface INoticeService {
 	public int getAnswerCheck(String ntNo) throws Exception;
 
 	// 마이페이지 > 내가 쓴 글 보기 -----------------------유라
-	public List<NoticeDTO> userWriteList() throws Exception;
+	public List<NoticeDTO> userWriteListAjax() throws Exception;
 
 	/*
 	 * //질문 답변달았는지 안달았는지 업데이트 public int qnaExpYn(String ntNo) throws Exception;

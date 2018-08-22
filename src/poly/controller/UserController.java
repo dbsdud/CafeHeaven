@@ -437,18 +437,24 @@ public class UserController {
 		}
 		
 		//마이페이지 > 내가 쓴 글
-		@RequestMapping(value="user/userWriteList")
-		public @ResponseBody HashMap<String, Object> userWriteList(HttpServletRequest request) throws Exception{
+				@RequestMapping(value="user/userWriteList")
+				public String userWriteList() throws Exception {
+					return "/user/userWriteList";
+				}
+		
+		//마이페이지 > 내가 쓴 글 ajax
+		@RequestMapping(value="user/userWriteListAjax")
+		public @ResponseBody HashMap<String, Object> userWriteListAjax(HttpServletRequest request) throws Exception{
 			log.info("UserWriteList Start");
-			log.info("UserWriteList End");
 			
-			List<NoticeDTO> nList = noticeService.userWriteList();
-			List<ReviewDTO> rList = reviewService.userWriteList();
+			List<NoticeDTO> nList = noticeService.userWriteListAjax();
+			List<ReviewDTO> rList = reviewService.userWriteListAjax();
 		
 			HashMap<String, Object> hMap = new HashMap<>();
 			hMap.put("nList", nList);
 			hMap.put("rList", rList);
 			
+			log.info("UserWriteList End");
 			return hMap;
 		}
 		

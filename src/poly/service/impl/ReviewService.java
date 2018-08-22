@@ -43,7 +43,7 @@ public class ReviewService implements IReviewService {
 	// -------------------------유라
 	// 마이페이지 > 내가쓴 글 보기
 	@Override
-	public List<ReviewDTO> userWriteList() throws Exception {
+	public List<ReviewDTO> userWriteListAjax() throws Exception {
 		// TODO Auto-generated method stub
 		return reviewMapper.userWriteList();
 	}

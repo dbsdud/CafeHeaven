@@ -89,7 +89,7 @@ public class NoticeService implements INoticeService {
 
 	// 마이페이지 > 내가 쓴 글 보기 ---------------------유라
 	@Override
-	public List<NoticeDTO> userWriteList() throws Exception {
+	public List<NoticeDTO> userWriteListAjax() throws Exception {
 		// TODO Auto-generated method stub
 		return noticeMapper.userWriteList();
 	}

@@ -41,7 +41,7 @@ ON U.USER_NO = R.REGNO
 ORDER BY REGDATE DESC
 </select>
 
-<select id="userWriteList" resultType="ReviewDTO">
+<select id="userWriteListAjax" resultType="ReviewDTO">
 SELECT U.NAME AS "RVWRITER",
 	   R.REVIEW_NO AS "REVIEWNO",
 	   R.CAFE_REVIEW AS "CAFEREVIEW",

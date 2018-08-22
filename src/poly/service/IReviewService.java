@@ -17,5 +17,5 @@ public interface IReviewService {
 
 	// -----------------------율
 	// 마이페이지 > 내가쓴 글 보기
-	public List<ReviewDTO> userWriteList() throws Exception;
+	public List<ReviewDTO> userWriteListAjax() throws Exception;
 }
