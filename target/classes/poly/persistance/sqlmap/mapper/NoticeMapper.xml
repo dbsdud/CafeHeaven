@@ -104,7 +104,7 @@
 	</select>
 
 	<!-- 마이페이지 > 내가 쓴 글 보기 -->
-	<select id="userWriteList"  resultType="NoticeDTO">
+	<select id="userWriteListAjax"  resultType="NoticeDTO">
 	SELECT NT_NO AS ntNo,
 		   NT_TITLE AS ntTitle,
 		   NT_CONT AS ntCont,
