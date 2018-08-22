@@ -41,6 +41,7 @@
 				<!--슬라이드3-->
 			</div>
 		</div>
+		<!-- 검색 부분 반응형 적용해야함 -->
 		<div id="div_new" style="position:absolute; top:100px; left:48%; width:auto; margin-left:-276px; z-index:1;  text-align: center;">
 			<img src="/image/logo.png" id="logo_img" alt="logo" style="margin-bottom:30px;">
 			<div id="search_area">
