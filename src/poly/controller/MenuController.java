@@ -49,13 +49,15 @@ public class MenuController {
 	//메뉴등록화면 관리창
 	@RequestMapping(value = "menu/menuReg")
 	public String menuReg(HttpServletRequest req,Model model) throws Exception {
+		log.info("menuList Start : " + this.getClass());
 		List<MenuDTO> mList = menuService.getMenuList();
-		
-		log.info("menuReg mList"+ mList.get(0).getMenuNo());
+		log.info("menuReg mList : "+ mList.get(0).getMenuNo());
 		List<CafeAttachDTO> caList=menuService.getMenuListImg();
-		
+		log.info("menuReg caList : " + caList.get(0).getMenuNo());
 		model.addAttribute("mList", mList);
+		log.info("mList : " + mList);
 		model.addAttribute("caList",caList);
+		log.info("caList : " + caList);
 		
 		log.info("menuList End:"+this.getClass());
 		return "/menu/menuReg";

@@ -21,8 +21,6 @@ public class MenuService implements IMenuService {
 	//메뉴등록
 	@Override
 	public HashMap<String, Object> insertMenu(HashMap<String, Object> hMap) throws Exception {
-		// TODO Auto-generated method stub
-	
 		//hMap.get("caDTO");
 		// 해쉬맵에 저장 된  mDTO caDTO 를 불러올 수 있음
 		MenuDTO mDTO = (MenuDTO) hMap.get("mDTO");
@@ -36,7 +34,6 @@ public class MenuService implements IMenuService {
 		caDTO.setMenuNo(menuNo);
 		
 		int resultAttach=menuMapper.insertMenuAttach(caDTO);
-		
 		
 		System.out.println("mDTo getMenuNo"+mDTO.getMenuNo());
 		System.out.println("caDTO service:"+caDTO.getCafeImg());
@@ -55,14 +52,12 @@ public class MenuService implements IMenuService {
 	//메뉴 조회  글 
 	@Override
 	public List<MenuDTO> getMenuList() throws Exception {
-		// TODO Auto-generated method stub
 		return menuMapper.getMenuList();
 	}
 
 	//메뉴조회 사진 
 	@Override
 	public List<CafeAttachDTO> getMenuListImg() throws Exception {
-		// TODO Auto-generated method stub
 		return menuMapper.getMenuListImg();
 	}
 
@@ -70,7 +65,6 @@ public class MenuService implements IMenuService {
 	//메뉴 조회 상세보기 업데이트 글
 	@Override
 	public MenuDTO getMenuDetail(String menuNo) throws Exception {
-		// TODO Auto-generated method stub
 		System.out.println("service getMenuDetail menuNo"+menuNo);
 		return menuMapper.getMenuDetail(menuNo);
 	}
@@ -78,17 +72,13 @@ public class MenuService implements IMenuService {
 	//메뉴 조회 상세보기 업데이트 사진 
 	@Override
 	public CafeAttachDTO getMenuImgDetail(String menuNo) throws Exception {
-		// TODO Auto-generated method stub
 		System.out.println("service getMenuImgDetail menuNo"+menuNo);
 		return menuMapper.getMenuImgDetail(menuNo);
 	}
 
-
-
 	//메뉴 업데이트 글
 	@Override
 	public int updateMenuDetail(MenuDTO mDTO) throws Exception {
-		// TODO Auto-generated method stub
 		return menuMapper.updateMenuDetail(mDTO);
 	}
 
@@ -101,19 +91,15 @@ public class MenuService implements IMenuService {
 		return menuMapper.deleteMenuImg(caDTO);
 	}
 
-
-
 	//메뉴업데이트 사진 삭제후 사진 등록
 	@Override
 	public int insertMenuImg(CafeAttachDTO caDTO1) throws Exception {
-		// TODO Auto-generated method stub
 		return menuMapper.insertMenuImg(caDTO1);
 	}
 
 	//메뉴 글 삭제
 	@Override
 	public int deleteMenuDetail(MenuDTO mDTO) throws Exception {
-		// TODO Auto-generated method stub
 		return menuMapper.deleteMenuDetail(mDTO);
 	}
 
@@ -141,5 +127,4 @@ public class MenuService implements IMenuService {
 		return menuMapper.getUserMenuDetailImg(caDTO);
 	}
 
-	
 }

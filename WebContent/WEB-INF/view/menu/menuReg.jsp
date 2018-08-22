@@ -12,36 +12,28 @@
 <title>Insert title here</title>
 <%@ include file="/WEB-INF/view/cssjs.jsp" %>
 <!--메뉴  테이블 리스트  -->
-   <script>
-   $(document).ready( function () {
-	    $('#myTable').DataTable();
-	} );
-   
-   <!--삭제-->
-   
-	function deleteMenu(menuNo){
-		
+<script>
+	$(document).ready(function() {
+		$('#myTable').DataTable();
+	});
+	<!--삭제-->
+	function deleteMenu(menuNo) {
 		alert("메뉴를 삭제했습니다.");
 		alert(menuNo)
-		location.href="/menu/menuDeleteProc.do?menuNo="+menuNo;
-		}
-   
-   
-   </script>
- <!--  메뉴 테이블 리스트 -->
+		location.href = "/menu/menuDeleteProc.do?menuNo=" + menuNo;
+	}
+</script>
+<!--  메뉴 테이블 리스트 -->
  <!--  css 글자중앙 -->
- <style>
- .talign {
- text-align: center;
- }
- </style>
- 
-
+<style>
+.talign {
+	text-align: center;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/view/mainCafeTop.jsp" %>
 <!-- --------------------메뉴 ------------------------------------------------------------------------- -->
-
 <!-- 조건선택란 -->
 	<div class="container">
 		<div class="page-header">
