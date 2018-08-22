@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="poly.persistance.mapper.BigDataMapper">
+<!-- 시도등록 -->
+<insert id="insertSido" parameterType="SidoDTO">
+INSERT INTO SIDO(CTPRVNCD,CTPRVNNM) VALUES (#{ctprvnCd} ,#{ctprvnNm})
+</insert>
+<select id="getSidoList" resultType="SidoDTO">
+SELECT CTPRVNCD,CTPRVNNM FROM SIDO
+</select>
+<!-- 구군 등록 -->
+<insert id="insertGugun" parameterType="GugunDTO">
+INSERT INTO GUGUN(CTPRVNCD,CTPRVNNM,SIGNGUCD,SIGNGUNM) VALUES (#{ctprvnCd} ,#{ctprvnNm},#{signguCd},#{signguNm})
+</insert>
+<select id="getGugunList" resultType="GugunDTO">
+SELECT SIGNGUCD,SIGNGUNM FROM GUGUN
+</select>
+<!-- 동등록 -->
+<insert id="insertDong" parameterType="DongDTO">
+INSERT INTO DONG(SIGNGUCD,SIGNGUNM,ADONGCD,ADONGNM) VALUES (#{signguCd},#{signguNm},#{adongCd},#{adongNm})
+</insert>
+<!--  -->
+</mapper>
