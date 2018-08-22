@@ -42,6 +42,15 @@
     display: inline-block;
 }
 /* home style */
+/* #outline_div {
+	position : relative;
+	margin : auto;
+	min-width : 960px;
+	width : 100%;
+	min-height : 768px;
+	height : 100%;
+	text-align : center;
+} */
 #logo_img{
 	position : relative;
 	margin : 0 auto;

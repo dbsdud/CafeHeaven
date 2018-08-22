@@ -11,7 +11,7 @@
 </head>
 <body>
 	<%@ include file="mainCafeTop.jsp"%>
-	<div>
+	<div id="outline_div" style="opacity: 1;">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!--페이지-->
 			<ol class="carousel-indicators">
@@ -23,19 +23,19 @@
 			<div class="carousel-inner">
 				<!--슬라이드1-->
 				<div class="item active">
-					<img style="width: 100%; height: 800px;" src="/image/banner.jpg"
+					<img style="width: 100%; height: 840px;" src="/image/banner.jpg"
 						alt="First slide">
 				</div>
 				<!--슬라이드1-->
 				<!--슬라이드2-->
 				<div class="item">
-					<img style="width: 100%; height: 800px;" src="/image/cafeIN.jpg"
+					<img style="width: 100%; height: 840px;" src="/image/cafeIN.jpg"
 						data-src="" alt="Second slide">
 				</div>
 				<!--슬라이드2-->
 				<!--슬라이드3-->
 				<div class="item">
-					<img style="width: 100%; height: 800px;" src="/image/cafeIN2.jpg"
+					<img style="width: 100%; height: 840px;" src="/image/cafeIN2.jpg"
 						data-src="" alt="Third slide">
 				</div>
 				<!--슬라이드3-->
