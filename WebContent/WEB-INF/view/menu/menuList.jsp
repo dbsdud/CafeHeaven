@@ -203,6 +203,17 @@ body, html {
 				메뉴 <small>CAFE HEAVEN</small>
 			</h1>
 		</div>
+		<div class="menu_kind_wrap">
+			<p class="title">븐류 보기</p>
+			<div class="menu_kind_btn">
+				<a href="javascript:void(0)" role="button">
+					<img src="#" alt="분류보기 메뉴 접기">
+				</a>
+			</div>
+			<div class="menu_toggle_wrap" style="display: block;">
+				<dl></dl>
+			</div>
+		</div>
 		<!--  메뉴 본문  for문돌려 -->
 		<div class="w3-container" id="menu">
 			<div class="w3-content" style="text-align: center; max-width: 100%">
