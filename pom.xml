@@ -168,7 +168,7 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.3.7.RELEASE</version>
 		</dependency>
-		<!-- Mysql -->
+		<!-- Mysql1 -->
 		<!-- <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
