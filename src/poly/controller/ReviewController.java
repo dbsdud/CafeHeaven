@@ -34,14 +34,9 @@ public class ReviewController {
 	@RequestMapping(value="/notice/reviewList")
 	public @ResponseBody List<ReviewDTO> reviewList(HttpServletRequest req) throws Exception {
 		//rDTO 객체 생성
-		
-		
 		//조회한 데이터를 리스트 형식으로 저장
 		List<ReviewDTO> rList= reviewService.getReviewList();
-				
-		
 		return rList;
-		
 	}
 	
 	
@@ -82,11 +77,6 @@ public class ReviewController {
 		
 		log.info("rList 시작:"+rList);
 		
-		
-		
 		return rList;
-		
 	}
-	
-	
 }
