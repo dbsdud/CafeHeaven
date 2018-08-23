@@ -275,8 +275,7 @@ function ansUncom(str){
 						<%if (nList.get(i).getRegNo().equals(userNo)) { %>
 						<%if (nList.get(i).getNtNo().equals(nList.get(j).getQaGrpNo())){ %>
 						<div style="height: 50px">
-							<a
-								href="/notice/answerDetail.do?qaGrpNo=<%=nList.get(i).getNtNo()%>">답변완료</a>
+							<a href="/notice/answerDetail.do?qaGrpNo=<%=nList.get(i).getNtNo()%>">답변완료</a>
 						</div>
 						<%}%>
 						<%}%>

@@ -16,8 +16,6 @@ body, html {
 	height: 100%;
 	font-family: "Inconsolata", sans-serif;
 }
-
-
 .menu {
 	display: none;
 }
@@ -27,7 +25,6 @@ body, html {
 	border: 1px solid #ccc;
 	background-color: #f1f1f1;
 }
-
 /* Style the buttons that are used to open the tab content */
 .tab button {
 	background-color: inherit;
@@ -48,7 +45,6 @@ body, html {
 .tab button.active {
 	background-color: #ccc;
 }
-
 /* Style the tab content */
 .tabcontent {
 	display: none;
