@@ -39,15 +39,11 @@ $(function(){
 </script>
 </head>
 <body>
-
 	<div class="container">
-		<!-- 상단 -->
 		<div class="col-sm-12">
 			<button class="col-sm-6 buttoni-blue" id="mapjc1">카페 위치</button>
 			<button class="col-sm-6 buttoni-blue" id="imgjc1">카페 정보</button>
 		</div>
-	</div>
-
 	<!-- 카페정보 내용 -->
 	<div id="img">
 		<div class="container">
@@ -62,6 +58,8 @@ $(function(){
 								카페정보&nbsp;&nbsp;&nbsp;<small>CAFE INFO</small>
 							</h1>
 						</div>
+							<!-- 상단 버튼 -->
+		
 					</div>
 
 					<img src="/uploadImg/<%=caDTO.getCafeImg()%>"
@@ -398,6 +396,6 @@ getLocation();
 	<!--  본문 카페정보 상단 -->
 
 	<!-- --- -->
-
+</div>
 </body>
 </html>

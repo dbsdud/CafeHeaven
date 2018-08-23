@@ -84,7 +84,7 @@ body, html {
 							contents+="<div class='w3-col s4'>";
 							contents+="<span>";
 							contents+="<a href='#' data-toggle='modal' data-target='#menu-dt'>";
-							contents+="<img src='/uploadImg/"+caList[i].cafeImg+"' style='width: 100%; height:200px;' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'>";
+							contents+="<div class='w3-animate-zoom menuImg'><img src='/uploadImg/"+caList[i].cafeImg+"' style='width: 100%; height:200px;' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'></div>";
 							contents+="</a>";
 							contents+="</span>";
 							contents+="<div>";
@@ -103,7 +103,7 @@ body, html {
 								contents+="<div class='w3-col s4'>";
 								contents+="<span>";
 						 		contents+="<a href='#' data-toggle='modal' data-target='#menu-dt'>";
-								contents+="<img src='/uploadImg/"+caList[i].cafeImg+"' style='width: 100%; height:200px;' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'>";
+								contents+="<div class='w3-animate-zoom menuImg'><img src='/uploadImg/"+caList[i].cafeImg+"' style='width: 100%; height:200px;' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'></div>";
 								contents+="</a>";
 								contents+="</span>";
 								contents+="<div>";
