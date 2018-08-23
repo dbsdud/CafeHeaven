@@ -219,7 +219,10 @@ table.dataTable.display tbody tr:hover.selected>.sorting_3, table.dataTable.orde
 }
 
 table.dataTable.no-footer {
-	border-bottom: 1px solid #111
+	width: 100%;
+	border-top: 1px solid #333333;
+	border-bottom: 1px solid #CCCCCC;
+	border-collapse: collapse;
 }
 
 table.dataTable.nowrap th, table.dataTable.nowrap td {

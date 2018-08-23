@@ -21,6 +21,31 @@
 	-moz-transition: transform .35s;
 	-webkit-transition: transform .35s;
 }
+	/* menuReg css Start */
+	.menuTable{
+		width: 100%;
+		border-top: 1px solid #333333;
+		border-bottom: 1px solid #CCCCCC;
+		border-collapse: collapse;
+	}
+	/* .menuTable>thead>tr>th{
+		width: 80px;
+		height: 50px;
+		background-color: #F5F5F5;
+		font-weight: normal;
+	} */
+	.box__dragndrop, .box__uploading, .box__success, .box__error {
+		display: none;
+	}
+	.box.has-advanced-upload {
+		background-color: white;
+		outline: 2px dashed black;
+		outline-offset: -10px;
+	}
+	.box.has-advanced-upload .box__dragndrop {
+		display: inline;
+	}
+	/* menuReg css End */
 /* menu css end */
 /* order css start */
 .orderHead{
