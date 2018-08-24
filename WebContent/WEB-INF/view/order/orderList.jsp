@@ -404,7 +404,7 @@ function orderCancel(ordNo, statNo){
 				<%if(ordStat.equals("1")){ %>
 				<td class="talign">
 					<div>
-						<button class="btn btn-primary btn-sm" onclick="orderProc('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>', 2);">접수 하기</button>
+						<button class="btn btn-primary btn-sm" onclick="orderProc('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>', 2);">접수하기</button>
 					</div>
 				</td>
 				<td class="talign">
@@ -419,12 +419,12 @@ function orderCancel(ordNo, statNo){
 				</td>
 				<td class="talign">
 					<div>
-						<button class="btn btn-danger btn-sm" onclick="orderCancel('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>', 5);">취소 하기</button>
+						<button class="btn btn-danger btn-sm" onclick="orderCancel('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>', 5);">취소하기</button>
 					</div>
 				</td>
 				<%}else if(ordStat.equals("2")){ %>
 				<td class="talign">
-					접수완료
+					접수 완료
 				</td>
 				<td class="talign">
 					<div>
@@ -443,10 +443,10 @@ function orderCancel(ordNo, statNo){
 				</td>
 				<%}else{ %>
 				<td class="talign">
-					접수완료
+					접수 완료
 				</td>
 				<td class="talign">
-					조리완료
+					조리 완료
 				</td>
 				<td class="talign">
 					<div>
@@ -455,7 +455,7 @@ function orderCancel(ordNo, statNo){
 				</td>
 				<td class="talign">
 					<div>
-						<button class="btn btn-danger" onclick="orderCancel('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>','5');">취소하기</button>
+						<button class="btn btn-danger btn-sm" onclick="orderCancel('<%=CmmUtil.nvl(tDTO.getOrdInfoNo())%>','5');">취소하기</button>
 					</div>
 				</td>
 				<%} %>
