@@ -310,7 +310,6 @@ public class OrderController {
 	public @ResponseBody List<TotalOrderDTO> orderInterval(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
 		log.info(this.getClass() + " orderInterval Start!");
 		List<TotalOrderDTO> tList = orderService.getTotalOrderDTO();
-		
 		if(tList == null) {
 			tList = new ArrayList<TotalOrderDTO>();
 		}
@@ -341,9 +340,9 @@ public class OrderController {
 			}
 		}
 	}
-	@RequestMapping(value="order/orderProc", method=RequestMethod.POST)
+	@RequestMapping(value="order/adminOrderProc", method=RequestMethod.POST)
 	public @ResponseBody List<TotalOrderDTO> adminTakeOrder(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
-		log.info(this.getClass() + " orderProc Start!");
+		log.info(this.getClass() + " adminOrderProc Start!");
 		String ordNo = req.getParameter("ordNo");
 		log.info(this.getClass() + " ordNo : " + ordNo);
 		String statNo = req.getParameter("statNo");
@@ -352,23 +351,23 @@ public class OrderController {
 		if(tList==null) {
 			tList = new ArrayList<TotalOrderDTO>();
 		}
-		log.info(this.getClass() + " orderProc End!");
+		log.info(this.getClass() + " adminOrderProc End!");
 		Collections.sort(tList, new SortOrder());
 		return tList;
 	}
-	@RequestMapping(value="order/orderCancel")
+	@RequestMapping(value="order/adminOrderCancel")
 	public @ResponseBody List<TotalOrderDTO> orderCancel(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
-		log.info(this.getClass() + " orderCancel Start!");
+		log.info(this.getClass() + " adminOrderCancel Start!");
 		String ordNo = req.getParameter("ordNo");
-		log.info(this.getClass() + " orderCancel : " + ordNo);
+		log.info(this.getClass() + " adminOrderCancel : " + ordNo);
 		String statNo = req.getParameter("statNo");
-		log.info(this.getClass() + " orderCancel : " + statNo);
+		log.info(this.getClass() + " adminOrderCancel : " + statNo);
 		List<TotalOrderDTO> tList = orderService.updateAdminOrdNo(ordNo, statNo);
 		if(tList == null) {
 			tList = new ArrayList<TotalOrderDTO>();
 		}
 		Collections.sort(tList, new SortOrder());
-		log.info(this.getClass() + " orderCancel End!");
+		log.info(this.getClass() + " adminOrderCancel End!");
 		return tList;
 	}
 	@RequestMapping(value="order/orderRemainTime.do")
@@ -380,6 +379,44 @@ public class OrderController {
 		}
 		log.info(this.getClass() + ".adminOrderReaminTime end!!!");
 		return tList;
+	}
+	@RequestMapping(value="order/barcodePage", method=RequestMethod.GET)
+	public String barcodePage(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception{
+		log.info(this.getClass().getName()+" barcodePage Start!");
+		String ordNo = req.getParameter("ordNo");
+		String statNo = req.getParameter("statNo");
+		log.info(this.getClass().getName() + "ordNo : " + ordNo);
+		log.info(this.getClass().getName() + "statNo : " + statNo);
+		model.addAttribute("ordNo", ordNo);
+		model.addAttribute("statNo", statNo);
+		log.info(this.getClass().getName() + " barcodePage End!");
+		
+		return "/order/barcodePage";
+	}
+	@RequestMapping(value="order/barcodeSuccess")
+	public String barcodeSuccess(HttpServletRequest req, Model model) throws Exception{
+		log.info(this.getClass().getName() + " barcodeSuccess Start!");
+		String ordNo = req.getParameter("ordNo");
+		model.addAttribute("ordNo", ordNo);
+		ordNo = null;
+		log.info(this.getClass().getName() + " barcodeSuccess End!");
+		return "/order/barcodeSuccess";
+	}
+	@RequestMapping(value="order/barcodeProc", method=RequestMethod.POST)
+	public String barcodeProc(HttpServletRequest req, HttpServletResponse res, Model model) throws Exception {
+		log.info(this.getClass() + " adminOrderProc Start!");
+		String ordNo = req.getParameter("ordNo");
+		log.info(this.getClass() + " adminTakeOrder.ordNo : " + ordNo);
+		String statNo = req.getParameter("statNo");
+		log.info(this.getClass() + " adminTakeOrder.statNo : " + statNo);
+		List<TotalOrderDTO> tList = orderService.updateAdminOrdNo(ordNo, statNo);
+		if(tList == null) {
+			tList = new ArrayList<TotalOrderDTO>();
+		}
+		log.info(this.getClass() + " adminOrderProc End!");
+		model.addAttribute("ordNo", ordNo);
+		tList=null;
+		return "redirect:/order/barcodeSuccess.do";
 	}
 	// 주문 테스트
 	/*@RequestMapping(value="orderProcTest", method=RequestMethod.POST)
@@ -401,24 +438,5 @@ public class OrderController {
 		log.info(this.getClass() + " orderProcTest End!");
 		return null;
 	}*/
-	
-	// 바로 주문정보
-	/*@RequestMapping(value="/order/orderDirectInfo")
-	public @ResponseBody HashMap<String, Object> orderDirectInfo(HttpServletRequest request) throws Exception{
-		log.info("orderDirectInfo start : " + this.getClass());
-		String menuNo = CmmUtil.nvl(request.getParameter("menuNo"));
-		log.info("menuNo : " + menuNo);
-		
-		MenuDTO mDTO = new MenuDTO();
-		UserDTO uDTO = new UserDTO();
-		
-		log.info("mDTO get menuNo : " + mDTO.getMenuNo());
-		
-		List<MenuDTO> mList = menuService.getOrderListMenu(mDTO);
-		
-		
-		return null;
-	}
-	*/
 	
 }

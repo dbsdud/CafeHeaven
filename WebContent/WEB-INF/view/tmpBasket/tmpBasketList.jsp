@@ -203,56 +203,52 @@ function doOrder(){
 				장바구니&nbsp;&nbsp;&nbsp;<small>CAFE HEAVEN</small>
 			</h1>
 		</div>
-		<div class="w3-container">
-			<div class="orderHead" style="max-width: 100%">장바구니</div>
-			<div id="tmpList">
-				<!-- 정보가 없을 경우 노출되는 화면 -->
-				<%
-					if (tMap.size() == 0) {
-				%>
-				<div class="col-xs-12" style="text-align: center;">
-					<div class="tmpBasketResultPriceText">선택하신 상품이 없습니다.</div>
-				</div>
-				<%
-					} else {
-						Iterator<String> keys = tMap.keySet().iterator();
-						while (keys.hasNext()) {
-							String key = keys.next();
-				%>
-				<!-- 정보가 없을 경우 노출되는 화면 끝 -->
-				<div class="w3-col s12">
-					<input type="checkbox" name="del_check" value="<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>" />
-					<div class="tmpBasketText"><%=CmmUtil.nvl(tMap.get(key).getMenuName())%></div>
-					<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'm');">-</a>
-					<input type="text" value="<%=CmmUtil.nvl(tMap.get(key).getMenuQty()) %>"
-						class="tmpBasketCount" maxlength="2" readonly id="<%=CmmUtil.nvl(tMap.get(key).getMenuNo() + "Cnt")%>">
-					<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'p');">+</a>
-					<div class="tmpBasketPrice" name="price"><%=CmmUtil.addComma(Integer.parseInt(tMap.get(key).getMenuPrice()) * Integer.parseInt(tMap.get(key).getMenuQty())) + "원" %></div>
-					<a href="#" onclick="tmpBasketDeleteOne('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>');"><img src="#" class="tmpBasketDeleteImg"></a>
-					<hr class="tmpBasketHr">
-				</div>
-				<%
-					resultPrice += Integer.parseInt(tMap.get(key).getMenuPrice())
-									* Integer.parseInt(tMap.get(key).getMenuQty());
-						}
+		<div id="tmpList">
+			<!-- 정보가 없을 경우 노출되는 화면 -->
+			<%
+				if (tMap.size() == 0) {
+			%>
+			<div class="col-xs-12" style="text-align: center;">
+				<div class="tmpBasketResultPriceText">선택하신 상품이 없습니다.</div>
+			</div>
+			<%
+				} else {
+					Iterator<String> keys = tMap.keySet().iterator();
+					while (keys.hasNext()) {
+						String key = keys.next();
+			%>
+			<!-- 정보가 없을 경우 노출되는 화면 끝 -->
+			<div class="w3-col s12">
+				<input type="checkbox" name="del_check" value="<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>" />
+				<div class="tmpBasketText"><%=CmmUtil.nvl(tMap.get(key).getMenuName())%></div>
+				<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'm');">-</a>
+				<input type="text" value="<%=CmmUtil.nvl(tMap.get(key).getMenuQty()) %>"
+					class="tmpBasketCount" maxlength="2" readonly id="<%=CmmUtil.nvl(tMap.get(key).getMenuNo() + "Cnt")%>">
+				<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'p');">+</a>
+				<div class="tmpBasketPrice" name="price"><%=CmmUtil.addComma(Integer.parseInt(tMap.get(key).getMenuPrice()) * Integer.parseInt(tMap.get(key).getMenuQty())) + "원" %></div>
+				<a href="#" onclick="tmpBasketDeleteOne('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>');"><img src="#" class="tmpBasketDeleteImg"></a>
+				<hr class="tmpBasketHr">
+			</div>
+			<%
+				resultPrice += Integer.parseInt(tMap.get(key).getMenuPrice()) * Integer.parseInt(tMap.get(key).getMenuQty());
 					}
-				%>
+				}
+			%>
+		</div>
+		<div class="w3-col s12 w3-row-padding">
+			<div class="w3-col s6" style="margin:auto;">결제 예정금액</div>
+			<div class="w3-col s6" id="totPrice" style="margin:auto;"><%=CmmUtil.nvl(CmmUtil.addComma(resultPrice)) + "원" %></div>
+		</div><br />
+		<div class="w3-col s12 w3-row-padding" style="font-size:19px;">
+			<div class="w3-col s6 w3-row-padding" style="padding: 10px;">
+				<button class="btn btn-danger" style="width:100%" onclick="tmpBasketSelectedDelete();">선택삭제</button>
 			</div>
-			<div class="w3-col s12 w3-row-padding">
-				<div class="w3-col s6">결제 예정금액</div>
-				<div class="w3-col s6" id="totPrice" style="margin-bottom: 10px;"><%=CmmUtil.nvl(CmmUtil.addComma(resultPrice)) + "원" %></div>
-			</div><br />
-			<div class="w3-col s12 w3-row-padding">
-				<div class="w3-col s6 w3-row-padding" style="padding: 0px 10px 0px 0px;">
-					<button class="tmpBasketSelectDeleteButton" onclick="tmpBasketSelectedDelete();">선택삭제</button>
-				</div>
-				<div class="w3-col s6 w3-row-padding" style="padding: 0px 0px 0px 10px;">
-					<button class="tmpBasketKeepShopping" onclick="keepShopping();">계속 쇼핑하기</button>
-				</div>
+			<div class="w3-col s6 w3-row-padding" style="padding: 10px;">
+				<button class="btn btn-primary" style="width:100%" onclick="keepShopping();">계속 쇼핑하기</button>
 			</div>
-			<div class="w3-col s12 w3-row-padding">
-				<button class="tmpBasketOrder" onclick="return doOrder();">주문 하기</button>
-			</div>
+		</div>
+		<div class="w3-col s12 w3-row-padding">
+			<button class="btn btn-success" style="width:100%; padding:10px;" onclick="return doOrder();">주문 하기</button>
 		</div>
 	</div>
 </body>

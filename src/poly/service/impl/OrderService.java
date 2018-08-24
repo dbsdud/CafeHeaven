@@ -50,6 +50,7 @@ public class OrderService implements IOrderService{
 			int price = 0;
 			for(int i = 0; i < tItemList.size(); i++) {
 				menuName += tItemList.get(i).getMenuName() + "</br>";
+				System.out.println("menuName : "+ i + "," + tItemList.get(i).getMenuName());
 				ordAmnt += tItemList.get(i).getOrdAmnt() + "</br>";
 				price += Integer.parseInt(tItemList.get(i).getMenuPrice()) * Integer.parseInt(tItemList.get(i).getOrdAmnt());
 			}

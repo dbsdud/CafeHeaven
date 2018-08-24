@@ -66,7 +66,6 @@ FROM
 	CAFE_ORDER_INFO
 WHERE
 	USER_NO = #{userNo}
-	AND ROWNUM <![CDATA[<=]]> 5
 ORDER BY
 	ORD_INFO_NO
 DESC LIMIT 5
@@ -131,9 +130,9 @@ WHERE
 				CAFE_ORDER_INFO
 			SET
 				ORD_STAT = #{statNo}
-				RCV_TIME = NOW()
+				USR_RCV_TIME = NOW()
 			WHERE
-				ORD_INFO_NO = #{orderNo}
+				ORD_INFO_NO = #{ordNo}
 		</when>
 		<when test="statNo == 5">
 			UPDATE
@@ -143,7 +142,7 @@ WHERE
 				ORD_CANCEL_YN = 'Y',
 				ORD_CANCEL_TIME = NOW()
 			WHERE
-				ORD_INFO_NO = #{orderNo}
+				ORD_INFO_NO = #{ordNo}
 		</when>
 		<otherwise>
 			UPDATE
@@ -151,7 +150,7 @@ WHERE
 			SET
 				ORD_STAT = #{statNo}
 			WHERE
-				ORD_INFO_NO = #{orderNo}
+				ORD_INFO_NO = #{ordNo}
 		</otherwise>
 	</choose>
 </update>

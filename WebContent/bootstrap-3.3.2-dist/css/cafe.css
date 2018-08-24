@@ -28,12 +28,6 @@
 		border-bottom: 1px solid #CCCCCC;
 		border-collapse: collapse;
 	}
-	/* .menuTable>thead>tr>th{
-		width: 80px;
-		height: 50px;
-		background-color: #F5F5F5;
-		font-weight: normal;
-	} */
 	.box__dragndrop, .box__uploading, .box__success, .box__error {
 		display: none;
 	}
@@ -89,15 +83,6 @@
     display: inline-block;
 }
 /* home style */
-/* #outline_div {
-	position : relative;
-	margin : auto;
-	min-width : 960px;
-	width : 100%;
-	min-height : 768px;
-	height : 100%;
-	text-align : center;
-} */
 #logo_img{
 	position : relative;
 	margin : 0 auto;

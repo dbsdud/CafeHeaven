@@ -45,7 +45,7 @@
 						<!--  연습용으로 넘어가게 지정해놓음 -->
 						<li><a href="/user/userList.do">회원 관리</a></li>
 						<li><a href="/menu/menuReg.do">메뉴 관리</a></li>
-						<li><a href="/order/orderList.do">주문 관리</a></li><!--  해야됨 -->
+						<li><a href="/order/orderList.do">주문 관리</a></li>
 						<li><a href="/cafe/cafeInfoManage.do">카페 관리</a></li>
 						<li><a href="/bigData/bigData.do">빅데이터 분석 관리</a></li>
 					</ul></li>
