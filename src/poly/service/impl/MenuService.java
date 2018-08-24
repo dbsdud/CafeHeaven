@@ -31,8 +31,8 @@ public class MenuService implements IMenuService {
 		int resultMenu= menuMapper.insertMenu(mDTO);
 		
 		CafeAttachDTO caDTO = (CafeAttachDTO) hMap.get("caDTO");
-		//select key 에서 받아온 값을 String menuNo 저장
-		String menuNo=(String)mDTO.getMenuNo();
+		//select key 에서 받아온 값이 int  menuNo 저장 //오라클에서는 string 으로 구분지으려 했는데 menu2 menu3 이런식 시퀀스 +문자 합쳐서 mysql에서는 숫자형만 
+		int menuNo=mDTO.getMenuNo();
 		caDTO.setMenuNo(menuNo);
 		
 		int resultAttach=menuMapper.insertMenuAttach(caDTO);

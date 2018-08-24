@@ -1,4 +1,3 @@
-<%@page import="com.mysql.jdbc.PreparedStatement.ParseInfo"%>
 <%@page import="poly.dto.NoticeDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>

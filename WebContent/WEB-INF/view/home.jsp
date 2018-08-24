@@ -29,9 +29,11 @@ body {
 	}
 }
 </style>
+
 </head>
 <body>
 	<%@ include file="mainCafeTop.jsp" %>
 	<%@ include file="mainCafeBottom.jsp" %>
+	
 </body>
 </html>

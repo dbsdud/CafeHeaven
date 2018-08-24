@@ -4,10 +4,10 @@
 <mapper namespace="poly.persistance.mapper.MenuMapper">
 <!-- 메뉴등록  전체 -->
 <!--  메뉴 등록 -->
+<!-- 오라클 -->
+<!-- <insert id ="insertMenu" parameterType="MenuDTO" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 
-<insert id ="insertMenu" parameterType="MenuDTO" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-
-<!-- 오라클 mysql 쓰는법 다름 http://egloos.zum.com/kamsi76/v/377946 일단 상관없음-->
+오라클 mysql 쓰는법 다름 http://egloos.zum.com/kamsi76/v/377946 일단 상관없음
 
 INSERT INTO
 CAFE_MENU(
@@ -33,9 +33,44 @@ SYSDATE
 	SELECT 'MENU'||MENU_NO.CURRVAL AS MENU_NO FROM DUAL
 </selectKey>
 
+SELECT LAST_INSERT_ID() 리턴값은 parameterType에 넘겨준 객체에 넘어간다  getMenuNo
+</insert> -->
+<!--  mysql -->
+<insert id ="insertMenu" parameterType="MenuDTO" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+
+<!-- 오라클 mysql 쓰는법 다름 http://egloos.zum.com/kamsi76/v/377946 일단 상관없음-->
+<!--MENU_NO_VAR, CONCAT('menu',last_insert_id()+1), -->
+INSERT INTO
+CAFE_MENU(
+MENU_NAME,
+MENU_INTRO,
+MENU_PRICE,
+MENU_AMOUNT,
+MENU_CG_NO,
+REGNO,
+REGDATE
+)VALUES(
+#{menuName},
+#{menuIntro},
+#{menuPrice},
+#{menuAmount},
+#{menuCgNo},
+1,
+now()
+)
+<selectKey  resultType="int" keyProperty="menuNo" order="AFTER" >
+	SELECT last_insert_id() FROM DUAL;
+</selectKey>
+
 <!-- SELECT LAST_INSERT_ID() 리턴값은 parameterType에 넘겨준 객체에 넘어간다  getMenuNo -->
 </insert>
+
+
+
+
 <!-- 관리를 위해 첨부 테이블     이건 좀 고민을 해봐야됨  menu_no 부분에서 분류할때 문제있을거같음     -->
+<!--오라클  -->
+<!--  
 <insert id="insertMenuAttach"  parameterType="CafeAttachDTO" >
 
 INSERT INTO
@@ -50,7 +85,7 @@ REGDATE,
 MENU_CG_NO
 )VALUES(
 CAFE_ATTACH_NO.NEXTVAL,
-#{menuNo},<!--  이거를 menu에 있는 메뉴 no 와 일치해야됨 -->
+#{menuNo},
 #{cafeImg},
 #{cafeImgPath},
 #{cafeImgOrg},
@@ -59,6 +94,28 @@ SYSDATE,
 #{menuCgNo}
 )
 </insert>
+-->
+<insert id="insertMenuAttach"  parameterType="CafeAttachDTO" >
+INSERT INTO
+CAFE_ATTACH(
+MENU_NO,
+CAFE_IMG,
+CAFE_IMG_PATH,
+CAFE_IMG_ORG,
+REGNO,
+REGDATE,
+MENU_CG_NO
+)VALUES(
+#{menuNo},
+#{cafeImg},
+#{cafeImgPath},
+#{cafeImgOrg},
+1,
+now(),
+#{menuCgNo}
+)
+</insert>
+
 <!--  메뉴 등록 끝 -->
 <!-- 메뉴 리스트  글-->
 <select id="getMenuList" resultType="MenuDTO">
@@ -128,6 +185,24 @@ WHERE
 MENU_NO=#{menuNo}
 </select>
 <!-- 업데이트 글  -->
+<!-- 오라클 -->
+<!-- <update id="updateMenuDetail" parameterType="MenuDTO">
+UPDATE 
+	CAFE_MENU
+SET
+	MENU_NAME=#{menuName},
+	MENU_INTRO=#{menuIntro},
+	MENU_PRICE=#{menuPrice},
+	MENU_AMOUNT=#{menuAmount},
+	MENU_CG_NO=#{menuCgNo},
+	REGDATE=TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss'),
+	UPDDATE=now(),
+	UPDNO=1	
+WHERE
+	MENU_NO=#{menuNo}
+</update> -->
+<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 -->
+<!-- mysql -->
 <update id="updateMenuDetail" parameterType="MenuDTO">
 UPDATE 
 	CAFE_MENU
@@ -137,8 +212,8 @@ SET
 	MENU_PRICE=#{menuPrice},
 	MENU_AMOUNT=#{menuAmount},
 	MENU_CG_NO=#{menuCgNo},
-	REGDATE=TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss'),<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 -->
-	UPDDATE=SYSDATE,
+	REGDATE=DATE_FORMAT(#{regDate},'%Y-%m-%d %T'),<!--  이부분이 문제 다른 것들은 업데이트 되었는데  #{regDate} 가 string으로 받아오니 이걸 date 형식으로 -->
+	UPDDATE=now(),
 	UPDNO=1	
 WHERE
 	MENU_NO=#{menuNo}
@@ -151,7 +226,8 @@ DELETE FROM
 WHERE MENU_NO=#{menuNo}
 </delete>
 <!--이미지 파일 삭제 후등록 -->
-<insert id="insertMenuImg" parameterType="CafeAttachDTO">
+<!-- 오라클 -->
+<!-- <insert id="insertMenuImg" parameterType="CafeAttachDTO">
 
 INSERT INTO
 CAFE_ATTACH(
@@ -175,7 +251,34 @@ TO_DATE(#{regDate},'YYYY-MM-DD HH24:mi:ss'),
 1,
 SYSDATE
 )
+</insert> -->
+<!-- mysql -->
+
+<insert id="insertMenuImg" parameterType="CafeAttachDTO">
+
+INSERT INTO
+CAFE_ATTACH(
+MENU_NO,
+CAFE_IMG,
+CAFE_IMG_PATH,
+CAFE_IMG_ORG,
+REGNO,
+REGDATE,
+UPDNO,
+UPDDATE
+)VALUES(
+#{menuNo},
+#{cafeImg},
+#{cafeImgPath},
+#{cafeImgOrg},
+1,
+DATE_FORMAT(#{regDate},'%Y-%m-%d %T'),
+1,
+now()
+)
 </insert>
+
+
 <!-- 메뉴 글삭제 -->
 <delete id="deleteMenuDetail" parameterType="MenuDTO" >
 DELETE FROM CAFE_MENU
@@ -253,3 +356,4 @@ WHERE MENU_NO=#{menuNo}
 		MENU_NO=#{menuNo}
 </select>
 </mapper>
+

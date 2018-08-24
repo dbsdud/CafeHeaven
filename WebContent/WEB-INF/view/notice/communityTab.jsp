@@ -181,7 +181,7 @@ function ansUncom(str){
 	<!-- 부트스트랩 탭 메뉴 공지사항 qna 별점 -->
 
 	<div class="container">
-		<h2>내용변경탭구성</h2>
+		<h2>커뮤니티</h2>
 		<!--  탭  구성 상단 -->
 		<ul class="nav nav-tabs">
 			<li class="active" style="width: 33%;"><a data-toggle="tab" href="#menu1" aria-expanded="true">공지사항</a></li>

@@ -196,13 +196,16 @@
 							},
 							success:function(data){
 						 	 	$.each(data,function(key,value){
+						 	 	
 								allGugun.push({
 									signguNm:value.signguNm,
-									signguCd:value.signguCd
+									signguCd:value.signguCd,
+									sidoCode:sidoCode
 								})
 							})
 								geoAddrGugun(addr,allGugun,pos); 
 								allCafeGugunAjax(allGugun,addr);
+						 	
 							},
 							error:function(error){
 								alert(error)
@@ -282,7 +285,7 @@
 										})
 									})
 										geoAddrDong(addr,addrG,allDong,pos); 
-										allCafeDongAjax(allDong,addrG,addr);
+										allCafeDongAjax(gugunCode,allDong,addrG,addr);
 									},
 									error:function(error){
 										alert(error)
@@ -322,7 +325,7 @@
 						    });
 		 				});
 		 			}
-					
+					//////////////////////////////////공공데이터 api바로 받아오는것////////////////////////////////////////////결과/////////////////////////////
 					//시도에 관한 상가 개수 total count 
 					
 					function allCafeSido(allSido){
@@ -332,6 +335,7 @@
 						var cafeRegNm=new Array();
 						var cafeRegTotal=new Array();
 						var cafePercent=new Array();
+						var sidoCd=new Array();
 						
 						var colorArr = ["#ff6384","#ff9f40","#ffcd56","#4bc0c0","#36a2eb","#9966ff","#c9cbcf"
 			                ,"#ff6384","#ff9f40","#ffcd56","#4bc0c0","#36a2eb","#9966ff","#c9cbcf"
@@ -350,16 +354,13 @@
 							
 							]
 								          $.ajax({
-									        	url:"/bigData/allCafeSido.do",
-									        	type:"post",
-									        	 contentType : "application/json; charset=utf-8",
-									        	data:JSON.stringify(allSido),
+									         	url:"/bigData/allCafeSido.do", 
+									        	type:"get",
 									        	success:function(data){
 												for (var i = 0 ; i<data.length; i++){
 													totalCountSum+=parseInt(data[i].totalCount);
 													cafeRegNm.push(data[i].ctprvnNm);
 													cafeRegTotal.push(data[i].totalCount);
-													
 												}
 												var color=new Array();
 												var barColor=new Array();
@@ -392,15 +393,15 @@
 													cont+="<div id='barHs' style='max-width:500px; margin:auto'>";
 													cont+="<canvas id='barChart' width='500' height='500' style='display:block; width:500px; height:500px; margin:auto'></canvas>";
 													cont+="</div>";
-													cont+='<table id="tableHs" ><tr style="background-color:#f6f5ef;text-align:center"><td><h4>지역</h4></td><td><h4>상권 개수</h4></td><td><h4>분포율</h4></td><td><h4>밀집도</h4></td></tr>'+conTextBody+'</table>';
-													cont+="<div class='col-sm-12'>";
+													cont+='<table id="tableHs"><tr style="background-color:#f6f5ef;text-align:center"><td><h4>지역</h4></td><td><h4>상권 개수</h4></td><td><h4>분포율</h4></td><td><h4>밀집도</h4></td></tr>'+conTextBody+'</table>';
+													cont+="<div class='col-sm-12' style='margin-top:20px'>";
 													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;table&#39;)" >테이블</div>';
 													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;circle&#39;)" >원형차트</div>';
 													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;bar&#39;)">막대차트</div>';
 													cont+="</div>";
-													cont+="<div class='col-sm-12'>";
-													cont+="<div style='margin:auto; width:50%;float:left;' class='regButton btn-5 taCp'onclick='bigdataReset()'>초기화</div>"
-													cont+="<div style='margin:auto; width:50%' class='regButton btn-5 taCp' id='clusterChart'>검색</div>";
+													cont+="<div class='col-sm-12' style='margin-top:20px'>";
+													cont+="<div style='margin:auto; width:50%;' class='regButton btn-5 taCp'onclick='bigdataReset()'>초기화</div>"
+							/* 						cont+="<div style='margin:auto; width:50%' class='regButton btn-5 taCp' id='clusterChart'>검색</div>"; */
 													cont+="</div>";
 											
 													
@@ -415,15 +416,12 @@
 									    
 									        	},
 									        	error:function(error){
-									        		alert("잘못 조회 하셨습니다.")
+									        		
 									        	} 
 							    		});  
 						
 						
 					}
-					
-					
-					
 		///////////////구군Ajax
 					function allCafeGugunAjax(allGugun,addr){
 						var cont="";
@@ -458,11 +456,11 @@
 							'rgba(255,99,132,1)','rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)','rgba(255, 159, 64, 1)',
 							'rgba(255,99,132,1)','rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)','rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)','rgba(255, 159, 64, 1)'
 							]
-								          $.ajax({
+						
+					          $.ajax({
 									        	url:"/bigData/allCafeGugun.do",
-									        	type:"post",
-									        	 contentType : "application/json; charset=utf-8",
-									        	data:JSON.stringify(allGugun),
+									        	type:"get",
+									        	data:{"addrSido":allGugun[0].sidoCode},
 									        	success:function(data){
 												for (var i = 0 ; i<data.length; i++){
 													totalCountSum+=parseInt(data[i].totalCount);
@@ -527,7 +525,7 @@
 						
 					}
 					//////////////동Ajax
-					function allCafeDongAjax(allDong,addrG,addr){
+					function allCafeDongAjax(gugunCode,allDong,addrG,addr){
 						var cont="";
 						var conTextBody="";
 						var totalCountSum=parseInt("0");
@@ -562,9 +560,10 @@
 							]
 								          $.ajax({
 									        	url:"/bigData/allCafeDong.do",
-									        	type:"post",
-									        	 contentType : "application/json; charset=utf-8",
-									        	data:JSON.stringify(allDong),
+									        	type:"get",
+									        	data:{
+									        		"gugun":gugunCode
+									        	},
 									        	success:function(data){
 									        		console.log(data)
 												for (var i = 0 ; i<data.length; i++){
@@ -605,9 +604,9 @@
 													cont+="</div>";
 													cont+='<table id="tableHs" ><tr style="background-color:#f6f5ef;text-align:center"><td><h4>지역</h4></td><td><h4>상권 개수</h4></td><td><h4>분포율</h4></td><td><h4>밀집도</h4></td></tr>'+conTextBody+'</table>';
 													cont+="<div class='col-sm-12'>";
-													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;table&#39;)" >테이블</div>';
-													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;circle&#39;)" >원형차트</div>';
-													cont+='<div style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;bar&#39;)">막대차트</div>';
+													cont+='<button style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;table&#39;)" >테이블</button>';
+													cont+='<button style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;circle&#39;)" >원형차트</button>';
+													cont+='<button style="width:33% ;float:left;" class="regButton btn-5 taCp" onclick="chartHs(&#39;bar&#39;)">막대차트</button>';
 													cont+="</div>";
 													cont+="<div class='col-sm-12'>";
 													cont+="<div style='margin:auto; width:50%;float:left;' class='regButton btn-5 taCp'onclick='bigdataReset()'>초기화</div>"
@@ -626,9 +625,16 @@
 									        		alert("잘못 조회 하셨습니다.")
 									        	} 
 							    		});  
-						
-						
 					}
+					/////////////////////////////////////////////////////////////////////////////////////////////끝///////////////////////////////////////////////////////////////
+					
+					
+					
+					
+					
+					
+					
+					
 					
 					//이부분은 차트 숨기고 보여주는 부분 급해서 ajax 안하고 바로
 					function chartHs(shape){
@@ -838,8 +844,6 @@
 								        	},
 								        	success:function(data){
 								        		 searchCg(cy,cx,data,radius,bigVal,midVal,smallVal,addr1,addr2,addr3);
-								        		
-								        		
 								        	},
 								        	error:function(error){
 								        		alert("잘못 조회 하셨습니다.");

@@ -53,11 +53,9 @@ $(function(){
 				})
 				
 				sido.html(sidoCon);
+				//공공데이터 
+				allCafeSido(allSido);
 				
-				//맵과 차트 보여줄거
-				$('#clusterChart').click(function(){
-						allCafeSido(allSido);
-				})
 				geoAddr(allSido);
 			
 			},
@@ -77,10 +75,12 @@ $(function(){
 					'sido':sidoCode
 				},
 				success: function(data){
+				
 					$.each(data,function(key,value){
 						gugunCon+='<option value='+value.signguCd+'>'+value.signguNm+'</option>'
 					})
 					gugun.html(gugunCon);
+					
 				},
 				error: function(error){
 					alert(error);
@@ -218,7 +218,6 @@ $(function(){
 //업종별 분포도 //서울 몇개 경기도 ~시  몇개ajax 
 //업종 지역별 
 	function regionList(){
-		alert('일단 제이쿼리');	
 		//divId는 분류 코드 
 		//indsLclsCd
 		//indsMclsCd
