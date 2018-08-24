@@ -13,14 +13,13 @@
 <title>Insert title here</title>
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
 	<%@ include file="/WEB-INF/view/mainCafeTop.jsp"%>
 	<div class="container">
 		<!-- 상단 -->
 		<div class="page-header">
 			<h1>
-				마이페이지&nbsp;&nbsp;&nbsp;<small>CafeHeaven</small>
+				마이페이지&nbsp;&nbsp;&nbsp;<small>CAFE HEAVEN</small>
 			</h1>
 		</div>
 		
@@ -42,7 +41,7 @@
 		
 		<div class="menu" style="float:left">
 		<li>
-		<a href="#">
+		<a href="/user/userOrderList.do?userNo=<%=userNo%>">
 		<img src="/image/order.png" alt="주문내역">
 		<h1 class="w3-opacity">ORDER</h1>
 		<b>주문내역</b>
@@ -73,6 +72,5 @@
 		</div>
 	</div>
 
-	<%@ include file="/WEB-INF/view/mainCafeBottom.jsp" %>
 </body>
 </html>
