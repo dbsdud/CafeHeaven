@@ -5,6 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="google-signin-scope" content="profile email">
+<meta name="google-signin-client_id"
+	content="106614683841-b0fm7tdjagom3j4vj67duv21ies8562h.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <%@ include file="/WEB-INF/view/cssjs.jsp"%>
 <%-- <%@ include file="/WEB-INF/view/template.jsp" %> --%>
 <title>CAFEHEAVEN'S HOME</title>
@@ -42,28 +46,37 @@
 			</div>
 		</div>
 		<!-- 검색 부분 반응형 적용해야함 -->
-		<div id="div_new" style="position:absolute; top:100px; left:48%; width:auto; margin-left:-276px; z-index:1;  text-align: center;">
-			<img src="/image/logo.png" id="logo_img" alt="logo" style="margin-bottom:30px;">
-			<div id="search_area">
-				<form id="search_form" action="" class="">
-					<div class="hide" id="hidden_wrapper">
-						<input type="hidden" id="title_onoff" name="rn" value="0" style="display: none;">
-						<input type="hidden" id="page" name="page">
-						<input type="hidden" id="chunk" name="chunk">
-						<input type="hidden" id="lat" name="lat">
-						<input type="hidden" id="lng" name="lng">
-					</div>
-					<div class="container-fluid" id="search_wrapper">
-						<div class="container-fluid" id="search_input_wrapper">
-							<input type="text" id="s_input" name="query" autocomplete="off" value="" style="width:500px; height:50px;">
-							<button type="submit" onclick="$('#s_button').click();" style="width:50px; height:50px; border:#ffffff solid 1px; background-color:#f6f5ef; float:left;">
-								<img src="/image/searcher.png" style="width:40px; height:40px;">
-							</button>
-							<!-- <button type="submit" id="s_button" style="display:none;"></button> -->
-						</div>
-					</div>
-				</form>
-			</div>
+		<div id="div_new"
+			style="position: absolute; top: 100px; left: 48%; width: auto; margin-left: -276px; z-index: 1; text-align: center;">
+			<img src="/image/logo.png" id="logo_img" alt="logo"
+				style="margin-bottom: 30px;">
+			<!-- ID가 null 이 아니면 로그인 성공 -->
+			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+			<script>
+				function onSignIn(googleUser) {
+					// Useful data for your client-side scripts:
+					var profile = googleUser.getBasicProfile();
+					console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+					console.log('Full Name: ' + profile.getName());
+					console.log('Given Name: ' + profile.getGivenName());
+					console.log('Family Name: ' + profile.getFamilyName());
+					console.log("Image URL: " + profile.getImageUrl());
+					console.log("Email: " + profile.getEmail());
+
+					// The ID token you need to pass to your backend:
+					var id_token = googleUser.getAuthResponse().id_token;
+					console.log("ID Token: " + id_token);
+				};
+			</script>
+			<a href="#" onclick="signOut();">Sign out</a>
+			<script>
+				function signOut(){
+					var auth2 = gapi.auth2.getAuthInstance();
+					auth2.signOut().then(function(){
+						console.log('User signed out.');
+					});
+				}
+			</script>
 		</div>
 	</div>
 	<!-- git test -->

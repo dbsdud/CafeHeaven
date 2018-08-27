@@ -12,6 +12,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,6 +39,10 @@ import poly.util.EmailSender;
 public class UserController {
 	private Logger log = Logger.getLogger(this.getClass());
 	
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2parameters;
 	@Resource(name="UserService")
 	private IUserService userService;
 	@Resource(name="NoticeService")
@@ -317,15 +325,11 @@ public class UserController {
 		String password= CmmUtil.nvl(request.getParameter("password"));
 		log.info("password:"+password);
 		
-
-		
-		
 		//로그인을 하고나서는 정보를 다받아와야되니 UserDTO 
 		//2.데이터를 받아와서
 		UserDTO uDTO =new UserDTO();
 		uDTO.setEmail(email);
 		uDTO.setPassword(password);
-	
 		
 		uDTO=userService.getUserLogin(uDTO);// 성공하지못하면 아무것도 가져오지 못해서 널
 		String msg="";
@@ -346,9 +350,7 @@ public class UserController {
 		}
 		//관리자만 관리버튼 나오게 하려고받는 것
 		// userNo 도 받아야됨
-		
-		
-		return "/home";
+		return "redirect:/home.do";
 	}
 	
 	//회원 로그아웃

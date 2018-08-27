@@ -14,52 +14,63 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
-	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
 
 	<!-- 어노테이션 사용하기 -->
 	<mvc:annotation-driven />
-	<bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
-	<context:component-scan base-package="poly.controller" use-default-filters="false">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	<bean
+		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+	<context:component-scan
+		base-package="poly.controller" use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 
-	<context:component-scan base-package="poly.service" />
-	<context:component-scan base-package="poly.persistance.mapper" />
- 	
+	<context:component-scan
+		base-package="poly.service" />
+	<context:component-scan
+		base-package="poly.persistance.mapper" />
+
 	<!-- ViewResolver : 뷰 선택자 -->
-	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="order" value="1"/>
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="1" />
 		<property name="viewClass">
 			<value>org.springframework.web.servlet.view.JstlView</value>
 		</property>
-		
+
 		<!-- 스프링에서 JSP 결과값을 전달할 때 기본이 되는 루트 위치 -->
 		<property name="prefix">
 			<value>/WEB-INF/view/</value>
 		</property>
-		
+
 		<property name="suffix">
 			<value>.jsp</value>
 		</property>
-		
+
 		<property name="contentType">
 			<value>text/html; charset=UTF-8</value>
 		</property>
 	</bean>
-		
-	<!-- 파일업로드 기능 -->		
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" 
+
+	<!-- 파일업로드 기능 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		p:maxUploadSize="104857600" p:maxInMemorySize="104857600" />
-		
-		
-		
-		<!-- 이메일 보내기 -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+
+
+
+	<!-- 이메일 보내기 -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="defaultEncoding" value="utf-8"/>
-		<property name="username" value="superdeveloper2018@gmail.com" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="username"
+			value="superdeveloper2018@gmail.com" />
 		<property name="password" value="epdlxj18!@" />
 		<property name="javaMailProperties">
 			<props>
@@ -72,5 +83,19 @@
 	</bean>
 	<bean id="emailSender" class="poly.util.EmailSender">
 	</bean>
-
+	<!-- google Class Bean설정 추가 -->
+	<!-- 클라이언트ID와 보안비밀 세팅 -->
+	<bean id="googleConnectionFactory"
+		class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<constructor-arg value="106614683841-b0fm7tdjagom3j4vj67duv21ies8562h.apps.googleusercontent.com" />
+		<constructor-arg value="DIvgKI0Il5if_kZ8EHiEq1Oo" />
+	</bean>
+	<!-- 승인된 자바스크립트 원본과 승인된 리디렉션 URI -->
+	<bean id="googleOAuth2Parameters"
+		class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope"
+			value="https://www.googleapis.com/auth/plus.login" />
+		<property name="redirectUri"
+			value="http://localhost/user/googleSignInCallback" />
+	</bean>
 </beans>

@@ -42,7 +42,6 @@
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">관리<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<!--  연습용으로 넘어가게 지정해놓음 -->
 						<li><a href="/user/userList.do">회원 관리</a></li>
 						<li><a href="/menu/menuReg.do">메뉴 관리</a></li>
 						<li><a href="/order/orderList.do">주문 관리</a></li>
@@ -68,7 +67,6 @@
 			<%} else { %>
 			
 			<!--  로그인 패스워드 입력 -->
-		
 			<form class="navbar-form navbar-right" action="/user/loginProc.do" method="post">
 				<div class="form-group">
 					<input type="text" name="email" class="form-control" placeholder="ID입력">
