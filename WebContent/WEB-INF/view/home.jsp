@@ -1,17 +1,15 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
-<meta name="google-signin-scope" content="profile email">
-<meta name="google-signin-client_id"
-	content="106614683841-b0fm7tdjagom3j4vj67duv21ies8562h.apps.googleusercontent.com">
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <%@ include file="/WEB-INF/view/cssjs.jsp"%>
 <%-- <%@ include file="/WEB-INF/view/template.jsp" %> --%>
 <title>CAFEHEAVEN'S HOME</title>
+
 </head>
 <body>
 	<%@ include file="mainCafeTop.jsp"%>
@@ -46,37 +44,55 @@
 			</div>
 		</div>
 		<!-- 검색 부분 반응형 적용해야함 -->
-		<div id="div_new"
-			style="position: absolute; top: 100px; left: 48%; width: auto; margin-left: -276px; z-index: 1; text-align: center;">
-			<img src="/image/logo.png" id="logo_img" alt="logo"
-				style="margin-bottom: 30px;">
+		<div id="div_new" style="position: absolute; top: 100px; left: 48%; width: auto; margin-left: -276px; z-index: 1; text-align: center;">
+			<img src="/image/logo.png" id="logo_img" alt="logo"	style="margin-bottom: 30px;">
+			<!-- 로그인 창 -->
 			<!-- ID가 null 이 아니면 로그인 성공 -->
-			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+			<% if(email.equals("")){ %>
+			<form action="/user/loginProc.do" method="post">
+				<div class="form-group">
+					<input type="text" name="email" class="form-control" placeholder="ID">
+				</div>
+				<div class="form-group">
+					<input type="password" name="password" class="form-control" placeholder="Password">
+				</div>
+				<input type="submit" class="btn btn-primary" value="로그인" />
+				<a href="/user/userFind.do"class="btn btn-success">ID/PW찾기</a>
+				<a href="/user/userReg.do" class="btn btn-success">회원가입</a>
+			</form>
+			<div id="naverIdLogin"></div>
 			<script>
-				function onSignIn(googleUser) {
-					// Useful data for your client-side scripts:
-					var profile = googleUser.getBasicProfile();
-					console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-					console.log('Full Name: ' + profile.getName());
-					console.log('Given Name: ' + profile.getGivenName());
-					console.log('Family Name: ' + profile.getFamilyName());
-					console.log("Image URL: " + profile.getImageUrl());
-					console.log("Email: " + profile.getEmail());
-
-					// The ID token you need to pass to your backend:
-					var id_token = googleUser.getAuthResponse().id_token;
-					console.log("ID Token: " + id_token);
-				};
+				var naverLogin = new naver.LoginWithNaverId({
+					clientId : "y_E6NvLYCg6NAypDWcMn",
+					callbackUrl : "http://localhost:8080/home.do",
+					isPopup : false,
+					loginButton : {
+						color : "green",
+						type : 3,
+						height : 60
+					}
+				});
+				naverLogin.init();
+				naverLogin.getLoginStatus(function(status) {
+					if (status) {
+						var email = naverLogin.user.getEmail();
+						var birthday = naverLogin.user.getBirthday();
+						var age = naverLogin.user.getAge();
+						console.log(email);
+						console.log(birthday);
+						console.log(age);
+					} else {
+						console.log("토큰불량")
+					}
+				});
 			</script>
-			<a href="#" onclick="signOut();">Sign out</a>
-			<script>
-				function signOut(){
-					var auth2 = gapi.auth2.getAuthInstance();
-					auth2.signOut().then(function(){
-						console.log('User signed out.');
-					});
-				}
-			</script>
+			<%} else { %>
+			
+			<a href="/user/userMypage.do?userNo=<%=userNo%>" class="btn btn-info">마이페이지</a> 
+			<a href="/tmpBasket/tmpBasketList.do?userNo=<%=userNo%>">
+				<button class="btn btn-warning">장바구니</button>
+			</a>
+			<%}	%>
 		</div>
 	</div>
 	<!-- git test -->

@@ -1,12 +1,28 @@
 <%@page import="poly.util.CmmUtil"%>
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.security.SecureRandom"%>
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+   <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <!-- 로그인 하기 위해 컨트롤러에서 모델에 저장된 데이터를 받아옴 -->
 <%
 	String email = CmmUtil.nvl((String) session.getAttribute("email")); //형변환 해줘야됨 오브젝트로 넘어오기 떄문에 형변환 해주고 널값이 넘어오면 오류 같은거 발생하기 때문에 미리만든메소드를 이용해 널값을 공백으로 바꿈 
 	String name = CmmUtil.nvl((String) session.getAttribute("name"));
 	String userNo = CmmUtil.nvl((String) session.getAttribute("userNo"));
+	String naverEmail = CmmUtil.nvl((String)session.getAttribute("naverEmail"));
+%>
+<%
+	String clientId = "y_E6NvLYCg6NAypDWcMn";//애플리케이션 클라이언트 아이디값";
+	String redirectURI = URLEncoder.encode("http://localhost:8080/home.do", "UTF-8");
+	SecureRandom random = new SecureRandom();
+	String state = new BigInteger(130, random).toString();
+	String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+	apiURL += "&client_id=" + clientId;
+	apiURL += "&redirect_uri=" + redirectURI;
+	apiURL += "&state=" + state;
+	session.setAttribute("state", state);
 %>
 <script>
 	function logout() {
@@ -57,17 +73,17 @@
 			<!--  로그인 성공 -->
 			<div class="navbar-form navbar-right">
 				<b><%=email + "님 환영합니다" + name%></b> 
-				<a href="/user/userMypage.do?userNo=<%=userNo%>" class="btn btn-info">마이페이지</a> 
+				<%-- <a href="/user/userMypage.do?userNo=<%=userNo%>" class="btn btn-info">마이페이지</a> 
 				<a href="/tmpBasket/tmpBasketList.do?userNo=<%=userNo%>">
 					<button class="btn btn-warning">장바구니</button>
-				</a>
+				</a> --%>
 				<button class="btn btn-secondary" onclick="logout();">로그아웃</button>
 			</div>
-
-			<%} else { %>
+			<%} %>
+			<%-- <%} else { %> --%>
 			
 			<!--  로그인 패스워드 입력 -->
-			<form class="navbar-form navbar-right" action="/user/loginProc.do" method="post">
+			<%-- <form class="navbar-form navbar-right" action="/user/loginProc.do" method="post">
 				<div class="form-group">
 					<input type="text" name="email" class="form-control" placeholder="ID입력">
 				</div>
@@ -79,7 +95,7 @@
 				<a href="/user/userReg.do" class="btn btn-success">회원가입</a>
 			</form>
 				
-				<%} %>
+				<%} %> --%>
 			<!-- 로그인 하고 나서  '아이디' 님 환영합니다. -->
 		</div>
 	</div>

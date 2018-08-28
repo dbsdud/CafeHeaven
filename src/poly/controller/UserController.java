@@ -1,9 +1,14 @@
 package poly.controller;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 import org.springframework.social.oauth2.GrantType;
@@ -56,8 +63,6 @@ public class UserController {
 	//회원등록
 	@RequestMapping(value="user/userReg")
 	public String userReg() {
-	
-		
 		return "/user/userReg";
 	}
 	
@@ -352,17 +357,13 @@ public class UserController {
 		// userNo 도 받아야됨
 		return "redirect:/home.do";
 	}
-	
 	//회원 로그아웃
 	@RequestMapping(value="user/logout")
 	public String logout(HttpSession session) throws Exception{
-		
 		//세션을 초기화 시키는 함수
 		session.invalidate();
 		//로그아웃끝
-		
-		
-		return "/home";
+		return "redirect:/home.do";
 	}
 	//율===============================================================
 	
@@ -459,8 +460,44 @@ public class UserController {
 		public String tmpBasket() throws Exception {
 			return "/tmpBasket/tmpBasket";
 		}
-	
-	
+	@RequestMapping(value="/naverLogin")
+	public String naverLogin(HttpServletResponse res, Model model) throws Exception{
+		log.info(this.getClass() + "naverLogin Start");
+		log.info(this.getClass() + "naverLogin End");
+		return "redirect:/home.do";
+	}
+	@RequestMapping(value="/callback")
+	public String naverLoginCallback(HttpServletRequest req) throws Exception{
+		return "/callback";
+	}
+	/*@RequestMapping(value="/naverInfo")
+	public void naverInfo(HttpServletRequest req) throws Exception{
+		String token ="AAAAON8aCP0jwuWAlqotwsdvme1HvE%2B70J8RzuZVYX9Jrp9qQQcumAkuXKJGnSg8P%2Ffz2oFKpesSYifIW61vRIs515Y%3D";
+		String header = "Bearer " + token;
+		try {
+			String apiURL = "https://openapi.naver.com/v1/nid/me";
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", header);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if(responseCode==200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {  // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine()) != null) {
+				response.append(inputLine);
+			}
+			br.close();
+			System.out.println(response.toString());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}*/
 	
 	//ajax 예제
 /*	@RequestMapping("/ajax")
