@@ -78,9 +78,13 @@
 						var email = naverLogin.user.getEmail();
 						var birthday = naverLogin.user.getBirthday();
 						var age = naverLogin.user.getAge();
-						console.log(email);
-						console.log(birthday);
-						console.log(age);
+						var gender = naverLogin.user.getGender();
+						var name = naverLogin.user.getName();
+						console.log("email : " + email);
+						console.log("birthday(MM-DD) : " + birthday);
+						console.log("age" + age);
+						console.log("gender : " + gender);
+						console.log("name : " + name);
 					} else {
 						console.log("토큰불량")
 					}

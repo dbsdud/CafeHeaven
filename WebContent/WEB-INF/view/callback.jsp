@@ -12,7 +12,7 @@
 <!-- 1. LoginWithNaverId Javascript SDK -->
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 <!-- 2. LoginWithNaverId Javascript 설정 정보 및 초기화 -->
-<script>
+<!-- <script>
 	var naverLogin = new naver.LoginWithNaverId({
 		clientId : "y_E6NvLYCg6NAypDWcMn",
 		callbackUrl : "http://localhost:8080/home.do",
@@ -43,8 +43,57 @@
 			}
 		});
 	});
-</script>
- <%-- <%
+</script> -->
+	<script>
+		var naver_id_login = new neaver_id_login("y_E6NvLYCg6NAypDWcMn", "http://localhost:8080/home.do");
+		//접근 토큰 값 출력
+		alert(naver_id_login.oauthParams.access_token);
+		//네이버 사용자 프로필 조회
+		naver_id_login.get_naver_userprofile("naverSignInCallback()");
+
+		// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+		function naverSignInCallback() {
+			var id = naver_id_login.getProfileData('id') + "@n";
+			var nickname = naver_id_login.getProfileData('name');
+			//var email = naver_id_login.getProfileData('email');
+			$.ajax({
+				url : "/user/json/checkDuplication/" + id,
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+				},
+				success : function(idChk) {
+					if (idChk == true) { //DB에 아이디가 없을 경우 => 회원가입
+						console.log("회원가입중...");
+						$.ajax({
+							url : "/user/json/addUser",
+							method : "POST",
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							data : JSON.stringify({
+								userId : id,
+								userName : nickname,
+								password : "naver123",
+							}),
+							success : function(JSONData) {
+								alert("회원가입이 정상적으로 되었습니다.");
+								window.close();
+								top.opener.location = "/user/snsLogin/" + id;
+							}
+						})
+					}
+					if (idChk == false) { //DB에 아이디가 존재할 경우 => 로그인
+						console.log("로그인 중...");
+						window.close();
+						top.opener.location = "/user/snsLogin/" + id;
+					}
+				}
+			})
+		}
+	</script>
+	<%-- <%
     String clientId = "y_E6NvLYCg6NAypDWcMn";//애플리케이션 클라이언트 아이디값";
     String clientSecret = "AP6n5wIn4d";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");

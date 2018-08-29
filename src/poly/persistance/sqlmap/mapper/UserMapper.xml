@@ -140,4 +140,6 @@
 		ADDR2=#{addr2}
 	WHERE USER_NO = #{userNo}
 	</update>
+	
+	<!-- 네이버 로그인 -->
 </mapper>
