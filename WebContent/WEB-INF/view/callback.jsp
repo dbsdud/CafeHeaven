@@ -45,7 +45,7 @@
 	});
 </script> -->
 	<script>
-		var naver_id_login = new neaver_id_login("y_E6NvLYCg6NAypDWcMn", "http://localhost:8080/home.do");
+		var naver_id_login = new neaver_id_login("y_E6NvLYCg6NAypDWcMn", "http://localhost:8080/callback.do");
 		//접근 토큰 값 출력
 		alert(naver_id_login.oauthParams.access_token);
 		//네이버 사용자 프로필 조회

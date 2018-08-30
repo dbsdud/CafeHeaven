@@ -64,7 +64,7 @@
 			<script>
 				var naverLogin = new naver.LoginWithNaverId({
 					clientId : "y_E6NvLYCg6NAypDWcMn",
-					callbackUrl : "http://localhost:8080/home.do",
+					callbackUrl : "http://localhost:8080/callback.do",
 					isPopup : false,
 					loginButton : {
 						color : "green",

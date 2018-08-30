@@ -460,15 +460,14 @@ public class UserController {
 		public String tmpBasket() throws Exception {
 			return "/tmpBasket/tmpBasket";
 		}
-	@RequestMapping(value="/naverLogin")
-	public String naverLogin(HttpServletResponse res, Model model) throws Exception{
-		log.info(this.getClass() + "naverLogin Start");
-		log.info(this.getClass() + "naverLogin End");
-		return "redirect:/home.do";
-	}
+	
 	@RequestMapping(value="/callback")
 	public String naverLoginCallback(HttpServletRequest req) throws Exception{
-		return "/callback";
+		log.info(this.getClass() + "callback Start");
+		
+		
+		log.info(this.getClass() + "callback End");
+		return "redirect:/home.do";
 	}
 	/*@RequestMapping(value="/naverInfo")
 	public void naverInfo(HttpServletRequest req) throws Exception{
