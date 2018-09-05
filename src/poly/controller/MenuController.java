@@ -38,7 +38,7 @@ public class MenuController {
 	
 	//메뉴리스트 
 	@RequestMapping(value = "menu/menuList")
-	public String menu(HttpServletRequest req,Model model) throws Exception {
+	public String menuList(HttpServletRequest req,Model model) throws Exception {
 		log.info("menuList Start:"+this.getClass());
 		//menuDTO 와 attachDTO 를 2개 꺼내와야됨
 	
@@ -418,4 +418,10 @@ public class MenuController {
 		return hMap;
 	}
 	
+	@RequestMapping(value="menu/menu")
+	public String menu(HttpServletRequest req, Model model) throws Exception {
+		log.info(this.getClass() + "menu Start!!");
+		
+		return "/menu/menu";
+	}
 }

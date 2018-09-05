@@ -7,11 +7,10 @@
 <!--[if (gte IE 9)|!(IE)]>
 <html lang="en" class="no-js">
 <![endif]-->
-<html lang="en">
+<html>
 <head>
 
-<title>ConBiz | Bootstrap Template for Construction and Builder
-	Company</title>
+<title>CAFE HEAVEN</title>
 
 <meta charset="utf-8">
 
@@ -146,7 +145,7 @@
 									<li><a href="blog-full-width.html">Blog - Full Width</a></li>
 									<li><a href="single-post.html"> Single Post </a></li>
 								</ul></li>
-							<li><a href="shop.html">메뉴</a></li>
+							<li><a href="/menu/menu.do">메뉴</a></li>
 							<li><a href="contact.html"> 카페정보 </a></li>
 						</ul>
 

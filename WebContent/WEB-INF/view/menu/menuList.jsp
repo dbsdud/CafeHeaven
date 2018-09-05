@@ -215,7 +215,7 @@ body, html {
 				<!-- Total 메뉴 중분류 -->
 				<div id="Total" class="tab w3-row w3-center w3-card w3-padding">
 					<div class="w3-col s4 tablink">
-						<a href="#" onclick="userMenuList('drink');" id="myLink">음료	</a>
+						<a href="#" onclick="userMenuList('drink');" id="myLink">음료</a>
 					</div>
 					<div class="w3-col s4 tablink">
 						<a href="#" onclick="userMenuList('dessert');">디저트</a>
