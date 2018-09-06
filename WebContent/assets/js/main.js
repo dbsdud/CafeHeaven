@@ -415,7 +415,7 @@ $(document)
 									});
 				});
 jQuery(function() {
-	jQuery('#portfolio-list').mixItUp({
+	jQuery('#userMenuList').mixItUp({
 		animation : {
 			duration : 800
 		}

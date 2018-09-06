@@ -424,4 +424,8 @@ public class MenuController {
 		
 		return "/menu/menu";
 	}
+	@RequestMapping(value="menu/menuTest")
+	public String menuTest(HttpServletRequest req, Model model) throws Exception{
+		return "/menu/menuTest";
+	}
 }

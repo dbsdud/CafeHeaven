@@ -12,6 +12,7 @@
 <meta name="description" content="ConBiz - Responsive HTML5 Template">
 <meta name="author" content="Grayrids">
 <%@ include file="mainCss.jsp"%>
+<script src="/assets/js/jquery-min.js"></script>
 </head>
 <body>
 	<div id="container">
