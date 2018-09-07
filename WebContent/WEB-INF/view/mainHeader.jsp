@@ -9,7 +9,6 @@
 	String userNo = CmmUtil.nvl((String) session.getAttribute("userNo"));
 %>
 
-
 <!-- 로그인 css -->
 <style>
 /*
@@ -365,12 +364,9 @@ translateX
 <!--  -->
 <!--  로그인 스크립트 -->
 <script>
-
-
 function login(){	
-	 openLoginModal();   
-	};
-
+	openLoginModal();   
+};
 
 	/*
 	 *
@@ -398,9 +394,7 @@ function login(){
 	    setTimeout(function(){
 	        $('#loginModal').modal('show');    
 	    }, 230);
-	    
 	}
-
 
 	function shakeModal(){
 	    $('#loginModal .modal-dialog').addClass('shake');
@@ -410,8 +404,6 @@ function login(){
 	                $('#loginModal .modal-dialog').removeClass('shake'); 
 	    }, 1000 ); 
 	}
-
-
 </script>
 <!--  -->
 <script>
@@ -420,10 +412,7 @@ function login(){
 		location.href = "/user/logout.do"
 	}
 	 // 이부분은 a태그 비활성화
-	
-		 $("#aUnbind").unbind("click");
-	
-
+	$("#aUnbind").unbind("click");
 </script>
 
 
@@ -467,8 +456,7 @@ function login(){
 							</ul></li>
 						<%} %>
 						<% if ("".equals(email)) {%>
-						<li><a class="btn big-login" data-toggle="modal"
-							href="javascript:login()" onclick="openLoginModal();">Log in</a></li>
+						<li><a class="btn big-login" data-toggle="modal" href="javascript:login()" onclick="openLoginModal();">Log in</a></li>
 						<li><a href="/user/userReg.do">Sign Up</a></li>
 						<%} else { %>
 						<li><a id="aUnbind"><%=name+" 님 환영합니다." %></a></li>
@@ -489,22 +477,19 @@ function login(){
 			<!-- 로그인  -->
 
 			<div class="container">
-
-
 				<div class="modal fade login" id="loginModal">
 					<div class="modal-dialog login animated">
 						<div class="modal-content">
 							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 								<h4 class="modal-title">Login with</h4>
 							</div>
 							<div class="modal-body">
 								<div class="box">
 									<div class="content">
 										<div class="social">
-											<a class="circle github" href="/auth/github"> <i
-												class="fa fa-github fa-fw"></i>
+											<a class="circle github" href="/auth/github"> 
+											<i class="fa fa-github fa-fw"></i>
 											</a> <a id="google_login" class="circle google"
 												href="/auth/google_oauth2"> <i
 												class="fa fa-google-plus fa-fw"></i>
@@ -536,13 +521,13 @@ function login(){
 							</div>
 							<div class="modal-footer">
 								<div class="forgot login-footer">
-									<span>Looking to <a
-										href="javascript: showRegisterForm();">create an account</a> ?
+									<span>Looking to
+										<a	href="javascript: showRegisterForm();">create an account</a> ?
 									</span>
 								</div>
 								<div class="forgot register-footer" style="display: none">
-									<span>Already have an account?</span> <a
-										href="javascript: showLoginForm();">Login</a>
+									<span>Already have an account?</span> 
+									<a href="javascript: showLoginForm();">Login</a>
 								</div>
 							</div>
 						</div>
@@ -565,7 +550,8 @@ function login(){
 						<li><a href="projects-2.html"> 카페 관리 </a></li>
 						<li><a href="projects-3.html"> 회원 관리 </a></li>
 						<li><a href="single-project.html"> 빅데이터 관리 </a></li>
-					</ul></li>
+					</ul>
+				</li>
 			</ul>
 
 		</div>

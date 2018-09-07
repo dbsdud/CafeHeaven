@@ -421,6 +421,13 @@ jQuery(function() {
 		}
 	});
 });
+/*jQuery(function() {
+	jQuery('#portfolio-list').mixItUp({
+		animation : {
+			duration : 800
+		}
+	});
+});*/
 jQuery(function() {
 	jQuery('#products').mixItUp({
 		animation : {

@@ -48,7 +48,7 @@ Color Skin
 <script type="text/javascript" src="/assets/js/jquery.appear.js"></script>
 <script type="text/javascript" src="/assets/js/count-to.js"></script>
 <script type="text/javascript" src="/assets/js/jquery.parallax.js"></script>
-<script type="text/javascript" src="/assets/js/smooth-scroll.js"></script>
+<!-- <script type="text/javascript" src="/assets/js/smooth-scroll.js"></script> -->
 <script type="text/javascript" src="/assets/js/jquery.slicknav.js"></script>
 <script type="text/javascript" src="/assets/js/main.js"></script>
 
