@@ -53,7 +53,7 @@ $(function name() {
 					<label class="col-sm-3 control-label">제목</label>
 					<div class="col-sm-6">
 						<input class="form-control" name="ntTitle" type="text"
-							value="환영합니다. 고객님 " >
+							value="환영합니다 고객님 " >
 					</div>
 				</div>
 				<input type="hidden" name="ntWriter" value="<%=name%>"/>

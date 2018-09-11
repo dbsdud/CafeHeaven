@@ -14,8 +14,11 @@ public interface IReviewService {
 
 	// 리뷰 리스트 조회
 	public List<ReviewDTO> getReviewList() throws Exception;
-
+	
 	// -----------------------율
 	// 마이페이지 > 내가쓴 글 보기
 	public List<ReviewDTO> userWriteList() throws Exception;
+	//-------------------------김
+	//마이페이지  텍스트만 워드클라우드
+	public List<ReviewDTO> getReviewText(ReviewDTO rDTO) throws Exception;
 }

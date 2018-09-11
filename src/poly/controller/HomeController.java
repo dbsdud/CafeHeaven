@@ -18,4 +18,12 @@ public class HomeController {
 		public String index() {
 			return "/basic";
 		}
+		//네이버 로그인 연동 콜백
+		
+		@RequestMapping(value="callback")
+		public String callback() {
+			
+			
+			return "/callback";
+		}
 }

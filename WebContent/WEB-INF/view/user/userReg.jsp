@@ -6,20 +6,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-<!-- css js  -->
+<%@ include file="/WEB-INF/view/mainCss.jsp" %>
 <%@ include file="/WEB-INF/view/cssjs.jsp" %>
-<!-- 유효성검사  -->
-<%@ include file="userScript.jsp" %>
-<!-- top -->
-<%@ include file="/WEB-INF/view/mainCafeTop.jsp" %>
+<%@ include file="/WEB-INF/view/mainHeader.jsp" %>
+
+
+
+<%--<%@ include file="/WEB-INF/view/mainCafeTop.jsp" %>  --%>
 <title>회원가입</title>
 </head>
 <body>
+<!-- css js  -->
+<%-- <%@ include file="/WEB-INF/view/cssjs.jsp" %>  --%>
+
+<!-- 유효성검사  -->
+
+<!-- top --> 
 	<!------------------  회원가입 폼  ---------------------->
 	<div class="container">
 		<div class="col-md-12">
-			<div class="page-header">
+			<div class="page-header" style="padding-top:10px" >
 				<h1>
 					회원가입 <small><br/>CAFE HEAVEN</small>
 				</h1>
@@ -144,6 +150,8 @@
 			</form>
 		</div>
 	</div>
+	<%@ include file="/WEB-INF/view/mainJs.jsp" %>
+	<%@ include file="userScript.jsp" %>
 </body>
 </html>
 

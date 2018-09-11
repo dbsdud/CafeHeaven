@@ -3,7 +3,11 @@
 
 <html>
 <head>
+<script type="text/javascript" src="/assets/js/jquery-min.js"></script>
+<script src="/bootstrap-3.3.2-dist/js/jquery.form.min.js"></script>
+<%@ include file="/WEB-INF/view/mainCss.jsp" %>
 <%@ include file="/WEB-INF/view/cssjs.jsp" %>
+
 <!--  json/xml 공공데이터 불러와보기  -->
 <!-- 시구동 api -->
 <%@ include file="bigDataAPI.jsp" %>
@@ -21,7 +25,7 @@ function bigdataReset(){
 </script>
 </head>
 <body>
-<%@  include file="/WEB-INF/view/mainCafeTop.jsp"%> <!-- 경로 바꿔야될거같음  -->
+<%@ include file="/WEB-INF/view/mainHeader.jsp" %> <!-- 경로 바꿔야될거같음  -->
 
 	<div class="container">
 		<!-- 상단 -->
@@ -218,11 +222,9 @@ function bigdataReset(){
             <button  id="year1" class="col-sm-4 regButton btn-5 taCp">연도별</button >   
        </div>	
 			
-			
-			
 		</div>
 	</div>
-	
+	<%@ include file="/WEB-INF/view/mainJs.jsp" %>
 
 
 </body>

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 import poly.dto.UserDTO;
@@ -105,6 +104,13 @@ public class UserService implements IUserService {
 		System.out.println("serviceUpdateUser : " + uDTO.getUserTel());
 		return userMapper.updateUser(uDTO);
 	}
-	// 새로운 비밀번호 업데이트
+	
+	
+	// 회원가입시 regNo = 1 을 넣기위한 것
+	@Override
+	public int updateUserRegNo(UserDTO uDTO2) throws Exception {
+		// TODO Auto-generated method stub
+		return userMapper.updateUserRegNo(uDTO2);
+	}
 
 }
