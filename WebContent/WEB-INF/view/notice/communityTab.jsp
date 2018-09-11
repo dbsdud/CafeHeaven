@@ -7,31 +7,123 @@
 <%
 //받을때도 리스트 형변환 컨트롤러에서 보낸 데이터의 형이 리스트 형이기떄문에 받을때도 리스트
 	List<NoticeDTO> nList=(List<NoticeDTO>)request.getAttribute("nList");
-
- 
-
 %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<!--  script css -->
-<%@ include file="/WEB-INF/view/cssjs.jsp" %>
-<!--  리스트로 데이터 받은것도 포함 되어있음 , script -->
-<%@ include file="communityTabScript.jsp" %>
+<title>CAFE HEAVEN - Community</title>
+<script type="text/javascript" src="/assets/js/jquery-min.js"></script>
+<script src="/bootstrap-3.3.2-dist/js/jquery.form.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js" type="text/JavaScript"></script>
+<script>
+$(function(){
+	
+	var jsonObj=new Array();
+	//워드클라우드 ajax
+	$.ajax({
+	
+		url:"/bigData/reviewSearchAns.do",
+		method:"post",
+		success: function(data){
+		
+			$.each(data,function(key,value){
+				jsonObj.push({
+					text:key,
+					frequency:value
+				})
+			})
+			
+			   var width = parseInt("960");
+		       var height = parseInt("500");
+		       
+		       var svg = d3.select("body").append("svg")
+		       .attr("width", width)
+		       .attr("height", height);
+				
+		    
+		    	showCloud(jsonObj);
+		    	setInterval(function(){
+					showCloud(jsonObj);
+						}, 2000);
+		       
+		     //scale.linear: 선형적인 스케일로 표준화를 시킨다. 
+		       //domain: 데이터의 범위, 입력 크기
+		       //range: 표시할 범위, 출력 크기 
+		       //clamp: domain의 범위를 넘어간 값에 대하여 domain의 최대값으로 고정시킨다.
+			
+		    	 wordScale = d3.scale.linear().domain([0, 100]).range([0, 150]).clamp(true);
+		    	 var keywords = ["자리야", "트레이서", "한조"]
+		         var svg = d3.select("svg")
+		                     .append("g")
+		                     .attr("transform", "translate("+width/2+","+height/2 + ")")
+		     
+		      function showCloud(data) {
+           		 d3.layout.cloud().size([width, height])
+                //클라우드 레이아웃에 데이터 전달
+                .words(data)
+                .rotate(function (d) {
+                	console.log(d)
+                    return d.text.length > 3 ? 0 : 90;
+                })
+                //스케일로 각 단어의 크기를 설정
+                .fontSize(function (d) {
+                    return wordScale(d.frequency);
+                })
+                //클라우드 레이아웃을 초기화 > end이벤트 발생 > 연결된 함수 작동  
+                .on("end", draw)
+                .start();
+		    	 }
+		     
+		    	 function draw(words) { 
+		                var cloud = svg.selectAll("text").data(words)
+		                //Entering words
+		                cloud.enter()
+		                    .append("text")
+		                    .style("font-family", "overwatch")
+		                    .style("fill", function (d) {
+		                        return (keywords.indexOf(d.text) > -1 ? "#fbc280" : "#405275");
+		                    })
+		                    .style("fill-opacity", .5)
+		                    .attr("text-anchor", "middle") 
+		                    .attr('font-size', 1)
+		                    .text(function (d) {
+		                        return d.text;
+		                    }); 
+		                cloud
+		                    .transition()
+		                    .duration(600)
+		                    .style("font-size", function (d) {
+		                        return d.size + "px";
+		                    })
+		                    .attr("transform", function (d) {
+		                        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+		                    })
+		                    .style("fill-opacity", 1); 
+		            }
+		    	 
+		     
+		}
+	})
+	
+	
+	
+});
 
+</script>
 <script>
 // 방식으로 보여주기
   $(function(){
 		$("#reviewListView").click(function(){
 		
 			$.ajax({
-			
+				
 				url :"/notice/reviewList.do",
 				type : 'GET',
 				success:function(data){
 					var contents="";
-					console.log(data);
+					var jsonObj= new Array();
 					for(var i = 0; i < data.length; i++) {
 					    var value = data[i];
 						if(i<4){
@@ -41,6 +133,8 @@
 							contents+='<div><p>'+value.cafeReview+'</p></div>';
 							contents+='<div><p>'+value.rvWriter+'</p></div>';	
 							contents+='</div>';
+							jsonObj.push(value.cafeReview);
+						
 						}else{
 							contents+='<div class="hd-list-three">';//style="display: block;"
 							contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
@@ -48,60 +142,12 @@
 							contents+='<div><p>'+value.cafeReview+'</p></div>';
 							contents+='<div><p>'+value.rvWriter+'</p></div>';	
 							contents+='</div>';
+							jsonObj.push(value.cafeReview);
 						}
 						$('#reviewList').html(contents);
 					}
-				 	
-				 /* 	$.each(data, function(key,value){
-					contents+='<div class="hd-list-three" >';//style="display: block;"
-					contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
-					contents+='<div>'+value.cafeStar+'</div>';
-					contents+='<div><p>'+value.cafeReview+'</p></div>';
-					contents+='<div><p>'+value.rvWriter+'</p></div>';	
-					contents+='</div>';
-				 	}); */
-				 /* 	alert(data.length);
-				 if(data.length>=4){
-					 console.log("test");
-				  	for(var i=0; i<4 ; i++){
-				  		console.log("testdata : "+data)
-				  		console.log("testdata[0] " +data[0]);
-				 		$(data[i],function(key,value){
-				 			contents+='<div class="hd-list-three" style="display: block;">';
-							contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
-							contents+='<div>'+value.cafeStar+'</div>';
-							contents+='<div><p>'+value.cafeReview+'</p></div>';
-							contents+='<div><p>'+value.rvWriter+'</p></div>';	
-							contents+='</div>';
-				 		})
-				 		console.log("콘텐츠"+contents);
-				 		
-				 	} 
-				 	for(var i=4;i<data.length;i++){
-						$(data[i],function(key,value){
-				 		contents+='<div class="hd-list-three">';
-						contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
-						contents+='<div>'+value.cafeStar+'</div>';
-						contents+='<div><p>'+value.cafeReview+'</p></div>';
-						contents+='<div><p>'+value.rvWriter+'</p></div>';	
-						contents+='</div>';
-						})
-				 	}
-				 	$('#reviewList').html(contents);  */
-				 	
-				 /* }else{
-					 $.each(data, function(key,value){
-							contents+='<div class="hd-list-three" style="display: block;">';//style="display: block;"
-							contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
-							contents+='<div>'+value.cafeStar+'</div>';
-							contents+='<div><p>'+value.cafeReview+'</p></div>';
-							contents+='<div><p>'+value.rvWriter+'</p></div>';	
-							contents+='</div>';
-					 
-				 		})
-				 		$('#reviewList').html(contents); 
-				 } */
- 				 	console.log(contents);
+ 				 	console.log(jsonObj);
+ 				 
 				
 			},
 			error:function(error){
@@ -112,12 +158,12 @@
 	 		});
 		});
 	  
-	}); 
+}); 
 
 
 //눌렀을때 계속 추가
 function cafeReviewReg(){
-	alert("확인");
+
 	$('#ajaxform').ajaxForm({
 		beforeSubmit: function(){
 			if($('#menuName').val()=='0'){
@@ -129,7 +175,6 @@ function cafeReviewReg(){
 				$('#cafeReview').focus();
 				return false;
 			};
-			
 			
 	
 		},
@@ -174,21 +219,73 @@ function ansUncom(str){
 };
 
 </script>
+<script>
+$(function(){
+	var comId=$('#comId').val();
+	if(comId==""){
+		cont='커뮤니티';
+		$('#chgWrite').html(cont);
+	}else if(comId=='1'){
+		cont2='커뮤니티 <a href="/notice/noticeReg.do" style="100px; float:right">공지 글쓰기</a> ';
+		$('#chgWrite').html(cont2)
+			$('#chgWrite1').click(function(){
+				cont='커뮤니티 <a href="/notice/noticeReg.do" style="100px; float:right">공지 글쓰기</a> ';
+				$('#chgWrite').html(cont)
+				
+			});
+			$('#chgWrite2').click(function(){
+				cont='커뮤니티 <a href="/notice/questionReg.do" style="100px; float:right">질문 글쓰기</a>';
+				$('#chgWrite').html(cont);
+			})
+			$('#reviewListView').click(function(){
+				cont='커뮤니티';
+				$('#chgWrite').html(cont);
+			});
+		
+	}else{
+		$('#chgWrite1').click(function(){
+			cont='커뮤니티';
+			$('#chgWrite').html(cont)
+			
+		});
+		$('#chgWrite2').click(function(){
+			cont='커뮤니티 <a href="/notice/questionReg.do" style="100px; float:right">질문 글쓰기</a>';
+			$('#chgWrite').html(cont);
+		})
+		$('#reviewListView').click(function(){
+			cont='커뮤니티';
+			$('#chgWrite').html(cont);
+		});
+		
+	}
+})
+
+</script>
 
 </head>
 <body>
-<%@ include file="/WEB-INF/view/mainCafeTop.jsp" %>
+
+<%@ include file="/WEB-INF/view/mainCss.jsp" %>
+
+<%@ include file="/WEB-INF/view/mainHeader.jsp" %>
+
+
 	<!-- 부트스트랩 탭 메뉴 공지사항 qna 별점 -->
 
-	<div class="container">
-		<h2>커뮤니티</h2>
+	<div class="container" >
+	
+			<h2 id="chgWrite" style="padding-top:20px; padding-bottom:20px">커뮤니티</h2>
+
+		<input type="hidden" id="comId" value="<%=userNo%>"/>
+	
+		
 		<!--  탭  구성 상단 -->
 		<ul class="nav nav-tabs">
-			<li class="active" style="width: 33%;"><a data-toggle="tab" href="#menu1" aria-expanded="true">공지사항</a></li>
+			<li class="active" style="width: 33%;" ><a data-toggle="tab" href="#menu1" id="chgWrite1"   aria-expanded="true" class="icon icon-note" style="text-align:center">공지사항</a></li>
 			<!-- class= active 활성화된탭 -->
-			<li style="width: 34%;" class=""><a data-toggle="tab" href="#menu2" aria-expanded="false">Q&amp;A</a></li>
+			<li style="width: 34%;" class=""><a data-toggle="tab" href="#menu2" id="chgWrite2" aria-expanded="false" class="icon icon-question" style="text-align:center">Q&amp;A</a></li>
 			<!-- <li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView" aria-expanded="false">리뷰</a></li> -->
-			<li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView"  aria-expanded="false">리뷰</a></li>
+			<li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView"  aria-expanded="false" class="icon icon-pencil" style="text-align:center">리뷰</a></li>
 		</ul>
 		<!--  tab클릭 내용 -->
 		<div class="tab-content">
@@ -228,14 +325,11 @@ function ansUncom(str){
 					<%} %>
 				<%} %>
 					
-					
+				
 				 <input class="form-control" id="myInput" type="text" placeholder="Search..">
 				<a href="#" id="load" style="width:100%" class="btn btn-primary">더보기</a>
 				<br />	<br />
-					<% if(userNo.equals("1")) { %>
-				<a href="/notice/noticeReg.do" style="width:100px; float:right; "class="btn btn-primary">공지사항글쓰기</a>
 			
-					<%} %>
 					
 			</div>
 			<!--  Q&A -->
@@ -280,9 +374,9 @@ function ansUncom(str){
 				<%} %>
 								<a href="#" id="load-two" style="width:100%" class="btn btn-primary">더보기</a>
 				<br />	<br />
-				<% if(!userNo.equals("")) { %>
+			<%-- 	<% if(!userNo.equals("")) { %>
 				<a href="/notice/questionReg.do"style="width:100px; float:right; "class="btn btn-primary">글쓰기</a>
-				<%} %>
+				<%} %> --%>
 			
 			</div>
 		
@@ -355,6 +449,12 @@ function ansUncom(str){
 		</div>
 
 	</div>
+
+	<%@ include file="/WEB-INF/view/mainJs.jsp" %>
+	<%@ include file="/WEB-INF/view/cssjs.jsp" %> 
+	<!--  script css -->
+	<%@ include file="communityTabScript.jsp" %>
+  
 
 </body>
 </html>

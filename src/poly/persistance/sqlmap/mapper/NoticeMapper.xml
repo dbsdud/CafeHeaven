@@ -112,7 +112,9 @@
 		WHERE NT_NO=#{ntNo}
 	</update>
 
+<!-- 오라클 쿼리  --><!-- 고치기 -->
 	<!-- 답변 게시판 상세 -->
+	<!--  mysql 은 계층 쿼리 안먹힘 -->
 	<select id="getAnswerNoticeDetail" parameterType="string"
 		resultType="NoticeDTO">
 

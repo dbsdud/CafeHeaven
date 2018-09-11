@@ -7,18 +7,70 @@
 INSERT INTO SIDO(CTPRVNCD,CTPRVNNM) VALUES (#{ctprvnCd} ,#{ctprvnNm})
 </insert>
 <select id="getSidoList" resultType="SidoDTO">
-SELECT CTPRVNCD,CTPRVNNM FROM SIDO
+SELECT CTPRVNCD,CTPRVNNM,TOTALCOUNT FROM SIDO
 </select>
 <!-- 구군 등록 -->
 <insert id="insertGugun" parameterType="GugunDTO">
 INSERT INTO GUGUN(CTPRVNCD,CTPRVNNM,SIGNGUCD,SIGNGUNM) VALUES (#{ctprvnCd} ,#{ctprvnNm},#{signguCd},#{signguNm})
 </insert>
 <select id="getGugunList" resultType="GugunDTO">
-SELECT SIGNGUCD,SIGNGUNM FROM GUGUN
+SELECT SIGNGUCD,SIGNGUNM,TOTALCOUNT FROM GUGUN
 </select>
 <!-- 동등록 -->
 <insert id="insertDong" parameterType="DongDTO">
 INSERT INTO DONG(SIGNGUCD,SIGNGUNM,ADONGCD,ADONGNM) VALUES (#{signguCd},#{signguNm},#{adongCd},#{adongNm})
 </insert>
-<!--  -->
+<!--시도에 맞는 구군 쿼리  코드 -->
+<select id="getGugunSidoList" resultType="GugunDTO">
+SELECT SIGNGUCD,SIGNGUNM,TOTALCOUNT FROM GUGUN WHERE CTPRVNCD=#{ctprvnCd}
+</select>
+<!--구군에 맞는 동 쿼리  코드-->
+ <select id="getDongGugunList"  resultType="DongDTO">
+SELECT ADONGCD,ADONGNM,TOTALCOUNT FROM DONG WHERE SIGNGUCD=#{signguCd}
+</select>
+<!-- 동에 맞는 쿼리 -->
+<select id="getDongList" resultType="DongDTO">
+SELECT ADONGCD,ADONGNM,TOTALCOUNT FROM DONG 
+</select>
+
+<!--api->db 분류 쿼리 -->
+
+<insert id="insertBigCg" parameterType="BigCgDTO">
+INSERT INTO BIGCG(INDSLCLSCD,INDSLCLSNM) VALUES (#{indsLclsCd} ,#{indsLclsNm})
+</insert>
+<insert id="insertMidCg" parameterType="MidCgDTO">
+INSERT INTO MIDCG(INDSLCLSCD,INDSLCLSNM,INDSMCLSCD,INDSMCLSNM) VALUES (#{indsLclsCd} ,#{indsLclsNm},#{indsMclsCd} ,#{indsMclsNm})
+</insert>
+<insert id="insertSmallCg" parameterType="SmallCgDTO">
+INSERT INTO SMALLCG(INDSMCLSCD,INDSMCLSNM,INDSSCLSCD,INDSSCLSNM) VALUES (#{indsMclsCd} ,#{indsMclsNm},#{indsSclsCd} ,#{indsSclsNm})
+</insert>
+<!-- 대중소 분류 쿼리 -->
+<select id="getBigCgList" resultType="BigCgDTO">
+SELECT INDSLCLSCD,INDSLCLSNM FROM BIGCG
+</select>
+<select id="getMidCgList" resultType="MidCgDTO">
+SELECT INDSLCLSCD,INDSLCLSNM,INDSMCLSCD,INDSMCLSNM FROM MIDCG
+</select>
+<!--대분류에 맞는 중분류 쿼리  -->
+<select id="getMidCgBigCgList"   resultType="MidCgDTO">
+SELECT INDSMCLSCD,INDSMCLSNM FROM MIDCG WHERE INDSLCLSCD=#{indslclsCd}
+</select>
+<!--중분류에 맞는 소분류 쿼리 -->
+ <select id="getSmallCgMidCgList" resultType="SmallCgDTO">
+SELECT INDSSCLSCD,INDSSCLSNM FROM SMALLCG WHERE INDSMCLSCD=#{indsmclsCd}
+</select>
+
+<!--  토탈 개수 SIDO -->
+<update id="updateTotalCount" parameterType="SidoDTO">
+UPDATE SIDO SET TOTALCOUNT=#{totalCount} WHERE CTPRVNCD=#{ctprvnCd}
+</update>
+<!--  토탈 개수 GUGUN -->
+<update id="updateTotalGugunCount" parameterType="GugunDTO">
+UPDATE GUGUN SET TOTALCOUNT=#{totalCount} WHERE SIGNGUCD=#{signguCd}
+</update>
+<!--  토탈 개수 DONG -->
+<update id="updateTotalDongCount" parameterType="DongDTO">
+UPDATE DONG SET TOTALCOUNT=#{totalCount} WHERE ADONGCD=#{adongCd}
+</update>
+
 </mapper>

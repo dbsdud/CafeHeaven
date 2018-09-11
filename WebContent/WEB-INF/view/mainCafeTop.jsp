@@ -8,6 +8,8 @@
 	String name = CmmUtil.nvl((String) session.getAttribute("name"));
 	String userNo = CmmUtil.nvl((String) session.getAttribute("userNo"));
 %>
+
+
 <script>
 	function logout() {
 		alert("로그아웃 하셨습니다.")

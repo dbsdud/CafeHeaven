@@ -131,7 +131,8 @@ $(function(){
 ///유효성검사 @@@@@@@@@@@
 	$("#regSub").click(function(){
 		 if(email.val()==''){
-			alert("이메일  ")
+			alert("이메일 ")
+			alert(email.val())
 			email.focus();
 			return false;
 		}else if(!emavld.test(email.val())){

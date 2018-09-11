@@ -7,7 +7,7 @@
 	<insert id="insertUser" parameterType="UserDTO">
 		INSERT INTO USER_CAFE
 		(
-		USER_NO,
+		
 		EMAIL,
 		PASSWORD,
 		PWDQ,
@@ -19,12 +19,12 @@
 		POST_ADDR,
 		ADDR1,
 		ADDR2,
-		REGDATE,
-		REGNO
+		REGDATE
+		
 		)
 		VALUES
 		(
-		USER_NO.NEXTVAL,
+
 		#{email},
 		#{password},
 		#{pwdQ},
@@ -36,10 +36,22 @@
 		#{postAddr},
 		#{addr1},
 		#{addr2},
-		SYSDATE,
-		USER_NO.NEXTVAL
+		now()
+		
 		)
+		<selectKey  resultType="string" keyProperty="userNo" order="AFTER" >
+			SELECT last_insert_id() FROM DUAL;
+		</selectKey>
 	</insert>
+	<!--회원 가입 시 regNo넣기  -->
+	<update id="updateUserRegNo" parameterType="UserDTO" >
+	UPDATE USER_CAFE 
+	SET REGNO=#{regNo}
+	WHERE USER_NO = #{regNo}
+	
+	
+	</update>	
+	
 	<!-- 회원목록 -->
 	<select id="getUserList" resultType="UserDTO">
 	SELECT USER_NO AS "USERNO",

@@ -81,8 +81,7 @@ public class UserController {
 		log.info("addr2: "+ addr2);
 		String regDate=CmmUtil.nvl(request.getParameter("regDate"));
 		log.info("regdate: "+ regDate);
-		String regNo=CmmUtil.nvl(request.getParameter("regNo"));
-		log.info("regno: "+ regNo);
+	
 	
 		//데이터를 받기위한 uDTO 선언
 		
@@ -99,16 +98,17 @@ public class UserController {
 		uDTO.setAddr1(addr1);
 		uDTO.setAddr2(addr2);
 		uDTO.setRegDate(regDate);
-		uDTO.setRegNo(regNo);
+	
 		//upd 는 아직안받아옴
 		int result =userService.insertUser(uDTO);
-		
-		
+		UserDTO uDTO2 = new UserDTO();
+		uDTO2.setRegNo(uDTO.getUserNo());
+		int result2=userService.updateUserRegNo(uDTO2);
 		//경고창에 메시지를 띄우기 위해
 		String msg="";
 		String url="";
 		
-		if(result !=0 ) { //반환된갯수가 0이아니면 즉 회원가입이 되면 
+		if(result+result2 ==2 ) { //반환된갯수가 0이아니면 즉 회원가입이 되면 
 			//회원가입이 정상적으로 이루어진 상태
 			msg="회원가입에 성공하셨습니다.";
 			url = "/home.do";
@@ -121,7 +121,7 @@ public class UserController {
 		
 		model.addAttribute("msg",msg);//객체로 보내줌
 		model.addAttribute("url",url);
-		
+		uDTO = null;
 		
 
 		return "/alert";
@@ -307,9 +307,10 @@ public class UserController {
 		model.addAttribute("url",url);
 		return "/alert";
 	}
+
 	
 	//로그인 
-	@RequestMapping(value="user/loginProc",method=RequestMethod.POST)
+	@RequestMapping(value="user/loginProc")
 	public String loginProc(HttpServletRequest request,HttpSession session,Model model) throws Exception {
 		//1. 
 		String email=CmmUtil.nvl(request.getParameter("email"));
@@ -337,6 +338,8 @@ public class UserController {
 			url = "/home.do";
 			model.addAttribute("msg",msg);
 			model.addAttribute("url",url);
+			 		
+			
 			return "/alert";
 		}else {
 			//로그인 성공
@@ -348,7 +351,7 @@ public class UserController {
 		// userNo 도 받아야됨
 		
 		
-		return "/home";
+		return "redirect:/home.do";
 	}
 	
 	//회원 로그아웃
@@ -360,7 +363,7 @@ public class UserController {
 		//로그아웃끝
 		
 		
-		return "/home";
+		return "redirect:/home.do";
 	}
 	//율===============================================================
 	

@@ -18,5 +18,11 @@
 		<typeAlias type="poly.dto.CafeInfoDTO" alias="CafeInfoDTO"/>
 		<typeAlias type="poly.dto.ApiDTO" alias="ApiDTO"/>
 		<typeAlias type="poly.dto.ChartDTO" alias="ChartDTO"/>
+		<typeAlias type="poly.dto.SidoDTO" alias="SidoDTO"/>
+		<typeAlias type="poly.dto.GugunDTO" alias="GugunDTO"/>
+		<typeAlias type="poly.dto.DongDTO" alias="DongDTO"/>
+		<typeAlias type="poly.dto.BigCgDTO" alias="BigCgDTO"/>
+		<typeAlias type="poly.dto.MidCgDTO" alias="MidCgDTO"/>
+		<typeAlias type="poly.dto.SmallCgDTO" alias="SmallCgDTO"/>
     </typeAliases>
 </configuration>

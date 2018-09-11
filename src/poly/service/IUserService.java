@@ -36,4 +36,6 @@ public interface IUserService {
 	// ---------------------------------------------------유라
 	// 회원정보변경
 	public int updateUser(UserDTO uDTO) throws Exception;
+	//회원 가입시 regNo 넣으려고 만든 함수
+	public int updateUserRegNo(UserDTO uDTO2) throws Exception;
 }

@@ -46,16 +46,8 @@ public class NoticeController {
 	}else {
 		log.info(nList.size());
 	}*/
-			log.info(nList);
-		
-			log.info("44라인 시작:"+nList.get(0).getNtNo());
-			log.info(nList.get(0).getNtCont());
-			log.info("title:"+nList.get(0).getNtTitle());
-			log.info("regDate:"+nList.get(0).getRegDate());
-			log.info("regNo:"+nList.get(0).getRegNo());
-			log.info("count:"+nList.get(0).getNtCount());
-			log.info("ntSort:"+nList.get(0).getNtSort());
-		
+
+	
 
 		//model 데이터 저장
 		model.addAttribute("nList",nList);
@@ -167,13 +159,7 @@ public class NoticeController {
 		//nDTO.setNtSort(ntSort);
 		
 		NoticeDTO nDTO=noticeService.getNoticeDetail(nDTO1);
-		log.info("noticeDetail 라인 오류체크 끝 regno:"+nDTO.getRegNo());
-		log.info("noticeDetail 라인 오류체크 끝ntno:"+nDTO.getRegNo());
-		
-		log.info("noticeDetail 라인 오류체크 끝 cont:"+nDTO.getNtCont());
-		log.info("noticeDetail 라인 오류체크 끝 sort:"+nDTO.getNtSort());
-		log.info("noticeDetail 라인 오류체크 끝 title:"+nDTO.getNtTitle());
-		log.info("noticeDetail 라인 오류체크 끝 regdt:"+nDTO.getRegDate());
+		log.info(ntNo);
 		//
 		int updateCount=noticeService.updateNoticeCount(ntNo);
 		log.info("142번 :"+updateCount);

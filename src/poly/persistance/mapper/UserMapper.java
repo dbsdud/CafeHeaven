@@ -43,4 +43,6 @@ public interface UserMapper {
 
 	// 회원정보변경
 	public int updateUser(UserDTO uDTO) throws Exception;
+	// 회원가입 시 regno 등록
+	public int updateUserRegNo(UserDTO uDTO2) throws Exception;
 }

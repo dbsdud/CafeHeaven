@@ -7,6 +7,7 @@ public class DongDTO {
 	private String signguNm; //시군구명
 	private String adongCd;//행정동 코드
 	private String adongNm;// 행정동명
+	private String totalCount;// 개수
 	public String getSignguCd() {
 		return signguCd;
 	}
@@ -31,4 +32,11 @@ public class DongDTO {
 	public void setAdongNm(String adongNm) {
 		this.adongNm = adongNm;
 	}
+	public String getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(String totalCount) {
+		this.totalCount = totalCount;
+	}
+	
 }
