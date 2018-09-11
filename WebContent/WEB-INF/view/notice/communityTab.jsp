@@ -146,7 +146,6 @@ $(function(){
 						}
 						$('#reviewList').html(contents);
 					}
- 				 	console.log(jsonObj);
  				 
 				
 			},
