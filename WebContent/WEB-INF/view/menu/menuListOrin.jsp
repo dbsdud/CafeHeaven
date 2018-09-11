@@ -76,25 +76,25 @@ body, html {
 						for(var i = 0; i< caList.length; i++){
 							var caListImg = caList[i].menuNo;
 							var menuListImg = mList[i].menuNo;
-							if(orderUserNo==""){
-							contents+="<div class='w3-col s4'>";
-							contents+="<span>";
-							contents+="<a href='#' data-toggle='modal' data-target='#menu-dt'>";
-							contents+="<div class='w3-animate-zoom menuImg'><img src='/uploadImg/"+caList[i].cafeImg+"' style='width: 100%; height:200px;' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'></div>";
-							contents+="</a>";
-							contents+="</span>";
-							contents+="<div>";
-							contents+="<a href='#'></a>";
-							contents+="</div>";
-							contents+="<h5>"+mList[i].menuName+"</h5>";
-							contents+="<p class='w3-text-grey'>"+mList[i].menuPrice+"원</p>"
-							contents+="<div>";
-							contents+="<a onclick='doOrder(&#39;loginplz&#39;);' class='btn btn-primary'";
-							contents+="style='margin-bottom: 2px'>주문하기</a><br>";
-							contents+="</div><br>";
-							contents+="</div>";
-							
-							contents += "<input type='hidden' value'"+data.mList[i].menuNo+"' />";
+							if(orderUserNo!=""){
+								contents+="<div class='w3-col s4'>";
+								contents+="<span>";
+								contents+="<a href='#' data-toggle='modal' data-target='#menu-dt'>";
+								contents+="<div class='w3-animate-zoom menuImg'><img src='/uploadImg/"+caList[i].cafeImg+"' style='width: 100%; height:200px;' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;) 'class='img-thumbnail'></div>";
+								contents+="</a>";
+								contents+="</span>";
+								contents+="<div>";
+								contents+="<a href='#'></a>";
+								contents+="</div>";
+								contents+="<h5>"+mList[i].menuName+"</h5>";
+								contents+="<p class='w3-text-grey'>"+mList[i].menuPrice+"원</p>"
+								contents+="<div>";
+								contents+="<a onclick='doOrder(&#39;loginplz&#39;);' class='btn btn-primary'";
+								contents+="style='margin-bottom: 2px'>주문하기</a><br>";
+								contents+="</div><br>";
+								contents+="</div>";
+								
+								contents += "<input type='hidden' value'"+data.mList[i].menuNo+"' />";
 							}else{
 								contents+="<div class='w3-col s4'>";
 								contents+="<span>";
@@ -103,7 +103,7 @@ body, html {
 								contents+="</a>";
 								contents+="</span>";
 								contents+="<div>";
-								contents+="<a href=''#'></a>";
+								contents+="<a href='#'></a>";
 								contents+="</div>";
 								contents+="<h5>"+mList[i].menuName+"</h5>";
 								contents+="<p class='w3-text-grey'>"+mList[i].menuPrice+"원</p>"

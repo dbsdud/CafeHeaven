@@ -37,44 +37,44 @@ function userMenuList(menuCgNo){
 				var menuListImg = mList[i].menuNo;
 				
 				if(orderUserNo==""){
-					contents+="<div class='col-md-3 col-lg-3 col-sm-6 col-xs-12 all "+mList[i].menuCgNo+"'>";
+					contents+="<div class='col-md-3 col-lg-3 col-sm-6 col-xs-12 all "+mList[i].menuCgNo+"' style='display: inline-block;'>";
 					contents+="<div class='product'>";
 					contents+="<div class='post-featured'>";
 					contents+="<img src='/uploadImg/"+caList[i].cafeImg+"'>";
-					contents+="<div class='esg-overlay'>"
-					contents+="<div class='icon'>"
+					contents+="<div class='esg-overlay'>";
+					contents+="<div class='icon'>";
 					contents+="<a href='#' data-toggle='modal' data-target='#menu-dt' class='lightbox'>";
-					contents+="<i class='icon-magnifier' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;)'>"
-					contents+="</i>"
+					contents+="<i class='icon-magnifier' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;)'>";
+					contents+="</i>";
 					contents+="</a>";
-					contents+="</div'>"
-					contents+="</div'>"
+					contents+="</div>";
+					contents+="</div>";
+					contents+="</div>";
 					contents+="<div class='post-content'><h4>"+mList[i].menuName+"</h4>";
 					contents+="<div class='product-price'><span class='amount'>"+mList[i].menuPrice+"원</span></div>";
 					contents+="<a href='#' onclick='doOrder(&#39;loginplz&#39;);' class='btn btn-cart'><i class='icon-basket'></i>주문하기</a>";
 					contents+="</div>";
+					contents+="</div>";
+					contents+="</div>";
 					
 					contents+="<input type='hidden' value='"+data.mList[i].menuNo+"' />";
 				}else{
-					contents+="<div class='col-md-3 col-lg-3 col-sm-6 col-xs-12 all "+mList[i].menuCgNo+"'>";
+					contents+="<div class='col-md-3 col-lg-3 col-sm-6 col-xs-12 all "+mList[i].menuCgNo+"' style='display: inline-block;'>";
 					contents+="<div class='product'>";
 					contents+="<div class='post-featured'>";
 					contents+="<img src='/uploadImg/"+caList[i].cafeImg+"')'>";
-					contents+="<div class='esg-overlay'>"
-					contents+="<div class='icon'>"
-					contents+="<a href='#' data-toggle='modal' data-target='#menu-dt'>";
-					contents+="<i class='icon-magnifier' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;>"
-					contents+="</i>"
+					contents+="<div class='esg-overlay'>";
+					contents+="<div class='icon'>";
+					contents+="<a href='#' data-toggle='modal' data-target='#menu-dt' class='lightbox'>";
+					contents+="<i class='icon-magnifier' onclick='getUserMenuDetail(&#39;"+mList[i].menuNo+"&#39;)'>";
+					contents+="</i>";
 					contents+="</a>";
-					contents+="</div'>"
-					contents+="</div'>"
-					contents+="</div'>"
+					contents+="</div>";
+					contents+="</div>";
+					contents+="</div>";
 					contents+="<div class='post-content'><h4>"+mList[i].menuName+"</h4>";
-					contents+="</div>";
 					contents+="<div class='product-price'><span class='amount'>"+mList[i].menuPrice+"원</span></div>";
-					contents+="<div>";
-					contents+="<a onclick='doOrder('suc');' href='/order/orderDirect.do?menuNo="+mList[i].menuNo+"&userNo="+orderUserNo+"' class='btn'>주문하기</a>";
-					contents+="</div>";
+					contents+="<a onclick='doOrder('suc');' href='/order/orderDirect.do?menuNo="+mList[i].menuNo+"&userNo="+orderUserNo+"' class='btn btn-cart'><i class='icon-basket'></i>주문하기</a>";
 					contents+="</div>";
 					contents+="</div>";
 					contents+="</div>";
@@ -148,16 +148,18 @@ function doOrder(str){
 						<div class="controls text-center">
 							<!-- <a href="#" class="filter active" id="myLink" data-filter="all" onclick="userMenuList('all');">전체</a>
 							<a href="#" class="filter" data-filter=".recommend" onclick="userMenuList('recommend');">추천</a> -->
-							<a href="#" class="filter" id="myLink" data-filter=".drink" onclick="userMenuList('drink');">음료</a>
-							<a href="#" class="filter" data-filter=".dessert" onclick="userMenuList('dessert');">디저트</a>
-							<a href="#" class="filter" data-filter=".others" onclick="userMenuList('others');">그 외</a>
+							<a href="#" class="filter" id="myLink" data-filter=".drink"
+								onclick="userMenuList('drink');">음료</a> <a href="#"
+								class="filter" data-filter=".dessert"
+								onclick="userMenuList('dessert');">디저트</a> <a href="#"
+								class="filter" data-filter=".others"
+								onclick="userMenuList('others');">그 외</a>
 						</div>
-					</div>
-					<!-- 메뉴 분류 탭 끝 -->
-					<div id="userMenuList">
-					<!-- <div style="text-align: center; margin-left: auto; margin-right: auto;" id="#">
-					
-					</div> -->
+
+						<!-- 메뉴 분류 탭 끝 -->
+						<div id="userMenuList">
+
+						</div>
 					</div>
 				</div>
 			</div>
