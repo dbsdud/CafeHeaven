@@ -622,11 +622,11 @@ rotateY
 	animation: square-spin 3s 0s cubic-bezier(.09, .57, .49, .9) infinite
 }
 
-#portfolio-list .mix {
+#portfolio-list .all {
 	display: none
 }
 
-#products .mix {
+#userMenuList .all {
 	display: none
 }
 
@@ -770,7 +770,7 @@ rotateY
 .navbar-default .navbar-nav>li>a {
 	color: #999;
 	display: block;
-	font-size: 18px;
+	font-size: 14px;
 	font-family: lato, sans-serif;
 	padding: 7px 16px;
 	text-transform: uppercase;
@@ -1359,7 +1359,7 @@ transform
 	transition: all .9s ease
 }
 
-#portfolio-list .mix {
+#portfolio-list .all {
 	padding-left: 0;
 	padding-right: 0
 }

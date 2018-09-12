@@ -415,19 +415,26 @@ $(document)
 									});
 				});
 jQuery(function() {
-	jQuery('#portfolio-list').mixItUp({
+	jQuery('#userMenuList').mixItUp({
 		animation : {
 			duration : 800
 		}
 	});
 });
 jQuery(function() {
-	jQuery('#products').mixItUp({
+	jQuery('#portfolio-list').mixItUp({
 		animation : {
 			duration : 800
 		}
 	});
 });
+/*jQuery(function() {
+	jQuery('#products').mixItUp({
+		animation : {
+			duration : 800
+		}
+	});
+});*/
 $('#submit').click(
 		function() {
 			$.post("assets/php/send.php", $(".contact-form").serialize(),

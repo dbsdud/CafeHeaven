@@ -14,104 +14,9 @@
 <title>CAFE HEAVEN - Community</title>
 <script type="text/javascript" src="/assets/js/jquery-min.js"></script>
 <script src="/bootstrap-3.3.2-dist/js/jquery.form.min.js"></script>
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://rawgit.com/jasondavies/d3-cloud/master/build/d3.layout.cloud.js" type="text/JavaScript"></script>
-<script>
-$(function(){
-	
-	var jsonObj=new Array();
-	//워드클라우드 ajax
-	$.ajax({
-	
-		url:"/bigData/reviewSearchAns.do",
-		method:"post",
-		success: function(data){
-		
-			$.each(data,function(key,value){
-				jsonObj.push({
-					text:key,
-					frequency:value
-				})
-			})
-			
-			   var width = parseInt("960");
-		       var height = parseInt("500");
-		       
-		       var svg = d3.select("body").append("svg")
-		       .attr("width", width)
-		       .attr("height", height);
-				
-		    
-		    	showCloud(jsonObj);
-		    	setInterval(function(){
-					showCloud(jsonObj);
-						}, 2000);
-		       
-		     //scale.linear: 선형적인 스케일로 표준화를 시킨다. 
-		       //domain: 데이터의 범위, 입력 크기
-		       //range: 표시할 범위, 출력 크기 
-		       //clamp: domain의 범위를 넘어간 값에 대하여 domain의 최대값으로 고정시킨다.
-			
-		    	 wordScale = d3.scale.linear().domain([0, 100]).range([0, 150]).clamp(true);
-		    	 var keywords = ["자리야", "트레이서", "한조"]
-		         var svg = d3.select("svg")
-		                     .append("g")
-		                     .attr("transform", "translate("+width/2+","+height/2 + ")")
-		     
-		      function showCloud(data) {
-           		 d3.layout.cloud().size([width, height])
-                //클라우드 레이아웃에 데이터 전달
-                .words(data)
-                .rotate(function (d) {
-                	console.log(d)
-                    return d.text.length > 3 ? 0 : 90;
-                })
-                //스케일로 각 단어의 크기를 설정
-                .fontSize(function (d) {
-                    return wordScale(d.frequency);
-                })
-                //클라우드 레이아웃을 초기화 > end이벤트 발생 > 연결된 함수 작동  
-                .on("end", draw)
-                .start();
-		    	 }
-		     
-		    	 function draw(words) { 
-		                var cloud = svg.selectAll("text").data(words)
-		                //Entering words
-		                cloud.enter()
-		                    .append("text")
-		                    .style("font-family", "overwatch")
-		                    .style("fill", function (d) {
-		                        return (keywords.indexOf(d.text) > -1 ? "#fbc280" : "#405275");
-		                    })
-		                    .style("fill-opacity", .5)
-		                    .attr("text-anchor", "middle") 
-		                    .attr('font-size', 1)
-		                    .text(function (d) {
-		                        return d.text;
-		                    }); 
-		                cloud
-		                    .transition()
-		                    .duration(600)
-		                    .style("font-size", function (d) {
-		                        return d.size + "px";
-		                    })
-		                    .attr("transform", function (d) {
-		                        return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
-		                    })
-		                    .style("fill-opacity", 1); 
-		            }
-		    	 
-		     
-		}
-	})
-	
-	
-	
-});
+<!-- css,js 클라우드 -->
 
-</script>
+<link rel="stylesheet" href="/assets/css/jqcloud.min.css"  />
 <script>
 // 방식으로 보여주기
   $(function(){
@@ -133,7 +38,7 @@ $(function(){
 							contents+='<div><p>'+value.cafeReview+'</p></div>';
 							contents+='<div><p>'+value.rvWriter+'</p></div>';	
 							contents+='</div>';
-							jsonObj.push(value.cafeReview);
+							 
 						
 						}else{
 							contents+='<div class="hd-list-three">';//style="display: block;"
@@ -142,17 +47,14 @@ $(function(){
 							contents+='<div><p>'+value.cafeReview+'</p></div>';
 							contents+='<div><p>'+value.rvWriter+'</p></div>';	
 							contents+='</div>';
-							jsonObj.push(value.cafeReview);
+							 
 						}
 						$('#reviewList').html(contents);
 					}
- 				 	console.log(jsonObj);
  				 
 				
 			},
 			error:function(error){
-				alert('실패');
-				alert(error);
 			}
 			
 	 		});
@@ -175,7 +77,6 @@ function cafeReviewReg(){
 				$('#cafeReview').focus();
 				return false;
 			};
-			
 	
 		},
 		success:function(data){
@@ -192,6 +93,7 @@ function cafeReviewReg(){
 					contents+='<div><p>'+value.cafeReview+'</p></div>';
 					contents+='<div><p>'+value.rvWriter+'</p></div>';	
 					contents+='</div>';
+					 
 				}else{
 					contents+='<div class="hd-list-three">';//style="display: block;"
 					contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
@@ -199,10 +101,12 @@ function cafeReviewReg(){
 					contents+='<div><p>'+value.cafeReview+'</p></div>';
 					contents+='<div><p>'+value.rvWriter+'</p></div>';	
 					contents+='</div>';
+					 
 				}
 				$('#reviewList').html(contents);
 			}
 		 	
+			
 			
 		},
 		error:function(){
@@ -260,7 +164,10 @@ $(function(){
 	}
 })
 
-</script>
+</script> 
+
+
+
 
 </head>
 <body>
@@ -285,7 +192,7 @@ $(function(){
 			<!-- class= active 활성화된탭 -->
 			<li style="width: 34%;" class=""><a data-toggle="tab" href="#menu2" id="chgWrite2" aria-expanded="false" class="icon icon-question" style="text-align:center">Q&amp;A</a></li>
 			<!-- <li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView" aria-expanded="false">리뷰</a></li> -->
-			<li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView"  aria-expanded="false" class="icon icon-pencil" style="text-align:center">리뷰</a></li>
+			<li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView" aria-expanded="false" class="icon icon-pencil" style="text-align:center" style="text-align:center">리뷰</a></li>
 		</ul>
 		<!--  tab클릭 내용 -->
 		<div class="tab-content">
@@ -454,7 +361,39 @@ $(function(){
 	<%@ include file="/WEB-INF/view/cssjs.jsp" %> 
 	<!--  script css -->
 	<%@ include file="communityTabScript.jsp" %>
-  
+	
+	<!-- 워드클라우드 시작 -->
+  <div id="wordcloud"></div>
+ <!-- 워드클라우드 -->
+  <script src="/assets/js/jqcloud.min.js"></script>
 
+<script>
+$(function(){
+	
+	var words=new Array();
+	//워드클라우드 ajax
+	$.ajax({
+	
+		url:"/bigData/reviewSearchAns.do",
+		method:"post",
+		success: function(data){
+		
+			$.each(data,function(key,value){
+				words.push({
+					text:key,
+					weight:value
+				})
+			});
+			$("#wordcloud").jQCloud(words, {
+				width : 600,
+				height : 300,
+				delay: 50
+			});
+		}
+	})
+	
+});
+
+</script>
 </body>
 </html>

@@ -26,4 +26,11 @@ public class HomeController {
 			
 			return "/callback";
 		}
+		
+		//
+			/*	@RequestMapping(value ="new")
+				public String newfile() {
+					return "/notice/NewFile";
+				}*/
+		
 }
