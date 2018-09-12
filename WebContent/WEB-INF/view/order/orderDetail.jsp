@@ -132,7 +132,7 @@ function radioCardCheck(){
 		%>
 		<input type="hidden" type="text" id="GOODS_NAME" name="GOODS_NAME" value="<%=menuNames %>" size=15 maxlength=20 />
 		<!-- 결제 금액  !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-		<input type="hidden" type="text" id="AMT" name="AMT" value="1004" size=8 />
+		<input type="hidden" type="text" id="AMT" name="AMT" value="1004" size=8 /><!-- 나중에 결제금액 바꿔야합니당 -->
 		<!-- 상품 갯수 !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 		<input type="hidden" type="text" id="QUANTITY" name="QUANTITY" value="<%=tMap.size() %>" size=3 maxlength=3/>
 		<!-- 거래 일자  오늘 날짜로 바꿔주기-->
@@ -140,13 +140,13 @@ function radioCardCheck(){
 		<!-- 고객명  !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 		<!-- <input type="hidden" id="CUSTOMER_NAME" name="CUSTOMER_NAME" value="홍길동" size=30 maxlength=100 /> -->
 		<!-- 리턴 URL  !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-		<input type="hidden" id="RETURN_URL" name="RETURN_URL" value="/order/orderComplete.do" size=30 maxlength=100 />
+		<input type="hidden" id="RETURN_URL" name="RETURN_URL" value="http://13.209.164.26:8080/order/orderComplete.do" size=30 maxlength=100 />
 		<!-- 결제 성공  URL !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-		<input type="hidden" id="COMPLETE_URL" name="COMPLETE_URL" value="/order/orderSuccess.do?userNo=<%=userNo %>" size=30 maxlength=100 />
+		<input type="hidden" id="COMPLETE_URL" name="COMPLETE_URL" value="http://13.209.164.26:8080/order/orderSuccess.do?userNo=<%=userNo %>" size=30 maxlength=100 />
 		<!-- 결제도중 취소  URL !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-		<input type="hidden" id="CANCEL_URL" name="CANCEL_URL" value="#" size=30 maxlength=100 />
+		<input type="hidden" id="CANCEL_URL" name="CANCEL_URL" value="http://13.209.164.26:8080/order/orderCancelResult.do" size=30 maxlength=100 />
 		<!-- 여분의 데이터 1 -->
-		<input type="hidden" id="ETC_DATA1" name="ETC_DATA1" value="#" />
+		<input type="hidden" id="ETC_DATA1" name="ETC_DATA1" value="<%=CmmUtil.nvl(userNo) %>" />
 		<!-- 여분의 데이터 2 -->
 		<!-- 여분의 데이터 3 -->
 		<%
@@ -268,19 +268,20 @@ function radioCardCheck(){
 							</div>
 							<%}%>
 						</div>
-						<div class="col-sm-12">
-							<div class="col-sm-6">
+						<div class="col-sm-12" class="radio">
+							<div class="col-sm-6 icheck-asbestos">
 								<input type="radio" id="TRAN_TYPE" name="TRAN_TYPE" value="PHON" checked="checked" />
 								<label for="asbestos1" onclick="radioPhonCheck();">휴대폰 소액 결제</label>
 							</div>
-							<div class="col-sm-6">
-								<input type="radio" id="TRAN_TYPE" name="TRAN_TYPE" value="PHON" checked="checked" />
-								<label for="asbestos1" onclick="radioPhonCheck();">휴대폰 소액 결제</label>
+							<div class="col-sm-6 icheck-asbestos">
+								<input type="radio" id="TRAN_TYPE" name="TRAN_TYPE" value="CARD" />
+								<label for="asbestos2" onclick="radioCardCheck();">신용카드(온라인 결제)</label>
 							</div>
 						</div>
 						<div class="col-sm-12">
 							<div class="col-sm-6" style="padding:4px;">
-								<button class="btn btn-danger" style="width:100%;" onclick="doSubmitOrder();">취소하기</button>
+								<!-- 취소기능 -->
+								<button class="btn btn-cancel" style="width:100%;">취소하기</button>
 							</div>
 							<div class="col-sm-6" style="padding:4px;">
 								<button class="btn btn-effect" style="width:100%;" onclick="doSubmitOrder();">결제하기<i class="icon-arrow-right"></i></button>

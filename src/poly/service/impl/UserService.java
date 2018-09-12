@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.annotations.Mapper;
+/*import org.apache.ibatis.annotations.Mapper;*/
 import org.springframework.stereotype.Service;
 
 import poly.dto.UserDTO;

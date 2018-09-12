@@ -254,6 +254,7 @@ public class OrderController {
 			/*
 				결제실패
 			*/
+			log.info("실패");
 		}
 		log.info(this.getClass() + "orderComplete End");
 	}

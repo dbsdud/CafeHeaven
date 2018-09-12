@@ -50,7 +50,7 @@ function tmpPlMi(menuNo, flag) {
 					var contents = "";
 					var resultPrice = 0;
 					$.each(data, function(key, value){
-						contents += "<div class=\"w3-col s12\">\n";
+						contents += "<div class=\"col-sm-12\">\n";
 						contents += "<input type=\"checkbox\" name=\"del_check\" value=\"" + value.menuNo + "\">\n";
 						contents += "<div class=\"tmpBasketText\">" + value.menuName + "</div>\n";
 						contents += "<a href=\"#\" class=\"tmpBasketPlMi\" onclick=\"tmpPlMi('" + value.menuNo +"', 'm');\">-</a>";
@@ -67,7 +67,7 @@ function tmpPlMi(menuNo, flag) {
 					$('#totPrice').text(resultPrice);
 				}else{
 					var contents = "";
-					contents += "<div class=\"col-xs-12\" style=\"text-align: center;\">";
+					contents += "<div class=\"col-sm-12\" style=\"text-align: center;\">";
 					contents += "<div class=\"tmpBasketResultPriceText\">선택하신 상품이 없습니다.</div>";
 					contents += "</div>";
 					$('#tmpList').html(contents);
@@ -96,7 +96,7 @@ function tmpBasketDeleteOne(menuNo){
 				var contents = "";
 				var resultPrice = 0;
 				$.each(data, function(key, value){
-					contents += "<div class=\"w3-col s12\">\n";
+					contents += "<div class=\"col-sm-12\">\n";
 					contents += "<input type=\"checkbox\" name=\"del_check\" value=\"" + value.menuNo + "\">\n";
 					contents += "<div class=\"tmpBasketText\">" + value.menuName + "</div>\n";
 					contents += "<a href=\"#\" class=\"tmpBasketPlMi\" onclick=\"tmpPlMi('" + value.menuNo +"', 'm');\">-</a>";
@@ -113,7 +113,7 @@ function tmpBasketDeleteOne(menuNo){
 				$('#totPrice').text(resultPrice);
 			}else{
 				var contents = "";
-				contents += "<div class=\"col-xs-12\" style=\"text-align: center;\">";
+				contents += "<div class=\"col-sm-12\" style=\"text-align: center;\">";
 				contents += "<div class=\"tmpBasketResultPriceText\">선택하신 상품이 없습니다.</div>";
 				contents += "</div>";
 				$('#tmpList').html(contents);
@@ -151,7 +151,7 @@ function tmpBasketSelectedDelete(){
 				var contents = "";
 				var resultPrice = 0;
 				$.each(data, function(key, value){
-					contents += "<div class=\"w3-col s12\">\n";
+					contents += "<div class=\"col-sm-12\">\n";
 					contents += "<input type=\"checkbox\" name=\"del_check\" value=\"" + value.menuNo + "\">\n";
 					contents += "<div class=\"tmpBasketText\">" + value.menuName + "</div>\n";
 					contents += "<a href=\"#\" class=\"tmpBasketPlMi\" onclick=\"tmpPlMi('" + value.menuNo +"', 'm');\">-</a>";
@@ -168,7 +168,7 @@ function tmpBasketSelectedDelete(){
 				$('#totPrice').text(resultPrice);
 			}else{
 				var contents = "";
-				contents += "<div class=\"col-xs-12\" style=\"text-align: center;\">";
+				contents += "<div class=\"col-sm-12\" style=\"text-align: center;\">";
 				contents += "<div class=\"tmpBasketResultPriceText\">선택하신 상품이 없습니다.</div>";
 				contents += "</div>";
 				$('#tmpList').html(contents);
@@ -235,7 +235,9 @@ function doOrder(){
 								<input type="text" value="<%=CmmUtil.nvl(tMap.get(key).getMenuQty()) %>" class="tmpBasketCount" maxlength="2" readonly id="<%=CmmUtil.nvl(tMap.get(key).getMenuNo() + "Cnt")%>">
 								<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'p');">+</a>
 								<div class="tmpBasketPrice" name="price"><%=CmmUtil.addComma(Integer.parseInt(tMap.get(key).getMenuPrice()) * Integer.parseInt(tMap.get(key).getMenuQty())) + "원" %></div>
-								<a href="#" onclick="tmpBasketDeleteOne('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>');"><img src="#" class="tmpBasketDeleteImg"></a>
+								<a href="#" onclick="tmpBasketDeleteOne('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>');">
+									<img src="#" class="tmpBasketDeleteImg">
+								</a>
 								<hr class="tmpBasketHr">
 							</div>
 							<%
@@ -244,19 +246,19 @@ function doOrder(){
 								}
 							%>
 						</div>
-						<div class="w3-col s12 w3-row-padding">
-							<div class="w3-col s6" style="margin:auto;">결제 예정금액</div>
-							<div class="w3-col s6" id="totPrice" style="margin:auto;"><%=CmmUtil.nvl(CmmUtil.addComma(resultPrice)) + "원" %></div>
+						<div class="col-sm-12">
+							<div class="col-sm-6" style="margin:auto;">결제 예정금액</div>
+							<div class="col-sm-6" id="totPrice" style="margin:auto;"><%=CmmUtil.nvl(CmmUtil.addComma(resultPrice)) + "원" %></div>
 						</div><br />
-						<div class="w3-col s12 w3-row-padding" style="font-size:19px;">
-							<div class="w3-col s6 w3-row-padding" style="padding: 10px;">
+						<div class="col-sm-12" style="font-size:19px;">
+							<div class="col-sm-6" style="padding: 10px;">
 								<button class="btn btn-danger" style="width:100%" onclick="tmpBasketSelectedDelete();">선택삭제</button>
 							</div>
-							<div class="w3-col s6 w3-row-padding" style="padding: 10px;">
+							<div class="col-sm-6" style="padding: 10px;">
 								<button class="btn btn-primary" style="width:100%" onclick="keepShopping();">계속 쇼핑하기</button>
 							</div>
 						</div>
-						<div class="w3-col s12 w3-row-padding">
+						<div class="col-sm-12">
 							<button class="btn btn-effect" style="width:100%; padding:10px;" onclick="return doOrder();">주문 하기<i class="icon-arrow-right"></i></button>
 						</div>
 					</div>

@@ -168,7 +168,7 @@
 						<!-- 추가 요구사항 끝 -->
 						<div class="col-sm-12" style="padding: 25px;">
 							<div class="col-sm-6" style="padding:4px;">
-								<button class="btn btn-danger" style="width: 100%;" onclick="addTmpBasket();">장바구니</button>
+								<button class="btn btn-cart2" style="width: 100%;" onclick="addTmpBasket();">장바구니<i class="icon-basket"></i></button>
 								<input type="hidden" name="userNo" id="tmpUserNo" value="<%=CmmUtil.nvl(uDTO.getUserNo())%>" /> 
 								<input type="hidden" name="menuNo" id="tmpMenuNo" value="<%=mDTO.getMenuNo()%>" />
 								<!--CmmUtil.nvl(mDTO.getMenuNo())  -->
