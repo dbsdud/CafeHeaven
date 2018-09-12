@@ -1,9 +1,14 @@
 package poly.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import javax.annotation.Resource;
+import javax.mail.search.IntegerComparisonTerm;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -34,6 +39,7 @@ public class ReviewController {
 	@RequestMapping(value="/notice/reviewList")
 	public @ResponseBody List<ReviewDTO> reviewList(HttpServletRequest req) throws Exception {
 		//rDTO 객체 생성
+		
 		//조회한 데이터를 리스트 형식으로 저장
 		List<ReviewDTO> rList= reviewService.getReviewList();
 		return rList;
@@ -78,5 +84,106 @@ public class ReviewController {
 		log.info("rList 시작:"+rList);
 		
 		return rList;
+		
 	}
+	
+////리뷰 워드클라우드
+
+	
+	@RequestMapping (value="/bigData/reviewSearchAns.do",method=RequestMethod.POST)
+	public @ResponseBody HashMap<String,Integer> reviewCloud() throws Exception{
+		log.info("리뷰 워드클라우드 조회 시작 " +this.getClass());
+		
+		List<ReviewDTO> rList = new ArrayList<>();
+		String str="";
+		//공백 제거 단어 저장 리스트
+		List<String> rvTrimList = new ArrayList<>();
+		//특수문자 제거  저장  정제끝
+		List<String> rvSpeList = new ArrayList<>();
+/*		//워드 클라우드 들어갈 리스트
+		List<Object> rvCloudList = new ArrayList<>();*/
+		//단어의 빈도수를 구하기 위해 저장하는 map
+		HashMap<String,Integer> hMap= new HashMap<String,Integer>();
+		//HashMap<String,String> sMap= new HashMap<String,String>();
+		ReviewDTO rDTO= new ReviewDTO();
+		rList=reviewService.getReviewText(rDTO);
+		
+		try {
+		
+			
+			Iterator<ReviewDTO> it = rList.iterator();
+			
+			while(it.hasNext()) {
+				str=it.next().getCafeReview().toString();
+				String[] words = str.split("\\s");
+				for(String wo : words) {
+					rvTrimList.add(wo);
+				}
+			}
+			//단어 추출
+				for(int i=0 ; i<rvTrimList.size();i++) {
+					str=rvTrimList.get(i);
+					//특수문자 제거
+						if(!str.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")){ 
+								//특수문자가 있을 경우
+							String match = "[^\uAC00-\uD7A3xfe0-9a-zA-Z\\s]"; 
+							str =str.replaceAll(match, "");
+							rvSpeList.add(str);
+						}else {
+							//특수문자가 없을 경우
+							rvSpeList.add(str);
+						}
+					}
+			
+				String word="";
+				Iterator<String> itTwo = rvSpeList.iterator();
+				while(itTwo.hasNext()) {
+					//단어 중복 찾는것
+					word=itTwo.next().toString();
+					if(!hMap.containsKey(word)){
+						//단어가 처음일 경우
+					hMap.put(word, 0);
+					hMap.put(word,hMap.get(word)+1);
+				/*	sMap.put("text", word);
+					sMap.put("frequency",hMap.get(word).toString());
+					rvCloudList.add(sMap);*/
+				
+					}else {
+						hMap.put(word,hMap.get(word)+1);
+						/*sMap.put("text", word);
+						sMap.put("frequency",hMap.get(word).toString());
+						rvCloudList.add(sMap);
+			*/
+					}
+					
+				}
+				
+				
+		}catch(Exception e){
+			//오류
+			System.out.println(e);
+			
+		}
+		
+		
+/*		  //문서에 없는 단어일 경우
+	    if(map.get(word) == null) return 0;
+	    return map.get(word);*/
+	/*	if(it.next().getCafeReview().matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*")) {
+			//특수문자 있을경우
+			System.out.println("테스트성공");
+		}*/
+	
+		log.info("리뷰 워드클라우드 조회 끝 " +this.getClass());
+		return hMap;
+	}
+
+	
+	
 }
+
+
+
+
+	
+

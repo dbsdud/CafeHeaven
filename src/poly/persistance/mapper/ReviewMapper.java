@@ -19,5 +19,8 @@ public interface ReviewMapper {
 
 	public List<ReviewDTO> userWriteList() throws Exception;
 
+	//리뷰 워드클라우드
+	public List<ReviewDTO> getReviewText(ReviewDTO rDTO) throws Exception;
+
 	
 }

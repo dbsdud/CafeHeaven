@@ -48,4 +48,10 @@ public class ReviewService implements IReviewService {
 		return reviewMapper.userWriteList();
 	}
 
+	@Override
+	public List<ReviewDTO> getReviewText(ReviewDTO rDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return reviewMapper.getReviewText(rDTO);
+	}
+
 }

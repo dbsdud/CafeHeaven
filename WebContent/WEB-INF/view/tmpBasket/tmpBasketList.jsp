@@ -18,6 +18,10 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <%@ include file="/WEB-INF/view/cssjs.jsp"%>
 <title>장바구니</title>
+<%@ include file="/WEB-INF/view/mainCss.jsp"%>
+<!-- mainJs -->
+<%@ include file="/WEB-INF/view/mainJs.jsp"%>
+<%@ include file="/WEB-INF/view/cssjs.jsp" %>
 <script>
 /* 가격에 콤마 */
 function addComma(x) {
@@ -195,61 +199,70 @@ function doOrder(){
 </script>
 </head>
 <body>
-	<%@ include file="/WEB-INF/view/mainCafeTop.jsp"%>
-	<input type="hidden" id="orderTmpUserNo" value="<%= userNo %>" />
-	<div class="container">
-		<div class="page-header">
-			<h1>
-				장바구니&nbsp;&nbsp;&nbsp;<small>CAFE HEAVEN</small>
-			</h1>
-		</div>
-		<div id="tmpList">
-			<!-- 정보가 없을 경우 노출되는 화면 -->
-			<%
-				if (tMap.size() == 0) {
-			%>
-			<div class="col-xs-12" style="text-align: center;">
-				<div class="tmpBasketResultPriceText">선택하신 상품이 없습니다.</div>
+	<div id="container">
+		<%@ include file="/WEB-INF/view/mainHeader.jsp"%>
+		<input type="hidden" id="orderTmpUserNo" value="<%= userNo %>" />
+		<section id="content">
+			<div class="container-fullscreen">
+				<div class="container">
+					<div class="row">
+						<div class="controls text-center">
+							<div class="page-header">
+								<h1>
+									장바구니&nbsp;&nbsp;&nbsp;<small>CAFE HEAVEN</small>
+								</h1>
+							</div>
+						</div>
+						<div id="tmpList">
+						<!-- 정보가 없을 경우 노출되는 화면 -->
+							<%
+								if (tMap.size() == 0) {
+							%>
+							<div class="col-sm-12" style="text-align: center;">
+								<div class="tmpBasketResultPriceText">선택하신 상품이 없습니다.</div>
+							</div>
+							<%
+								} else {
+									Iterator<String> keys = tMap.keySet().iterator();
+									while (keys.hasNext()) {
+										String key = keys.next();
+							%>
+						<!-- 정보가 없을 경우 노출되는 화면 끝 -->
+							<div class="col-sm-12">
+								<input type="checkbox" name="del_check" value="<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>" />
+								<div class="tmpBasketText"><%=CmmUtil.nvl(tMap.get(key).getMenuName())%></div>
+								<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'm');">-</a>
+								<input type="text" value="<%=CmmUtil.nvl(tMap.get(key).getMenuQty()) %>" class="tmpBasketCount" maxlength="2" readonly id="<%=CmmUtil.nvl(tMap.get(key).getMenuNo() + "Cnt")%>">
+								<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'p');">+</a>
+								<div class="tmpBasketPrice" name="price"><%=CmmUtil.addComma(Integer.parseInt(tMap.get(key).getMenuPrice()) * Integer.parseInt(tMap.get(key).getMenuQty())) + "원" %></div>
+								<a href="#" onclick="tmpBasketDeleteOne('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>');"><img src="#" class="tmpBasketDeleteImg"></a>
+								<hr class="tmpBasketHr">
+							</div>
+							<%
+										resultPrice += Integer.parseInt(tMap.get(key).getMenuPrice()) * Integer.parseInt(tMap.get(key).getMenuQty());
+									}
+								}
+							%>
+						</div>
+						<div class="w3-col s12 w3-row-padding">
+							<div class="w3-col s6" style="margin:auto;">결제 예정금액</div>
+							<div class="w3-col s6" id="totPrice" style="margin:auto;"><%=CmmUtil.nvl(CmmUtil.addComma(resultPrice)) + "원" %></div>
+						</div><br />
+						<div class="w3-col s12 w3-row-padding" style="font-size:19px;">
+							<div class="w3-col s6 w3-row-padding" style="padding: 10px;">
+								<button class="btn btn-danger" style="width:100%" onclick="tmpBasketSelectedDelete();">선택삭제</button>
+							</div>
+							<div class="w3-col s6 w3-row-padding" style="padding: 10px;">
+								<button class="btn btn-primary" style="width:100%" onclick="keepShopping();">계속 쇼핑하기</button>
+							</div>
+						</div>
+						<div class="w3-col s12 w3-row-padding">
+							<button class="btn btn-effect" style="width:100%; padding:10px;" onclick="return doOrder();">주문 하기<i class="icon-arrow-right"></i></button>
+						</div>
+					</div>
+				</div>
 			</div>
-			<%
-				} else {
-					Iterator<String> keys = tMap.keySet().iterator();
-					while (keys.hasNext()) {
-						String key = keys.next();
-			%>
-			<!-- 정보가 없을 경우 노출되는 화면 끝 -->
-			<div class="w3-col s12">
-				<input type="checkbox" name="del_check" value="<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>" />
-				<div class="tmpBasketText"><%=CmmUtil.nvl(tMap.get(key).getMenuName())%></div>
-				<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'm');">-</a>
-				<input type="text" value="<%=CmmUtil.nvl(tMap.get(key).getMenuQty()) %>"
-					class="tmpBasketCount" maxlength="2" readonly id="<%=CmmUtil.nvl(tMap.get(key).getMenuNo() + "Cnt")%>">
-				<a href="#" class="tmpBasketPlMi" onclick="tmpPlMi('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>', 'p');">+</a>
-				<div class="tmpBasketPrice" name="price"><%=CmmUtil.addComma(Integer.parseInt(tMap.get(key).getMenuPrice()) * Integer.parseInt(tMap.get(key).getMenuQty())) + "원" %></div>
-				<a href="#" onclick="tmpBasketDeleteOne('<%=CmmUtil.nvl(tMap.get(key).getMenuNo())%>');"><img src="#" class="tmpBasketDeleteImg"></a>
-				<hr class="tmpBasketHr">
-			</div>
-			<%
-				resultPrice += Integer.parseInt(tMap.get(key).getMenuPrice()) * Integer.parseInt(tMap.get(key).getMenuQty());
-					}
-				}
-			%>
-		</div>
-		<div class="w3-col s12 w3-row-padding">
-			<div class="w3-col s6" style="margin:auto;">결제 예정금액</div>
-			<div class="w3-col s6" id="totPrice" style="margin:auto;"><%=CmmUtil.nvl(CmmUtil.addComma(resultPrice)) + "원" %></div>
-		</div><br />
-		<div class="w3-col s12 w3-row-padding" style="font-size:19px;">
-			<div class="w3-col s6 w3-row-padding" style="padding: 10px;">
-				<button class="btn btn-danger" style="width:100%" onclick="tmpBasketSelectedDelete();">선택삭제</button>
-			</div>
-			<div class="w3-col s6 w3-row-padding" style="padding: 10px;">
-				<button class="btn btn-primary" style="width:100%" onclick="keepShopping();">계속 쇼핑하기</button>
-			</div>
-		</div>
-		<div class="w3-col s12 w3-row-padding">
-			<button class="btn btn-success" style="width:100%; padding:10px;" onclick="return doOrder();">주문 하기</button>
-		</div>
+		</section>
 	</div>
 </body>
 </html>

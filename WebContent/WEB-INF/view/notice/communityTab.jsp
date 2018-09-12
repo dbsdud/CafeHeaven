@@ -7,7 +7,6 @@
 <%
 //받을때도 리스트 형변환 컨트롤러에서 보낸 데이터의 형이 리스트 형이기떄문에 받을때도 리스트
 	List<NoticeDTO> nList=(List<NoticeDTO>)request.getAttribute("nList");
-
 %>
 <html>
 <head>
@@ -15,18 +14,21 @@
 <title>CAFE HEAVEN - Community</title>
 <script type="text/javascript" src="/assets/js/jquery-min.js"></script>
 <script src="/bootstrap-3.3.2-dist/js/jquery.form.min.js"></script>
+<!-- css,js 클라우드 -->
+
+<link rel="stylesheet" href="/assets/css/jqcloud.min.css"  />
 <script>
 // 방식으로 보여주기
   $(function(){
 		$("#reviewListView").click(function(){
 		
 			$.ajax({
-			
+				
 				url :"/notice/reviewList.do",
 				type : 'GET',
 				success:function(data){
 					var contents="";
-					console.log(data);
+					var jsonObj= new Array();
 					for(var i = 0; i < data.length; i++) {
 					    var value = data[i];
 						if(i<4){
@@ -36,6 +38,8 @@
 							contents+='<div><p>'+value.cafeReview+'</p></div>';
 							contents+='<div><p>'+value.rvWriter+'</p></div>';	
 							contents+='</div>';
+							 
+						
 						}else{
 							contents+='<div class="hd-list-three">';//style="display: block;"
 							contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
@@ -43,21 +47,20 @@
 							contents+='<div><p>'+value.cafeReview+'</p></div>';
 							contents+='<div><p>'+value.rvWriter+'</p></div>';	
 							contents+='</div>';
+							 
 						}
 						$('#reviewList').html(contents);
 					}
- 				 	console.log(contents);
+ 				 
 				
 			},
 			error:function(error){
-				alert('실패');
-				alert(error);
 			}
 			
 	 		});
 		});
 	  
-	}); 
+}); 
 
 
 //눌렀을때 계속 추가
@@ -74,7 +77,6 @@ function cafeReviewReg(){
 				$('#cafeReview').focus();
 				return false;
 			};
-			
 	
 		},
 		success:function(data){
@@ -91,6 +93,7 @@ function cafeReviewReg(){
 					contents+='<div><p>'+value.cafeReview+'</p></div>';
 					contents+='<div><p>'+value.rvWriter+'</p></div>';	
 					contents+='</div>';
+					 
 				}else{
 					contents+='<div class="hd-list-three">';//style="display: block;"
 					contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
@@ -98,10 +101,12 @@ function cafeReviewReg(){
 					contents+='<div><p>'+value.cafeReview+'</p></div>';
 					contents+='<div><p>'+value.rvWriter+'</p></div>';	
 					contents+='</div>';
+					 
 				}
 				$('#reviewList').html(contents);
 			}
 		 	
+			
 			
 		},
 		error:function(){
@@ -118,6 +123,52 @@ function ansUncom(str){
 };
 
 </script>
+<script>
+$(function(){
+	var comId=$('#comId').val();
+	if(comId==""){
+		cont='커뮤니티';
+		$('#chgWrite').html(cont);
+	}else if(comId=='1'){
+		cont2='커뮤니티 <a href="/notice/noticeReg.do" style="100px; float:right">공지 글쓰기</a> ';
+		$('#chgWrite').html(cont2)
+			$('#chgWrite1').click(function(){
+				cont='커뮤니티 <a href="/notice/noticeReg.do" style="100px; float:right">공지 글쓰기</a> ';
+				$('#chgWrite').html(cont)
+				
+			});
+			$('#chgWrite2').click(function(){
+				cont='커뮤니티 <a href="/notice/questionReg.do" style="100px; float:right">질문 글쓰기</a>';
+				$('#chgWrite').html(cont);
+			})
+			$('#reviewListView').click(function(){
+				cont='커뮤니티';
+				$('#chgWrite').html(cont);
+			});
+		
+	}else{
+		$('#chgWrite1').click(function(){
+			cont='커뮤니티';
+			$('#chgWrite').html(cont)
+			
+		});
+		$('#chgWrite2').click(function(){
+			cont='커뮤니티 <a href="/notice/questionReg.do" style="100px; float:right">질문 글쓰기</a>';
+			$('#chgWrite').html(cont);
+		})
+		$('#reviewListView').click(function(){
+			cont='커뮤니티';
+			$('#chgWrite').html(cont);
+		});
+		
+	}
+})
+
+</script> 
+
+
+
+
 </head>
 <body>
 
@@ -129,14 +180,19 @@ function ansUncom(str){
 	<!-- 부트스트랩 탭 메뉴 공지사항 qna 별점 -->
 
 	<div class="container" >
-		<h2 style="padding-top: 20px; padding-bottom: 20px" >커뮤니티</h2>	
+	
+			<h2 id="chgWrite" style="padding-top:20px; padding-bottom:20px">커뮤니티</h2>
+
+		<input type="hidden" id="comId" value="<%=userNo%>"/>
+	
+		
 		<!--  탭  구성 상단 -->
 		<ul class="nav nav-tabs">
-			<li class="active" style="width: 33%;"><a data-toggle="tab" href="#menu1" aria-expanded="true" class="icon icon-note" style="text-align:center">공지사항</a></li>
+			<li class="active" style="width: 33%;" ><a data-toggle="tab" href="#menu1" id="chgWrite1"   aria-expanded="true" class="icon icon-note" style="text-align:center">공지사항</a></li>
 			<!-- class= active 활성화된탭 -->
-			<li style="width: 34%;" class=""><a data-toggle="tab" href="#menu2" aria-expanded="false" class="icon icon-question" style="text-align:center">Q&amp;A</a></li>
+			<li style="width: 34%;" class=""><a data-toggle="tab" href="#menu2" id="chgWrite2" aria-expanded="false" class="icon icon-question" style="text-align:center">Q&amp;A</a></li>
 			<!-- <li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView" aria-expanded="false">리뷰</a></li> -->
-			<li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView"  aria-expanded="false" class="icon icon-pencil" style="text-align:center">리뷰</a></li>
+			<li style="width: 33%;" class=""><a data-toggle="tab" href="#menu3" id="reviewListView" aria-expanded="false" class="icon icon-pencil" style="text-align:center" style="text-align:center">리뷰</a></li>
 		</ul>
 		<!--  tab클릭 내용 -->
 		<div class="tab-content">
@@ -176,13 +232,11 @@ function ansUncom(str){
 					<%} %>
 				<%} %>
 					
-					
+				
 				 <input class="form-control" id="myInput" type="text" placeholder="Search..">
 				<a href="#" id="load" style="width:100%" class="btn btn-primary">더보기</a>
 				<br />	<br />
-					<% if(userNo.equals("1")) { %>
-				<a href="/notice/noticeReg.do" style="width:100px; float:right; "class="btn btn-primary">공지사항글쓰기</a>
-					<%} %>
+			
 					
 			</div>
 			<!--  Q&A -->
@@ -227,9 +281,9 @@ function ansUncom(str){
 				<%} %>
 								<a href="#" id="load-two" style="width:100%" class="btn btn-primary">더보기</a>
 				<br />	<br />
-				<% if(!userNo.equals("")) { %>
+			<%-- 	<% if(!userNo.equals("")) { %>
 				<a href="/notice/questionReg.do"style="width:100px; float:right; "class="btn btn-primary">글쓰기</a>
-				<%} %>
+				<%} %> --%>
 			
 			</div>
 		
@@ -303,18 +357,43 @@ function ansUncom(str){
 
 	</div>
 
-	
 	<%@ include file="/WEB-INF/view/mainJs.jsp" %>
-		
-	 <%@ include file="/WEB-INF/view/cssjs.jsp" %> 
-
+	<%@ include file="/WEB-INF/view/cssjs.jsp" %> 
 	<!--  script css -->
-
 	<%@ include file="communityTabScript.jsp" %>
-	 
+	
+	<!-- 워드클라우드 시작 -->
+  <div id="wordcloud"></div>
+ <!-- 워드클라우드 -->
+  <script src="/assets/js/jqcloud.min.js"></script>
 
+<script>
+$(function(){
+	
+	var words=new Array();
+	//워드클라우드 ajax
+	$.ajax({
+	
+		url:"/bigData/reviewSearchAns.do",
+		method:"post",
+		success: function(data){
+		
+			$.each(data,function(key,value){
+				words.push({
+					text:key,
+					weight:value
+				})
+			});
+			$("#wordcloud").jQCloud(words, {
+				width : 600,
+				height : 300,
+				delay: 50
+			});
+		}
+	})
+	
+});
 
-
-
+</script>
 </body>
 </html>

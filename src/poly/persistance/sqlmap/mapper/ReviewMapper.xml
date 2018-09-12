@@ -64,4 +64,10 @@ SELECT U.NAME AS "RVWRITER",
 	ORDER BY REGDATE DESC
 </select>
 
+<!-- 워드클라우드 -->
+<select id="getReviewText" resultType="ReviewDTO">
+SELECT REVIEW_NO AS REVIEWNO , CAFE_REVIEW AS CAFEREVIEW, MENU_NAME AS MENUNAME
+FROM CAFE_REVIEW
+
+</select>
 </mapper>

@@ -9,8 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-
+<title>CAFE HEAVEN - MENU</title>
 <script src="/assets/js/jquery-min.js"></script>
 <%@ include file="/WEB-INF/view/mainCss.jsp"%>
 <!-- mainJs -->
@@ -148,12 +147,9 @@ function doOrder(str){
 						<div class="controls text-center">
 							<!-- <a href="#" class="filter active" id="myLink" data-filter="all" onclick="userMenuList('all');">전체</a>
 							<a href="#" class="filter" data-filter=".recommend" onclick="userMenuList('recommend');">추천</a> -->
-							<a href="#" class="filter" id="myLink" data-filter=".drink"
-								onclick="userMenuList('drink');">음료</a> <a href="#"
-								class="filter" data-filter=".dessert"
-								onclick="userMenuList('dessert');">디저트</a> <a href="#"
-								class="filter" data-filter=".others"
-								onclick="userMenuList('others');">그 외</a>
+							<a href="#" class="filter" id="myLink" data-filter=".drink"	onclick="userMenuList('drink');">음료</a> 
+							<a href="#"	class="filter" data-filter=".dessert" onclick="userMenuList('dessert');">디저트</a> 
+							<a href="#"	class="filter" data-filter=".others" onclick="userMenuList('others');">그 외</a>
 						</div>
 
 						<!-- 메뉴 분류 탭 끝 -->
