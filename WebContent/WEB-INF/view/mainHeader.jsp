@@ -449,6 +449,7 @@ function login(){
 						<% if ("1".equals(userNo)) {%>
 						<li><a> 관리자 </a>
 							<ul class="dropdown">
+								<li><a href="/order/orderList.do"> 주문 관리 </a></li>
 								<li><a href="projects.html"> 메뉴 관리 </a></li>
 								<li><a href="projects-2.html"> 카페 관리 </a></li>
 								<li><a href="projects-3.html"> 회원 관리 </a></li>

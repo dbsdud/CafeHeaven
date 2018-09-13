@@ -29,6 +29,7 @@ public interface IOrderService {
 	public List<TotalOrderDTO> updateAdminOrdNo(String ordNo, String statNo) throws Exception;
 	public List<TotalOrderInfoDTO> getAdminOrderRemainTime() throws Exception;
 	/*public boolean insertOrderSuccess(OrderInfoDTO oDTO, List<OrderItemDTO> oList, Map<String, String> stampMap) throws Exception;*/
+	public boolean insertOrderSuccess(OrderInfoDTO oDTO, List<OrderItemDTO> oList) throws Exception;
 	public OrderInfoDTO getOrderNo(String userNo) throws Exception;
 	/*public UserDTO getUserStamp(String userNo) throws Exception;*/
 	public List<TotalOrderDTO> selectOrderList(String userNo) throws Exception;
