@@ -34,7 +34,16 @@
 						if(i<4){
 							contents+='<div class="hd-list-three" style="display: block;" >';//style="display: block;"
 							contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
-							contents+='<div>'+value.cafeStar+'</div>';
+							
+							var cafeStar = '';
+							
+							for (var j=0; j<Number(value.cafeStar); j++) {
+							cafeStar += '<img src = "/uploadImg/cafeYello1.png" style="width:20" >' 
+							}
+							for( var k=0; k<5-Number(value.cafeStar); k++) {
+							cafeStar += '<img src = "/uploadImg/cafeWhite.png" style="width:20" >' 
+							}
+							contents+='<div>'+ cafeStar+'</div>';
 							contents+='<div><p>'+value.cafeReview+'</p></div>';
 							contents+='<div><p>'+value.rvWriter+'</p></div>';	
 							contents+='</div>';
@@ -43,7 +52,16 @@
 						}else{
 							contents+='<div class="hd-list-three">';//style="display: block;"
 							contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
-							contents+='<div>'+value.cafeStar+'</div>';
+							var cafeStar = '';
+							
+							for (var j=0; j<Number(value.cafeStar); j++) {
+								cafeStar += '<img src = "/uploadImg/cafeYello1.png" style="width:20" >' 
+									}
+								for( var k=0; k<5-Number(value.cafeStar); k++) {
+								cafeStar += '<img src = "/uploadImg/cafeWhite.png" style="width:20" >' 
+								}
+		
+							contents+='<div>'+ cafeStar+'</div>';
 							contents+='<div><p>'+value.cafeReview+'</p></div>';
 							contents+='<div><p>'+value.rvWriter+'</p></div>';	
 							contents+='</div>';
@@ -89,7 +107,16 @@ function cafeReviewReg(){
 				if(i<4){
 					contents+='<div class="hd-list-three" style="display: block;" >';//style="display: block;"
 					contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
-					contents+='<div>'+value.cafeStar+'</div>';
+					var cafeStar = '';
+					
+					for (var j=0; j<Number(value.cafeStar); j++) {
+						cafeStar += '<img src = "/uploadImg/cafeYello1.png" style="width:20" >' 
+							}
+						for( var k=0; k<5-Number(value.cafeStar); k++) {
+						cafeStar += '<img src = "/uploadImg/cafeWhite.png"  style="width:20">' 
+						}
+
+					contents+='<div>'+ cafeStar+'</div>';
 					contents+='<div><p>'+value.cafeReview+'</p></div>';
 					contents+='<div><p>'+value.rvWriter+'</p></div>';	
 					contents+='</div>';
@@ -97,7 +124,16 @@ function cafeReviewReg(){
 				}else{
 					contents+='<div class="hd-list-three">';//style="display: block;"
 					contents+='<div><p><a href="#">'+value.menuName+'</a></p></div>';
-					contents+='<div>'+value.cafeStar+'</div>';
+					var cafeStar = '';
+					
+					for (var j=0; j<Number(value.cafeStar); j++) {
+						cafeStar += '<img src = "/uploadImg/cafeYello1.png" style="width:20" >' 
+							}
+						for( var k=0; k<5-Number(value.cafeStar); k++) {
+						cafeStar += '<img src = "/uploadImg/cafeWhite.png"  style="width:20">' 
+						}
+
+					contents+='<div>'+ cafeStar+'</div>';
 					contents+='<div><p>'+value.cafeReview+'</p></div>';
 					contents+='<div><p>'+value.rvWriter+'</p></div>';	
 					contents+='</div>';
