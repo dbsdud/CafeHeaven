@@ -139,79 +139,82 @@ public class OrderController {
 	@RequestMapping(value = "order/orderComplete")
 	public void orderComplete(HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session)
 			throws Exception {
-		log.info(this.getClass() + "orderComplete Start");
+		log.info(this.getClass() + " orderComplete Start");
 		// 결과 코드
 		String rep_code = CmmUtil.nvl(req.getParameter("REP_CODE"));
-		log.info(this.getClass() + "rep_code : " + rep_code);
+		log.info(this.getClass() + " rep_code : " + rep_code);
 		// 승인 번호, 계좌 번호
 		String rep_auth_no = CmmUtil.nvl(req.getParameter("REP_AUTH_NO"));
-		log.info(this.getClass() + "rep_auth_no : " + rep_auth_no);
+		log.info(this.getClass() + " rep_auth_no : " + rep_auth_no);
 		// 거래 고유 번호(페이누리)
 		String tid = CmmUtil.nvl(req.getParameter("TID"));
-		log.info(this.getClass() + "tid : " + tid);
+		log.info(this.getClass() + " tid : " + tid);
 		// 은행 코드
 		String rep_bank = CmmUtil.nvl(req.getParameter("REP_BANK"));
-		log.info(this.getClass() + "rep_bank : " + rep_bank);
+		log.info(this.getClass() + " rep_bank : " + rep_bank);
 		// 가맹점 번호
 		String storeId = CmmUtil.nvl(req.getParameter("STOREID"));
-		log.info(this.getClass() + "storeId : " + storeId);
+		log.info(this.getClass() + " storeId : " + storeId);
 		// 가맹점 이름
 		String store_name = CmmUtil.nvl(req.getParameter("STORE_NAME"));
-		log.info(this.getClass() + "store_name : " + store_name);
+		log.info(this.getClass() + " store_name : " + store_name);
 		// 가맹점 URL
 		String store_url = CmmUtil.nvl(req.getParameter("STORE_URL"));
-		log.info(this.getClass() + "store_url : " + store_url);
+		log.info(this.getClass() + " store_url : " + store_url);
 		// 사업자 번호
 		String business_no = CmmUtil.nvl(req.getParameter("BUSINESS_NO"));
-		log.info(this.getClass() + "business_no : " + business_no);
+		log.info(this.getClass() + " business_no : " + business_no);
 		// 가맹점 주문번호
 		String tran_no = CmmUtil.nvl(req.getParameter("TRAN_NO"));
-		log.info(this.getClass() + "tran_no : " + tran_no);
+		log.info(this.getClass() + " tran_no : " + tran_no);
 		// 카드종류
 		String cardCompany = CmmUtil.nvl(req.getParameter("CARDCOMPANY"));
-		log.info(this.getClass() + "cardCompany : " + cardCompany);
+		log.info(this.getClass() + " cardCompany : " + cardCompany);
 		// 상품명
 		String goods_name = CmmUtil.nvl(req.getParameter("GOODS_NAME"));
-		log.info(this.getClass() + "goods_name : " + goods_name);
+		log.info(this.getClass() + " goods_name : " + goods_name);
 		// 결제금액
 		String amt = CmmUtil.nvl(req.getParameter("AMT"));
-		log.info(this.getClass() + "amt : " + amt);
+		log.info(this.getClass() + " amt : " + amt);
 		// 상품수
 		String quantity = CmmUtil.nvl(req.getParameter("QUANTITY"));
-		log.info(this.getClass() + "quantuty : " + quantity);
+		log.info(this.getClass() + " quantuty : " + quantity);
 		// 결제일자
 		String sale_date = CmmUtil.nvl(req.getParameter("SALE_DATE"));
-		log.info(this.getClass() + "sale_date : " + sale_date);
+		log.info(this.getClass() + " sale_date : " + sale_date);
 		// 고객이름
 		String customer_name = CmmUtil.nvl(req.getParameter("CUSTOMER_NAME"));
-		log.info(this.getClass() + "customer_name : " + customer_name);
+		log.info(this.getClass() + " customer_name : " + customer_name);
 		// 고객 이메일
 		String customer_email = CmmUtil.nvl(req.getParameter("CUSTOMER_EMAIL"));
-		log.info(this.getClass() + "customer_email : " + customer_email);
+		log.info(this.getClass() + " customer_email : " + customer_email);
 		// 고객 전화번호
 		String customer_tel = CmmUtil.nvl(req.getParameter("CUSTOMER_TEL"));
-		log.info(this.getClass() + "customer_tel : " + customer_tel);
+		log.info(this.getClass() + " customer_tel : " + customer_tel);
 		// 고객 아이피
 		String customer_ip = CmmUtil.nvl(req.getParameter("CUSTOMER_IP"));
-		log.info(this.getClass() + "customer_ip : " + customer_ip);
+		log.info(this.getClass() + " customer_ip : " + customer_ip);
 		// 입금통보 URL
 		String notice_url = CmmUtil.nvl(req.getParameter("NOTICE_URL"));
-		log.info(this.getClass() + "notice_url : " + notice_url);
+		log.info(this.getClass() + " notice_url : " + notice_url);
 		// 거래 유형
 		String tran_type = CmmUtil.nvl(req.getParameter("TRAN_TYPE"));
-		log.info(this.getClass() + "tran_type : " + tran_type);
+		log.info(this.getClass() + " tran_type : " + tran_type);
 		// 결과 메세지
 		String rep_msg = CmmUtil.nvl(req.getParameter("REP_MSG"));
-		log.info(this.getClass() + "rep_msg : " + rep_msg);
+		log.info(this.getClass() + " rep_msg : " + rep_msg);
 		// 여분 데이터
 		String etc_data1 = CmmUtil.nvl(req.getParameter("ETC_DATA1")); // 사용자 번호
-		log.info(this.getClass() + "etc_data1 : " + etc_data1);
+		log.info(this.getClass() + " etc_data1 : " + etc_data1);
+		
+		
 		String etc_data2 = CmmUtil.nvl(req.getParameter("ETC_DATA2")); // 수령시간
-		log.info(this.getClass() + "etc_data2 : " + etc_data2);
+		log.info(this.getClass() + " etc_data2 : " + etc_data2);
 		String etc_data3 = CmmUtil.nvl(req.getParameter("ETC_DATA3")); // 주문 제품 목록
-		log.info(this.getClass() + "etc_data3 : " + etc_data3);
+		log.info(this.getClass() + " etc_data3 : " + etc_data3);
 		
 		if (rep_code.equals("0000")) { // 결제 성공
+			session.setAttribute("userNo", etc_data1.split(";")[0]);
 			log.info("orderSession userNo : " + session.getAttribute("userNo"));
 			OrderInfoDTO oDTO = new OrderInfoDTO();
 			oDTO.setOrdInfoNo(tran_no);
@@ -225,6 +228,7 @@ public class OrderController {
 				oDTO.setOrdPayment("c");
 				log.info(this.getClass() + "ordPayment : c");
 			}
+			oDTO.setUserNo(etc_data1);
 			oDTO.setOrdStat("1");
 			oDTO.setUsrRcvTime(etc_data2);
 			oDTO.setRcvYn("n");
@@ -240,22 +244,28 @@ public class OrderController {
 			 * oDTO.setRegNo(userNiAndStamp[0]); oDTO.setOrdTotPrice(amt);
 			 * stampMap.put("dec",stamp[1]); }
 			 */
+			String[] orderItems = etc_data3.split("-");
+			log.info("orderkim"+orderItems.toString());
 			List<OrderItemDTO> oList = new ArrayList<OrderItemDTO>();
-			if (etc_data3.split("-").length > 1) {
-				String[] orderItems = etc_data3.split("-");
-				for (int i = 0; i < orderItems.length; i++) {
-					String[] orderItem = orderItems[i].split(":");
-					OrderItemDTO oiDTO = new OrderItemDTO();
-					oiDTO.setOrdInfoNo(tran_no);
-					log.info(tran_no);
-					oiDTO.setMenuNo(orderItem[0]);
-					oiDTO.setOrdAmnt(orderItem[1]);
-					/* oiDTO.setRegNo(userNoAndStamp[0]); */
-					oList.add(oiDTO);
-				}
+			for (int i = 0; i < orderItems.length; i++) {
+				String[] orderItem = orderItems[i].split(":");
+				log.info("orderkim"+orderItem.toString());
+				OrderItemDTO oiDTO = new OrderItemDTO();
+				oiDTO.setRegNo(etc_data1);
+				log.info("userNo : "+etc_data1);
+				oiDTO.setOrdInfoNo(tran_no);
+				log.info("ordInfoNo : "+tran_no);
+				oiDTO.setMenuNo(orderItem[0]);
+				log.info("menuNo : "+oiDTO.getMenuNo());
+				oiDTO.setOrdAmnt(orderItem[1]);
+				log.info("ordAmnt : "+oiDTO.getOrdAmnt());
+				/*oiDTO.setRegNo(userNoAndStamp[0]);*/
+				oList.add(oiDTO);
+				log.info(oList.get(i));
 			}
 			log.info(this.getClass() + " email : " + CmmUtil.nvl((String)session.getAttribute("email")));
 			session.setAttribute("ss_tmpBasket", "");
+			log.info("ordInfoNo : " + oDTO.getOrdInfoNo());
 			/*
 			 * req.setAttribute("userNo", userNoAndStamp[0]);
 			 * orderService.insertOrderSuccess(oDTO, oList, stampMap);
@@ -279,7 +289,9 @@ public class OrderController {
 		String userNo = CmmUtil.nvl(req.getParameter("userNo")).split("[?]")[0];
 		session.setAttribute("userNo", userNo);
 		log.info(this.getClass() + " userNo : " + userNo);
+		
 		OrderInfoDTO oDTO = orderService.getOrderNo(userNo);
+		log.info(oDTO);
 		if (oDTO == null) {
 			oDTO = new OrderInfoDTO();
 		}
@@ -287,7 +299,6 @@ public class OrderController {
 		OrderItemDTO otDTO = new OrderItemDTO();
 		otDTO.setOrdInfoNo(oDTO.getOrdInfoNo());
 		List<OrderItemDTO> otList = orderService.getOrdItem(otDTO);
-
 		if (otList == null) {
 			otList = new ArrayList<OrderItemDTO>();
 		}

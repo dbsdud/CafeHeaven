@@ -1,7 +1,7 @@
 package poly.dto;
 
 public class OrderItemDTO {
-	private String ordItemNo;		// 주문항목번호
+	private String itemNo;		// 주문항목번호
 	private String ordInfoNo;		// 주문번호
 	private String menuNo;			// 메뉴번호
 	private String ordAmnt;			// 주문수량
@@ -10,11 +10,19 @@ public class OrderItemDTO {
 	private String updNo;			// 수정번호
 	private String updDate;			// 수정일
 	private String menuName;		// 메뉴이름
-	public String getOrdItemNo() {
-		return ordItemNo;
+	private String userNo;
+	
+	public String getUserNo() {
+		return this.userNo;
 	}
-	public void setOrdItemNo(String ordItemNo) {
-		this.ordItemNo = ordItemNo;
+	public void setUserNo(String userNo) {
+		this.userNo = userNo;
+	}
+	public String getItemNo() {
+		return itemNo;
+	}
+	public void setItemNo(String itemNo) {
+		this.itemNo = itemNo;
 	}
 	public String getOrdInfoNo() {
 		return ordInfoNo;

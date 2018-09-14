@@ -109,7 +109,7 @@ $(function(){
 				alert(error);
 			}
 		});
-	}, 5000);
+	}, 100000);
 })
 
 	function barcodeProc(ordNo, statNo) {
@@ -486,6 +486,8 @@ function orderCancel(ordNo, statNo){
 				</div>
 			</div>
 		</section>		
+		<!-- footer -->
+		<%@ include file="/WEB-INF/view/mainFooter.jsp"%>
 	</div>
 </body>
 </html>

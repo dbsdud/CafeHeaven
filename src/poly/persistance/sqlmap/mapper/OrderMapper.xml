@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="poly.persistance.mapper.OrderMapper">
-<insert id="insertOrderInfo" parameterType="OrderInfoDTO">
+<insert id="insertOrderInfo" parameterType="OrderInfoDTO" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 INSERT INTO CAFE_ORDER_INFO
 (
 	ORD_INFO_NO,
@@ -31,37 +31,37 @@ INSERT INTO CAFE_ORDER_INFO
 	#{ordTid}
 )
 </insert>
+	<!-- <selectKey  resultType="string" keyProperty="userNo" order="AFTER">
+		SELECT last_insert_id() FROM DUAL;
+	</selectKey> -->
 <insert id="insertOrderItem" parameterType="list">
 INSERT INTO CAFE_ORDER_ITEM
 (
-	ORD_INFO_NO,
-	MENU_NO,
-	ORD_AMNT,
-	REGNO,
+	ORD_INFO_NO, 
+	MENU_NO, 
+	ORD_AMNT,	
+	REGNO, 
 	REGDATE
-) VALUES (
+) VALUES 
 	<foreach collection="list" item="item" index="index" separator=",">
-		((SELECT 
-			ORD_INFO_NO
-				FROM CAFE_ORDER_INFO
-				WHERE USER_NO = #{item.regNo}
-				ORDER BY REGDATE
-				DESC LIMIT 1
-		),
-		#{item.menuNo},
-		#{item.ordAmnt},
-		#{item.regNo},
-		NOW()
-		)
+		((SELECT ORD_INFO_NO 
+		FROM CAFE_ORDER_INFO 
+		WHERE USER_NO = #{item.regNo} 
+		ORDER BY REGDATE 
+		DESC LIMIT 1
+		), 
+		#{item.menuNo}, 
+		#{item.ordAmnt}, 
+		#{item.regNo}, 
+		NOW())
 	</foreach>
-)
 </insert>
 <select id="selectOrderList" parameterType="String" resultType="TotalOrderInfoDTO">
 SELECT
-	ORD_INFO_NO,
-	ORD_TOT_PRICE,
-	DATE_FORMAT(ORD_DT_DATE, '%Y-%m-%d'),
-	ORD_STAT
+	ORD_INFO_NO AS ordInfoNo,
+	ORD_TOT_PRICE AS ordTotPrice,
+	DATE_FORMAT(ORD_DT_DATE, '%Y-%m-%d') AS ordDtDate,
+	ORD_STAT AS ordStat
 FROM
 	CAFE_ORDER_INFO
 WHERE
@@ -72,9 +72,9 @@ DESC LIMIT 5
 </select>
 <select id="selectMenuList" parameterType="String" resultType="TotalOrderItemDTO">
 SELECT
-	CM.MENU_NAME,
-	CM.MENU_PRICE,
-	COT.ORD_AMNT
+	CM.MENU_NAME AS menuName,
+	CM.MENU_PRICE AS menuPrice,
+	COT.ORD_AMNT AS ordAmnt
 FROM
 	CAFE_ORDER_INFO COI,
 	CAFE_ORDER_ITEM COT,
@@ -119,7 +119,7 @@ FROM
 WHERE
 	COT.ORD_INFO_NO = COI.ORD_INFO_NO
 	AND
-		COI.ORD_INFO_NO = #{orderNo}
+		COI.ORD_INFO_NO = #{ordNo}
 	AND
 		COT.MENU_NO = CM.MENU_NO
 </select>
@@ -156,19 +156,19 @@ WHERE
 </update>
 <select id="getOrderNo" resultType="OrderInfoDTO" parameterType="String">
 SELECT
-	ORD_INFO_NO
+	ORD_INFO_NO AS ordInfoNo
 FROM
 	CAFE_ORDER_INFO
 WHERE
 	USER_NO = #{userNo}
 ORDER BY
 	REGDATE
-DESC LIMIT 1;
+DESC LIMIT 1
 </select>
 <select id="getOrdItem" parameterType="OrderInfoDTO" resultType="OrderItemDTO">
 SELECT 
-	M.MENU_NAME,
-	O.ORD_AMNT
+	M.MENU_NAME AS menuName,
+	O.ORD_AMNT AS ordAmnt
 FROM
 	CAFE_ORDER_ITEM O,
 	CAFE_MENU M

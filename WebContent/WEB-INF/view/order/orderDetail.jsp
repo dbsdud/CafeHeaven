@@ -35,6 +35,7 @@
 <%@ include file="/WEB-INF/view/mainJs.jsp"%>
 <%@ include file="/WEB-INF/view/cssjs.jsp" %>
 <script>
+
 function checkBoxControll(){
 	var checked = document.getElementById('userInfoCheck');
 	var orderUserName = document.getElementById('orderUserName');
@@ -58,7 +59,7 @@ function uncomma(str) {
     str = String(str);
     return str.replace(/[^\d]+/g, '');
 }
-function doSubmitOrder(){
+/* function doSubmitOrder(){
 	var f = document.getElementById('frmPayment');
 	var userUseMil = document.getElementById('userUseMil'); // 마일리지 사용
 	if(document.getElementById('CUSTOMER_NAME').value==""){
@@ -77,7 +78,7 @@ function doSubmitOrder(){
 		document.getElementById('ETC_DATA1').value = document.getElementById('ETC_DATA1').value + ";" + "inc-" + (parseInt(parseInt(uncomma($('#resultPrice').text())) * 0.05));
 	}
 	f.submit();
-}
+} */
 function radioPhonCheck(){
 	var phonCheckBox = document.getElementsByName('TRAN_TYPE');
 	phonCheckBox[0].checked = true;
@@ -146,7 +147,7 @@ function radioCardCheck(){
 		<!-- 결제도중 취소  URL !!!!!!!!!!!!!!!!!!!!!!!!이거는 바꿔줘야하는 파라미터!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
 		<input type="hidden" id="CANCEL_URL" name="CANCEL_URL" value="http://13.209.164.26:8080/order/orderCancelResult.do" size=30 maxlength=100 />
 		<!-- 여분의 데이터 1 -->
-		<input type="hidden" id="ETC_DATA1" name="ETC_DATA1" value="<%=CmmUtil.nvl(userNo) %>" />
+		<input type="hidden" id="ETC_DATA1" name="ETC_DATA1" value="<%=CmmUtil.nvl((String)session.getAttribute("userNo")) %>" /><!-- userNo -->
 		<!-- 여분의 데이터 2 -->
 		<!-- 여분의 데이터 3 -->
 		<%
@@ -158,6 +159,7 @@ function radioCardCheck(){
 				orderItems += tDTO.getMenuNo() + ":" + tDTO.getMenuQty() + "-";
 			}
 		%>
+		<input type="hidden" id="ETC_DATA3" name="ETC_DATA3" value="<%=orderItems %>" />
 		<section id="content">
 			<div class="container-fullscreen">
 				<div class="container">

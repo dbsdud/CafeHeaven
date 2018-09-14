@@ -13,7 +13,11 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<%@ include file="/WEB-INF/view/cssjs.jsp"%>
+<script src="/assets/js/jquery-min.js"></script>
+<%@ include file="/WEB-INF/view/mainCss.jsp"%>
+<!-- mainJs -->
+<%@ include file="/WEB-INF/view/mainJs.jsp"%>
+<%@ include file="/WEB-INF/view/cssjs.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
 $(function(){
@@ -23,14 +27,44 @@ $(function(){
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/view/mainCafeTop.jsp"%>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+	<div id="container">
+		<%@ include file="/WEB-INF/view/mainHeader.jsp"%>
+		<section id="content">
+			<div class="container-fullscreen">
+				<div class="container">
+					<div class="row">
+						<div class="controls text-center">
+							<div class="page-header">
+								<h1>
+									주문완료&nbsp;&nbsp;&nbsp;<small>CAFE HEAVEN</small>
+								</h1>
+							</div>
+						</div>
+						<div id="bdTarget"></div>
+						<div class="col-sm-12">
+							<%
+								if(otList.size()>=2){
+							%>
+							<span class="loginSpan1"><%=CmmUtil.nvl(otList.get(0).getMenuName())%> 외 <%=otList.size()-1%>건</span>
+							<%
+								}else{
+							%>
+							<span class="loginSpan1"><%=CmmUtil.nvl(otList.get(0).getMenuName())%></span>
+							<%
+								}
+							%>
+						</div>
+						<div class="col-md-4">
+							<input type="text" class="form-control" value="주문이 완료 되었습니다." readonly="readonly" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- footer -->
+		<%@ include file="/WEB-INF/view/mainFooter.jsp"%>
+	</div>
+	<%-- <br>
 	<div class="container-fluid">
 		<div class="row bottom-padding-20">
 			<div align=center>
@@ -38,15 +72,16 @@ $(function(){
 				<div class="col-xs-12">
 					<br> 
 						<%
-							if(otList.size()>=2){%>
+							if(otList.size()>=2){
+						%>
 						<span class="loginSpan1"><%=CmmUtil.nvl(otList.get(0).getMenuName())%> 외 <%=otList.size()-1%>건</span>
-							<%
+						<%
 							}else{
-							%>	
+						%>	
 						<span class="loginSpan1"><%=CmmUtil.nvl(otList.get(0).getMenuName())%></span>
-							<%
+						<%
 							}
-							%>
+						%>
 				</div>
 			</div>
 		</div>
@@ -66,6 +101,6 @@ $(function(){
 	</div>
 	<br>
 		<div align="center">
-	</div>
+	</div> --%>
 </body>
 </html>

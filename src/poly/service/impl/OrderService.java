@@ -84,7 +84,8 @@ public class OrderService implements IOrderService{
 		tmp += "-" + String.valueOf(c.get(Calendar.MONDAY) + 1);
 		tmp += "-" + String.valueOf(c.get(Calendar.DATE));
 		tmp += " " + usrRcvTime + ":00";
-		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);
+/*		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA);*/
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss", Locale.KOREA);
 		String now = sf.format(new Date());
 		System.out.println("now : " + now);
 		Date order = sf.parse(tmp);
@@ -296,8 +297,9 @@ public class OrderService implements IOrderService{
 		boolean result = false;
 		boolean updateResult = false;
 		int insertOrderInfo = orderMapper.insertOrderInfo(oDTO);
-		int insertOrderItem = orderMapper.insertOrderItem(oList);
 		System.out.println("orderservice:"+insertOrderInfo);
+		System.out.println("orderservice:"+oDTO.getOrdInfoNo());
+		int insertOrderItem = orderMapper.insertOrderItem(oList);
 		System.out.println("orderservice:"+insertOrderItem);
 	/*	System.out.println(" order service : " + oDTO.getOrdInfoNo());
 		System.out.println(" order service List : " + oList.get(0));*/
