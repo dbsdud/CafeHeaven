@@ -150,7 +150,7 @@ SELECT
 	O.ORD_AMNT
 FROM
 	CAFE_ORDER_ITEM O,
-	CAFE_MENE M
+	CAFE_MENU M
 WHERE
 	O.MENU_NO = M.MENU_NO
 	AND
@@ -225,3 +225,7 @@ WHERE
 	M.MENU_NO=#{menuNo}
 </select> -->
 </mapper>
+
+
+
+

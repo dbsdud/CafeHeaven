@@ -15,17 +15,20 @@
 <%@ include file="bigDataCss.jsp" %>
 <%@ include file="bigDataJs.jsp" %>
 <%@ include file="bigDataChart.jsp" %>
-<!-- 보여주기용 차트 -->
-<%@ include file="jangChartJs.jsp" %>
+
 <script>
 function bigdataReset(){
 	location.href="/bigData/bigData.do"
 }
 
 </script>
+
 </head>
 <body>
 <%@ include file="/WEB-INF/view/mainHeader.jsp" %> <!-- 경로 바꿔야될거같음  -->
+
+
+
 
 	<div class="container">
 		<!-- 상단 -->
@@ -181,47 +184,14 @@ function bigdataReset(){
 		 -->
 		 
 		 		<!--  매출관리분석   데이터 받아오면 다른걸로-->
-           <div id="bd-menu3" class="tab-pane"> <!--상단 탭 -->
-
-			<div id="day34"> <!-- 일별분석 -->
-			
-	            <div role="tabpanel" class="tab-pane fade active in" id="home"
-					aria-labelledby="home-tab">
-					<h2 class="chy-chartHeader" style="margin-top:30px; margin-bottom:20px;">
-						<input type="date" class="chy-headerWeek" id="datepicker1">				
- 					</h2>
-	          	
-	            </div>
-	       		<div id="menuchart">
-					<canvas id="canvas11"></canvas>
-					<div></div>
+			<div id="bd-menu3" class="tab-pane">
+				<!--상단 탭 -->
+			<!-- 	<div id="calendar"></div>
+				달력 js
+				<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+ -->
 				</div>
-			</div>
-			
-			<div id="month34"> <!-- 월별분석 -->
-					<h2 class="chy-chartHeader">
-						<a href="#" id="chy-monthLeft">&#60;</a><span class="chy-year"><span
-							id="chy-month">8</span>월</span><a href="#" id="chy-monthRight">&#62;</a>
-					</h2>
-	        	<div id="menuchart">
-					<canvas id="canvas22"> </canvas>
-			 	</div>
-			</div>
-			
-			<div id="year34"> <!-- 연별분석 -->
-					<h2 class="chy-chartHeader">
-					<a id="chy-yearLeft" href="#">&#60;</a><span class="chy-year">
-					<span id="chy-years">2018</span>년</span><a id="chy-yearRight" href="#">&#62;</a>
-					</h2>
-	    		<div id="menuchart">
-					<canvas id="canvas33"></canvas>
-					</div>
-			</div>
-			<button  id="day1" class="col-sm-4 regButton btn-5 taCp">일별</button>
-            <button  id="month1" class="col-sm-4 regButton btn-5 taCp">월별</button >
-            <button  id="year1" class="col-sm-4 regButton btn-5 taCp">연도별</button >   
-       </div>	
-			
+
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/view/mainJs.jsp" %>

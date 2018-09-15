@@ -9,6 +9,9 @@
 <script src="/bootstrap-3.3.2-dist/js/jquery.dataTables.min.js"></script>
 
 <script src="/bootstrap-3.3.2-dist/js/jquery.barrating.min.js"></script>
+<script src="/bootstrap-3.3.2-dist/js/Chart.js"></script>
+<script src="/bootstrap-3.3.2-dist/js/Chart.bundle.js"></script>
+
 <!-- 보여주기용 나중에 데이터받으면 다른걸로 -->
 <script src="/bootstrap-3.3.2-dist/js/utils.js"></script>
 <!-- css -->

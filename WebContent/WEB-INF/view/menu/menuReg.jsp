@@ -104,3 +104,13 @@
 <!--  메뉴 업데이트 모달 -->
 <%@ include file="menuUpdate.jsp" %>
 </body></html>
+
+
+	SELECT COUNT(ORD_INFO_NO) AS
+		COUNT,
+		DATE_FORMAT(ORD_DT_DATE,'%Y-%m-%d') AS REGDATE,
+		SUM(REAL_ORD_PRICE)/1000 AS PRICE
+		FROM CAFE_ORDER_INFO
+		WHERE REGDATE='2018-09-13'
+		GROUP BY
+		DATE_FORMAT(ORD_DT_DATE,'%Y-%m-%d');

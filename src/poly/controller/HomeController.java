@@ -27,10 +27,10 @@ public class HomeController {
 			return "/callback";
 		}
 		
-		//
-			/*	@RequestMapping(value ="new")
-				public String newfile() {
-					return "/notice/NewFile";
-				}*/
-		
+		@RequestMapping(value="new")
+		public String call() {
+			
+			
+			return "/NewFile";
+		}
 }

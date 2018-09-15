@@ -1,82 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script>
+ <script>
+ window.onload = function () {
 
-////////////////////////////////////////////////////menu2//////////////////////////////////////////////////////////////////////////////
-//성별 (남/여)///성별 만 했음
+	 var ctx = document.getElementById("sales").getContext("2d");
+	    var line = ctx.setLineDash([5, 15]);
 
+	    var gradient = ctx.createLinearGradient(0, 0, 0, 300);
+	    gradient.addColorStop(0, 'rgba(40,175,250,.25)');
+	    gradient.addColorStop(1, 'rgba(40,175,250,0)');
 
+	    var data = {
+	        labels: ["January", "February", "March", "April", "May", "June", "July"],
+	        datasets: [
+	            {
+	                label: "My First dataset",
+	                pointDot : false,
+	                fillColor: gradient,
+	                strokeColor: "#28AFFA",
+	                pointColor: "#19283F",
+	                pointStrokeColor: "#28AFFA",
+	                pointHighlightFill: "#19283F",
+	                pointHighlightStroke: "#28AFFA",
+	                data: [65, 59, 80, 81, 56, null, null]
+	            },
+	            {
+	                label: "My Second dataset",
+	                fillColor: "rgba(0,0,0,0)",
+	                strokeColor: "rgba(255,255,255,.39)",
+	                pointColor: "#19283F",
+	                pointStrokeColor: "rgba(255,255,255,.39)",
+	                pointHighlightFill: "#19283F",
+	                pointHighlightStroke: "#28AFFA",
+	                data: [null, null, null, null, 56, 27, 90]
+	            }
+	        ]
+	    };
 
-function gender() {
-	$('#genderChartHs').show();
-	$('#generationChartHs').hide();
-   var date = ['8월 10일', '8월 11일', '8월 12일', '8월 13일', '8월 14일','8월 15일','8월 16일'];
-   var maleAmount = [15,11,12,11,13,16,5];
-   var femaleAmount = [18,20,15,17,17,19,7];
-   var ctx = document.getElementById('genderChart').getContext('2d');
-   
-   var genderChart = new Chart(ctx, {
-      type : 'line',
-      data : {
-         labels : date,
-         datasets : [{
-            label : '남성',
-            data : maleAmount,
-            backgroundColor : 'rgba(255, 206, 86, 0.2)',
-            borderColor : 'rgba(255, 206, 86, 1)',
-            fill : false,
-         } , {
-            label : '여성',
-            data : femaleAmount,
-            backgroundColor : 'rgba(255, 99, 132, 0.2)',
-            borderColor : 'rgba(255,99,132,1)',
-            fill : false,
-         }]
-      }
-   })
-}
+	    var options = {};
 
-function generation() {
-	$('#genderChartHs').hide();
-	$('#generationChartHs').show();
-	   var date = ['8월 10일', '8월 11일', '8월 12일', '8월 13일', '8월 14일','8월 15일','8월 16일'];
-	   var tenAmount = [15,11,12,11,13,16,5];
-	   var twentyAmount = [18,20,15,17,17,19,7];
-	   var thirtyAmount = [14,10,12,17,9,20,7];
-	   var fortyAmount = [8,10,12,17,16,10,7]; 
-	   var ctx = document.getElementById('generationChart').getContext('2d');
-	   
-	   var genderChart = new Chart(ctx, {
-	      type : 'line',
-	      data : {
-	         labels : date,
-	         datasets : [{
-	            label : '10대',
-	            data : tenAmount,
-	            backgroundColor : 'rgba(255, 206, 86, 0.2)',
-	            borderColor : 'rgba(255, 206, 86, 1)',
-	            fill : false,
-	         },{
-	            label : '20대',
-	            data : twentyAmount,
-	            backgroundColor : 'rgba(255, 99, 132, 0.2)',
-	            borderColor : 'rgba(255,99,132,1)',
-	            fill : false,
-	         },{
-		            label : '30대',
-		            data : thirtyAmount,
-		            backgroundColor : 'rgba(255, 206, 86, 0.2)',
-		            borderColor : 'rgba(255, 206, 86,1)',
-		            fill : false,
-		      },{
-			        label : '40대',
-			        data : fortyAmount,
-			        backgroundColor : 'rgba(75, 192, 192, 0.2)',
-			        borderColor : 'rgba(75, 192, 192,1)',
-			        fill : false,
-			         }]
-	      }
-	   })
-	}
+	    var myLineChart = new Chart(ctx).Line(data, options);
+	    console.log(myLineChart);
+ }
 
-</script>
+ 
+    </script>
